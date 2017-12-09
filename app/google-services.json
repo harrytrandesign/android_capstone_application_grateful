@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "624132524618",
+    "firebase_url": "https://grateful-mobile-application.firebaseio.com",
+    "project_id": "grateful-mobile-application",
+    "storage_bucket": "grateful-mobile-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624132524618:android:4f44b03a46af223a",
+        "android_client_info": {
+          "package_name": "com.htdwps.grateful"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624132524618-d8mnd7qhmlskbf38ukdvi2a25qhkm76q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.htdwps.grateful",
+            "certificate_hash": "fe85ea864dbc97c958bf0c3927b248dcce047735"
+          }
+        },
+        {
+          "client_id": "624132524618-n3go6fl876v977tcag03hhirp1s193hg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF9ahnJXXv1-i6YXWczJKY6PgbqmPi0ZE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624132524618-n3go6fl876v977tcag03hhirp1s193hg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

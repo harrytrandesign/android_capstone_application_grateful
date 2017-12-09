@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Padding Sizes -->
+    <dimen name="padding_zero">0dp</dimen>
+    <dimen name="padding_tiny">2dp</dimen>
+    <dimen name="padding_four">4dp</dimen>
+    <dimen name="padding_xsmall">6dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_standard">16dp</dimen>
+    <dimen name="padding_large">18dp</dimen>
+    <dimen name="padding_xlarge">36dp</dimen>
+
+    <!-- Font Sizes -->
+    <dimen name="font_atom">8sp</dimen>
+    <dimen name="font_mini">10sp</dimen>
+    <dimen name="font_tiny">12sp</dimen>
+    <dimen name="font_small">16sp</dimen>
+    <dimen name="font_medium">18sp</dimen>
+    <dimen name="font_standard">24sp</dimen>
+    <dimen name="font_large">36sp</dimen>
+    <dimen name="font_xlarge">48sp</dimen>
+    <dimen name="font_xxlarge">64sp</dimen>
+
+    <!-- Custom Font Sizes -->
+    <dimen name="font_comments">10sp</dimen>
+    <dimen name="font_app_name">32sp</dimen>
+    <dimen name="button_login_height">48dp</dimen>
+
+    <!-- Icon Sizes -->
+    <dimen name="icon_caret">12dp</dimen>
+    <dimen name="icon_xsmall">24dp</dimen>
+    <dimen name="icon_small">28dp</dimen>
+    <dimen name="icon_medium">32dp</dimen>
+    <dimen name="icon_xmedium">36dp</dimen>
+    <dimen name="icon_large">48dp</dimen>
+    <dimen name="icon_xlarge">54dp</dimen>
+
+    <!-- Custom Icon Sizes -->
+    <dimen name="icon_app_logo">140dp</dimen>
+    <dimen name="icon_user_posts">36dp</dimen>
+    <dimen name="icon_user_profile_thumbnail">40dp</dimen>
+    <dimen name="icon_user_profile_full">200dp</dimen>
+    <dimen name="icon_navi_logo">60dp</dimen>
+
+    <!-- Extras -->
+    <dimen name="edittext_box_corner_radius">0dp</dimen>
+    <dimen name="edittext_height">280dp</dimen>
+    <dimen name="edittext_onboarding">36dp</dimen>
+    <dimen name="featured_post_dimen">220dp</dimen>
+    <dimen name="gridview_height">200dp</dimen>
+    <dimen name="margin_alert_dialog">24dp</dimen>
+    <dimen name="margin_fab_horizontal">8dp</dimen>
+    <dimen name="margin_fab_vertical">16dp</dimen>
+    <dimen name="navigation_header_height">80dp</dimen>
+
+    <dimen name="line_height">1px</dimen>
+
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_logon_button"
+    tools:context="com.htdwps.grateful.AuthActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- TODO: Change this to the logo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/app_name"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_signin_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPeaceful"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/logon_button_text"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/font_small"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
