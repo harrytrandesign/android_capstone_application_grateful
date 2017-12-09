@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">Grateful</string>
+
+    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
+
     <string name="logon_button_text">Sign In</string>
     <string name="dialog.message.loading">Loading…</string>
+    <string name="menu.label.feedback">Feedback</string>
+    <string name="menu.label.logoff">Log Off</string>
+
+    <string name="drawer.open">Open Drawer</string>
+    <string name="drawer.close">Close Drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="navigation_menu_personal">Personal</string>
+    <string name="navigation_menu_public">Public</string>
+    <string name="navigation_menu_signout">Log Off</string>
+
+    <!-- Labels for the menu items -->
+    <string-array name="navigation_labels">
+        <item>@string/navigation_menu_personal</item>
+        <item>@string/navigation_menu_public</item>
+        <item>@string/navigation_menu_signout</item>
+    </string-array>
+
 
 </resources>
