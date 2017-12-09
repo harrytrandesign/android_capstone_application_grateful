@@ -58,6 +58,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
         googleApiClient.connect();
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         TextView signinButton = findViewById(R.id.tv_signin_button);
         signinButton.setOnClickListener(this);
     }
@@ -113,7 +115,13 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
                             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                            assert firebaseUser != null;
+                            progressDialog.dismiss();
+
+                            Intent switchIntent = new Intent(AuthActivity.this, ListActivity.class);
+                            switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(switchIntent);
+//
+//                            assert firebaseUser != null;
 //                            positionDatabase.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
 //                                @Override
 //                                public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,7 +131,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 //
 //                                        progressDialog.dismiss();
 //
-//                                        Intent switchIntent = new Intent(AuthActivity.this, FeedActivity.class);
+//                                        Intent switchIntent = new Intent(AuthActivity.this, ListActivity.class);
 //                                        switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                        startActivity(switchIntent);
 //
