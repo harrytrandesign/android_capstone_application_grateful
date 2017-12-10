@@ -5,23 +5,29 @@
 
     <string name="logon_button_text">Sign In</string>
     <string name="dialog.message.loading">Loading…</string>
+    <string name="menu.label.terms">Terms &amp; Conditions</string>
+    <string name="menu.label.privacy">Privacy Policy</string>
     <string name="menu.label.feedback">Feedback</string>
     <string name="menu.label.logoff">Log Off</string>
 
     <string name="drawer.open">Open Drawer</string>
     <string name="drawer.close">Close Drawer</string>
 
+    <string name="invite.title.label">Invite Your Friends</string>
+    <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for, like me.</string>
+
     <!-- Navigation Drawer menu labels -->
     <string name="navigation_menu_personal">Personal</string>
     <string name="navigation_menu_public">Public</string>
+    <string name="navigation_menu_invite">Invite Friends</string>
     <string name="navigation_menu_signout">Log Off</string>
 
     <!-- Labels for the menu items -->
     <string-array name="navigation_labels">
         <item>@string/navigation_menu_personal</item>
         <item>@string/navigation_menu_public</item>
+        <item>@string/navigation_menu_invite</item>
         <item>@string/navigation_menu_signout</item>
     </string-array>
-
 
 </resources>

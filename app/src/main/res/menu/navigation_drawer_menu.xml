@@ -13,6 +13,10 @@
             android:icon="@drawable/icon_like_list"
             android:title="@string/navigation_menu_public"/>
         <item
+            android:id="@+id/navigation_menu_invite_friends"
+            android:icon="@drawable/icon_like_list"
+            android:title="@string/navigation_menu_invite"/>
+        <item
             android:id="@+id/navigation_menu_comments_list"
             android:icon="@drawable/icon_like_list"
             android:title="@string/navigation_menu_signout"/>
