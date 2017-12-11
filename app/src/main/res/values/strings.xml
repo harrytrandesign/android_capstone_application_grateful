@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Grateful</string>
+    <string name="tag_line">Share Something You\'re Grateful for Everyday</string>
 
     <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
 
@@ -9,6 +10,10 @@
     <string name="menu.label.privacy">Privacy Policy</string>
     <string name="menu.label.feedback">Feedback</string>
     <string name="menu.label.logoff">Log Off</string>
+
+    <string name="submit.grateful.title">Something you\'re grateful about</string>
+    <string name="submit.privacy.text">Keep this private?</string>
+    <string name="submit.button">Submit</string>
 
     <string name="drawer.open">Open Drawer</string>
     <string name="drawer.close">Close Drawer</string>

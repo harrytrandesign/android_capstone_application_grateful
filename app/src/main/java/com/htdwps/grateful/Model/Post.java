@@ -8,15 +8,17 @@ public class Post {
 
     private User user;
     private String text;
+    private String category;
     private Object timestamp;
 
     public Post() {
         // Empty POJO
     }
 
-    public Post(User user, String text, Object timestamp) {
+    public Post(User user, String text, String category, Object timestamp) {
         this.user = user;
         this.text = text;
+        this.category = category;
         this.timestamp = timestamp;
     }
 
@@ -26,6 +28,10 @@ public class Post {
 
     public String getText() {
         return text;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public Object getTimestamp() {
