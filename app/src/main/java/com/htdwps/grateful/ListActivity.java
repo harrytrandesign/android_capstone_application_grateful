@@ -65,7 +65,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         runInitializer();
         runLayout();
 
-
     }
 
     // Load the navigation menu header, such as header background image, profile name, etc
@@ -94,7 +93,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         // Initializing navigation menu
         setUpNavigationView();
-
     }
 
     public void runInitializer() {
@@ -117,8 +115,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createTopic() {
-//        Intent discussionIntent = new Intent(ListActivity.this, SubmitPostActivity.class);
-//        startActivity(discussionIntent);
+        Intent discussionIntent = new Intent(ListActivity.this, SubmitActivity.class);
+        startActivity(discussionIntent);
     }
 
     public void sendInvitationWindow() {

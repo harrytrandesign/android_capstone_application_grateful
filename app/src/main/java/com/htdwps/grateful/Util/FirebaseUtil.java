@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.htdwps.grateful.Model.User;
 
 /**
  * Created by HTDWPS on 12/8/17.
@@ -29,6 +30,14 @@ public class FirebaseUtil {
             return getBaseRef().child("usernames_list").child(getCurrentUserId());
         }
         return null;
+    }
+
+    public static User getCurrentUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) return null;
+
+        return new User(user.getUid(), user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString());
     }
 
     public static DatabaseReference getPrivateListRef() {

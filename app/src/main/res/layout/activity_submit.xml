@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorPeaceful"
+    android:orientation="vertical"
     tools:context="com.htdwps.grateful.SubmitActivity">
 
     <TextView
@@ -35,7 +35,7 @@
             android:text="@string/submit.privacy.text"/>
 
         <Switch
-            android:id="@+id/submission_switch_anonymous_setting"
+            android:id="@+id/switch_private_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -45,6 +45,7 @@
         android:id="@+id/et_submit_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"/>
 
