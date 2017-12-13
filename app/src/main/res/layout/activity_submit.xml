@@ -89,7 +89,7 @@
         android:layout_marginTop="@dimen/padding_medium"
         android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textLongMessage|textMultiLine"
         android:maxLength="2000"
-        android:maxLines="4"
+        android:maxLines="2"
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"
         android:textColor="@color/color_text_white"
