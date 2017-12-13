@@ -49,6 +49,11 @@ public class        AuthActivity
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_auth);
 
+        setInitialize();
+        setupLayout();
+    }
+
+    public void setInitialize() {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,16 +71,20 @@ public class        AuthActivity
         googleApiClient.connect();
 
         firebaseAuth = FirebaseAuth.getInstance();
+    }
 
-        setupLayout();
+    public void setCustomTypeface() {
+        logoFont = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
+        applicationLogo.setTypeface(logoFont);
+
     }
 
     public void setupLayout() {
-        logoFont = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
         applicationLogo = findViewById(R.id.tv_application_logo);
-        applicationLogo.setTypeface(logoFont);
         signinButton = findViewById(R.id.tv_signin_button);
         signinButton.setOnClickListener(this);
+
+        setCustomTypeface();
     }
 
     private void signInNow() {
@@ -213,6 +222,7 @@ public class        AuthActivity
 
         switch (view.getId()) {
             case R.id.tv_signin_button:
+
                 signInNow();
 
                 break;

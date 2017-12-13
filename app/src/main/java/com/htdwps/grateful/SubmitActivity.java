@@ -68,7 +68,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         firebaseUser = firebaseAuth.getCurrentUser();
     }
 
-    public void setTextFont() {
+    public void setCustomTypeface() {
         // Load the font asset
         editTextFont = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
 
@@ -107,7 +107,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        setTextFont();
+        setCustomTypeface();
     }
 
     public void onRadioButtonClicked(View view) {

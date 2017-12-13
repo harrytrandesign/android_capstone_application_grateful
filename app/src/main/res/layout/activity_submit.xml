@@ -86,9 +86,9 @@
         android:id="@+id/submit_hint_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/submit.hint.post"
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"
+        android:text="@string/submit.hint.post"
         android:textColor="@color/color_text_white"
         android:textSize="@dimen/font_mini"/>
 
@@ -96,7 +96,7 @@
         android:id="@+id/journal_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="visible">
 
         <EditText
@@ -116,9 +116,9 @@
             android:id="@+id/submit_hint_journal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/submit.hint.journal"
             android:paddingEnd="@dimen/padding_xsmall"
             android:paddingStart="@dimen/padding_xsmall"
+            android:text="@string/submit.hint.journal"
             android:textColor="@color/color_text_white"
             android:textSize="@dimen/font_mini"/>
 
