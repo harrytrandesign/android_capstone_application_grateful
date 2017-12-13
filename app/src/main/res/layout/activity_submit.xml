@@ -74,7 +74,7 @@
         android:id="@+id/et_post_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_xsmall"
         android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
         android:maxLength="300"
         android:paddingEnd="@dimen/padding_xsmall"
@@ -82,19 +82,47 @@
         android:textColor="@color/color_text_white"
         android:textSize="@dimen/font_large"/>
 
-    <EditText
-        android:id="@+id/et_journal_input"
+    <TextView
+        android:id="@+id/submit_hint_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textLongMessage|textMultiLine"
-        android:maxLength="2000"
-        android:maxLines="2"
+        android:hint="@string/submit.hint.post"
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"
         android:textColor="@color/color_text_white"
-        android:textSize="@dimen/font_large"
-        android:visibility="gone"/>
+        android:textSize="@dimen/font_mini"/>
+
+    <LinearLayout
+        android:id="@+id/journal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/et_journal_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_xsmall"
+            android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textLongMessage|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="2"
+            android:paddingEnd="@dimen/padding_xsmall"
+            android:paddingStart="@dimen/padding_xsmall"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/font_large"/>
+
+        <TextView
+            android:id="@+id/submit_hint_journal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/submit.hint.journal"
+            android:paddingEnd="@dimen/padding_xsmall"
+            android:paddingStart="@dimen/padding_xsmall"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/font_mini"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_submit_button"

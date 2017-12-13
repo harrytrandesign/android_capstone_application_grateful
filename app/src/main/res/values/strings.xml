@@ -13,6 +13,8 @@
 
     <string name="submit.grateful.title">Something you\'re grateful about</string>
     <string name="submit.privacy.text">Keep this private? (Only for posts)</string>
+    <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
+    <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
     <string name="submit.button">Submit</string>
     <string name="navi_tv_displayname_placeholder">Welcome Username</string>
     <string name="navi_tv_welcome_user">Welcome</string>

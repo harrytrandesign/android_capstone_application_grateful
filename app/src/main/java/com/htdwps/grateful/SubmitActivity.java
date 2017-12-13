@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,8 +33,10 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseUser                firebaseUser;
     EditText                    postText;
     EditText                    journalText;
+    LinearLayout                journalLayout;
     TextView                    postButton;
     TextView                    tvEntryHeader;
+    TextView                    tvSubmitJournalHint;
     RadioButton                 radioButtonPost;
     RadioButton                 radioButtonJournal;
     Switch                      publicSwitch;
@@ -77,10 +80,12 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setupLayout() {
+        journalLayout = findViewById(R.id.journal_layout);
+        journalLayout.setVisibility(View.GONE);
         tvEntryHeader = findViewById(R.id.tv_submit_title);
+        tvSubmitJournalHint = findViewById(R.id.submit_hint_journal);
         postText = findViewById(R.id.et_post_input);
         journalText = findViewById(R.id.et_journal_input);
-        journalText.setVisibility(View.GONE);
         radioButtonPost = findViewById(R.id.radio_label_post);
         radioButtonPost.setChecked(true);
         radioButtonJournal = findViewById(R.id.radio_label_journal);
@@ -116,7 +121,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
                     // Pirates are the best
                     Toast.makeText(this, "Post selected", Toast.LENGTH_SHORT).show();
                     entryType = "Post";
-                    journalText.setVisibility(View.GONE);
+                    journalLayout.setVisibility(View.GONE);
                     publicSwitch.setEnabled(true);
                 }
                 break;
@@ -125,8 +130,8 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
                     // Ninjas rule
                     Toast.makeText(this, "Journal selected", Toast.LENGTH_SHORT).show();
                     entryType = "Journal";
-                    if (journalText.getVisibility() == View.GONE) {
-                        journalText.setVisibility(View.VISIBLE);
+                    if (journalLayout.getVisibility() == View.GONE) {
+                        journalLayout.setVisibility(View.VISIBLE);
                         publicSwitch.setChecked(false);
                         publicSwitch.setEnabled(false);
                     }
