@@ -7,34 +7,54 @@ package com.htdwps.grateful.Model;
 public class Post {
 
     private User user;
-    private String text;
-    private String category;
+    private String postText;
+    private String journalText;
+    private String postType;
     private Object timestamp;
+    private String postImageUrl;
 
     public Post() {
         // Empty POJO
     }
 
-    public Post(User user, String text, String category, Object timestamp) {
+    public Post(User user, String postText, String postType, Object timestamp, String postImageUrl) {
         this.user = user;
-        this.text = text;
-        this.category = category;
+        this.postText = postText;
+        this.postType = postType;
         this.timestamp = timestamp;
+        this.postImageUrl = postImageUrl;
+    }
+
+    public Post(User user, String postText, String journalText, String postType, Object timestamp, String postImageUrl) {
+        this.user = user;
+        this.postText = postText;
+        this.journalText = journalText;
+        this.postType = postType;
+        this.timestamp = timestamp;
+        this.postImageUrl = postImageUrl;
     }
 
     public User getUser() {
         return user;
     }
 
-    public String getText() {
-        return text;
+    public String getPostText() {
+        return postText;
     }
 
-    public String getCategory() {
-        return category;
+    public String getJournalText() {
+        return journalText;
+    }
+
+    public String getPostType() {
+        return postType;
     }
 
     public Object getTimestamp() {
         return timestamp;
+    }
+
+    public String getPostImageUrl() {
+        return postImageUrl;
     }
 }

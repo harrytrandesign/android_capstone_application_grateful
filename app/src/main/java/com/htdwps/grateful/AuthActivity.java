@@ -2,6 +2,7 @@ package com.htdwps.grateful;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.htdwps.grateful.Util.ProgressDialogUtil;
 
-public class AuthActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class        AuthActivity
+        extends     AppCompatActivity
+        implements  View.OnClickListener,
+                    GoogleApiClient.OnConnectionFailedListener {
 
     private static final String LOG_TAG = AuthActivity.class.getSimpleName();
 
@@ -35,7 +39,9 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
-
+    TextView applicationLogo;
+    TextView signinButton;
+    Typeface logoFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -60,7 +67,14 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        TextView signinButton = findViewById(R.id.tv_signin_button);
+        setupLayout();
+    }
+
+    public void setupLayout() {
+        logoFont = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
+        applicationLogo = findViewById(R.id.tv_application_logo);
+        applicationLogo.setTypeface(logoFont);
+        signinButton = findViewById(R.id.tv_signin_button);
         signinButton.setOnClickListener(this);
     }
 
@@ -73,7 +87,11 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data
+    ) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {

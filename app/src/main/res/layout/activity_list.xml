@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
-    android:background="@drawable/tree"
     tools:context="com.htdwps.grateful.ListActivity"
     tools:openDrawer="start">
 
@@ -23,9 +23,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
         app:headerLayout="@layout/navigation_view_header"
-        app:itemIconTint="@color/colorPeaceful"
-        app:itemTextColor="@color/colorPeaceful"
+        app:itemIconTint="@color/color_text_primary"
+        app:itemTextColor="@color/color_text_secondary"
         app:menu="@menu/navigation_drawer_menu"/>
-
 
 </android.support.v4.widget.DrawerLayout>

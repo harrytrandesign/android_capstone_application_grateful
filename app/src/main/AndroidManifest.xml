@@ -26,7 +26,9 @@
             android:name=".ListActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".SubmitActivity">
+        <activity
+            android:name=".SubmitActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

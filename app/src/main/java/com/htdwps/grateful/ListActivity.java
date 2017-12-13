@@ -69,7 +69,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     // Load the navigation menu header, such as header background image, profile name, etc
     private void loadNavHeader() {
-        textName.setText(firebaseUser.getDisplayName());
+        textName.setText(String.format("%s %s", String.valueOf(getBaseContext().getResources().getString(R.string.navi_tv_welcome_user)), firebaseUser.getDisplayName()));
         GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
     }
 
@@ -133,13 +133,13 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_menu_general_posts:
+                    case R.id.navigation_menu_personal_posts:
 
                         CURRENT_TAG = TAG_DISCUSSION;
                         navItemIndex = 0;
 
                         break;
-                    case R.id.navigation_menu_personal_posts:
+                    case R.id.navigation_menu_public_posts:
 
                         CURRENT_TAG = TAG_PERSONAL;
                         navItemIndex = 1;

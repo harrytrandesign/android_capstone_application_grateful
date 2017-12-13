@@ -26,6 +26,15 @@
         <item name="color">@color/colorPrimary</item>
     </style>
 
+    <!-- Layout Object Styles -->
+    <style name="radio_button">
+        <item name="android:onClick">onRadioButtonClicked</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/color_text_white</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="horizontal_divider_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/line_height</item>
@@ -33,5 +42,4 @@
         <item name="android:layout_marginTop">@dimen/padding_tiny</item>
         <item name="android:layout_marginBottom">@dimen/padding_tiny</item>
     </style>
-
 </resources>

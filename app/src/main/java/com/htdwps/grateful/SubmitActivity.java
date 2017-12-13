@@ -1,13 +1,15 @@
 package com.htdwps.grateful;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,47 +26,113 @@ import java.util.Map;
 
 public class SubmitActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DatabaseReference publicReference;
-    private DatabaseReference privateReference;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    EditText postText;
-    Button postButton;
-    Switch publicSwitch;
-    String postString;
-    Boolean isPublic;
-    User user;
+    private DatabaseReference   publicReference;
+    private DatabaseReference   privateReference;
+    FirebaseAuth                firebaseAuth;
+    FirebaseUser                firebaseUser;
+    EditText                    postText;
+    EditText                    journalText;
+    TextView                    postButton;
+    TextView                    tvEntryHeader;
+    RadioButton                 radioButtonPost;
+    RadioButton                 radioButtonJournal;
+    Switch                      publicSwitch;
+    String                      entryType;
+    String                      postString;
+    String                      journalString;
+    Boolean                     isPublic;
+    Typeface                    editTextFont;
+    User                        user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
 
+        isPublic = false;
+        entryType = "Post";
+        postString = "";
+        journalString = "";
+
         setupFirebase();
         setupLayout();
-
-        isPublic = false;
     }
 
     public void setupFirebase() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-
         publicReference = FirebaseUtil.getPublicListRef();
         privateReference = FirebaseUtil.getPrivateListRef();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+    }
+
+    public void setTextFont() {
+        // Load the font asset
+        editTextFont = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+
+        tvEntryHeader.setTypeface(editTextFont);
+        postText.setTypeface(editTextFont);
+        journalText.setTypeface(editTextFont);
+        radioButtonPost.setTypeface(editTextFont);
+        radioButtonJournal.setTypeface(editTextFont);
     }
 
     public void setupLayout() {
-        postText = findViewById(R.id.et_submit_input);
-        postButton = findViewById(R.id.btn_submit_button);
+        tvEntryHeader = findViewById(R.id.tv_submit_title);
+        postText = findViewById(R.id.et_post_input);
+        journalText = findViewById(R.id.et_journal_input);
+        journalText.setVisibility(View.GONE);
+        radioButtonPost = findViewById(R.id.radio_label_post);
+        radioButtonPost.setChecked(true);
+        radioButtonJournal = findViewById(R.id.radio_label_journal);
+        postButton = findViewById(R.id.tv_submit_button);
         postButton.setOnClickListener(this);
         publicSwitch = findViewById(R.id.switch_private_post);
         publicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isPublic = b;
+
+                String onOffString;
+                if (isPublic) {
+                    onOffString = getResources().getString(R.string.switch_label_private);
+                } else {
+                    onOffString = getResources().getString(R.string.switch_label_public);
+                }
+                Toast.makeText(SubmitActivity.this, onOffString, Toast.LENGTH_SHORT).show();
             }
         });
+
+        setTextFont();
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.radio_label_post:
+                if (checked) {
+                    // Pirates are the best
+                    Toast.makeText(this, "Post selected", Toast.LENGTH_SHORT).show();
+                    entryType = "Post";
+                    journalText.setVisibility(View.GONE);
+                    publicSwitch.setEnabled(true);
+                }
+                break;
+            case R.id.radio_label_journal:
+                if (checked) {
+                    // Ninjas rule
+                    Toast.makeText(this, "Journal selected", Toast.LENGTH_SHORT).show();
+                    entryType = "Journal";
+                    if (journalText.getVisibility() == View.GONE) {
+                        journalText.setVisibility(View.VISIBLE);
+                        publicSwitch.setChecked(false);
+                        publicSwitch.setEnabled(false);
+                    }
+                }
+                break;
+        }
     }
 
     public void uploadPostToDatabase() {
@@ -75,7 +143,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
         postString = postText.getText().toString();
 
-        Post post = new Post(user, postString, "Test", ServerValue.TIMESTAMP);
+        Post post = new Post(user, postString, "Test", ServerValue.TIMESTAMP, "");
 
         Map<String, Object> newPost = new HashMap<>();
 
@@ -102,7 +170,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
 
-            case R.id.btn_submit_button:
+            case R.id.tv_submit_button:
                 uploadPostToDatabase();
                 break;
         }
