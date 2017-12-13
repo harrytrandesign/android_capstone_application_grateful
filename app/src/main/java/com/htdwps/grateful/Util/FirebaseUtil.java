@@ -48,6 +48,10 @@ public class FirebaseUtil {
         return getBaseRef().child("public_list_items");
     }
 
+    public static DatabaseReference getJournalListRef() {
+        return getBaseRef().child("journal_entries");
+    }
+
     public static DatabaseReference getPersonalJournalEntriesRef() {
         return getBaseRef().child("personal_journal_items");
     }

@@ -142,6 +142,11 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
     public void uploadPostToDatabase() {
 
+        //  If Journal entry, make sure they add in journal description, than upload to a single journal folder.
+        //      Journal folder distinguished by user uploaded by key username and value auth.uid match.
+        //  If Post entry, if private than only send to personal folder.
+        //  else, if public is set send a copy to personal folder and a copy to public folder.
+
         String randomPostKey = publicReference.push().getKey();
 
         user = FirebaseUtil.getCurrentUser();
