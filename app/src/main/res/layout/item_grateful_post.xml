@@ -1,27 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/padding_tiny"
     android:layout_marginTop="@dimen/padding_tiny"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/item_tv_post_author"
-        android:text="Member shared..."
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_tiny"
+        android:paddingTop="@dimen/padding_tiny">
 
-    <TextView
-        android:id="@+id/item_tv_post_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/iv_icon_entry_type"
+            android:layout_width="@dimen/icon_xmedium"
+            android:layout_height="@dimen/icon_xmedium"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/padding_xsmall"
+            android:layout_marginEnd="@dimen/padding_medium"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_xsmall"
+            android:src="@drawable/post"/>
 
-    <TextView
-        android:id="@+id/item_tv_post_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_tv_post_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item_post_displayname"
+                android:textStyle="bold"
+                android:textColor="@color/color_text_white"
+                android:textSize="@dimen/font_standard"/>
+
+            <TextView
+                android:id="@+id/item_tv_post_text"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="@string/item_post_short_text"
+                android:textColor="@color/color_text_white"
+                android:textSize="@dimen/font_standard"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_tv_journal_text"
+                android:textColor="@color/color_text_white"
+                android:textSize="@dimen/font_small"
+                android:text="@string/item_post_long_text"/>
+
+            <TextView
+                android:id="@+id/item_tv_post_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item_tv_timestamp"
+                android:textColor="@color/color_text_white"
+                android:textSize="@dimen/font_mini"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <include
         layout="@layout/horizontal_view"/>

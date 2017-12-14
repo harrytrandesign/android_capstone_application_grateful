@@ -1,34 +1,19 @@
 <resources>
     <string name="app_name">Grateful</string>
     <string name="tag_line">Share Something You\'re Grateful for Everyday</string>
-
     <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
 
+    <!-- Menu Item -->
     <string name="logon_button_text">Sign In</string>
     <string name="dialog.message.loading">Loading…</string>
+    <string name="invite.title.label">Invite Your Friends</string>
+    <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for, like me.</string>
     <string name="menu.label.terms">Terms &amp; Conditions</string>
     <string name="menu.label.privacy">Privacy Policy</string>
     <string name="menu.label.feedback">Feedback</string>
     <string name="menu.label.logoff">Log Off</string>
-
-    <string name="submit.grateful.title">Something you\'re grateful about</string>
-    <string name="submit.privacy.text">Keep this private? (Only for posts)</string>
-    <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
-    <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
-    <string name="submit.button">Submit</string>
-    <string name="navi_tv_displayname_placeholder">Welcome Username</string>
-    <string name="navi_tv_welcome_user">Welcome</string>
-
-    <string name="radio_label_post">Post</string>
-    <string name="radio_label_journal">Journal</string>
-    <string name="switch_label_public">Public</string>
-    <string name="switch_label_private">Private</string>
-
     <string name="drawer.open">Open Drawer</string>
     <string name="drawer.close">Close Drawer</string>
-
-    <string name="invite.title.label">Invite Your Friends</string>
-    <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for, like me.</string>
 
     <!-- Navigation Drawer menu labels -->
     <string name="navigation_menu_personal">My Posts</string>
@@ -47,5 +32,24 @@
         <item>@string/navigation_menu_invite</item>
         <item>@string/navigation_menu_signout</item>
     </string-array>
+
+    <!-- Submit Activity -->
+    <string name="radio_label_post">Post</string>
+    <string name="radio_label_journal">Journal</string>
+    <string name="switch_label_public">Public</string>
+    <string name="switch_label_private">Private</string>
+    <string name="submit.grateful.title">Something you\'re grateful about</string>
+    <string name="submit.privacy.text">Keep this private? (Only for posts)</string>
+    <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
+    <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
+    <string name="submit.button">Submit</string>
+
+    <!-- Placeholder Text -->
+    <string name="item_post_displayname">Member shared...</string>
+    <string name="item_post_short_text">This is what I am grateful about</string>
+    <string name="item_post_long_text">If this is a journal entry than there will be a lot of text that follows this part of the item.</string>
+    <string name="item_tv_timestamp">December 13, 2017</string>
+    <string name="navi_tv_displayname_placeholder">Welcome Username</string>
+    <string name="navi_tv_welcome_user">Welcome</string>
 
 </resources>

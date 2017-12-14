@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".SubmitActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 
