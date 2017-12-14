@@ -1,140 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
     tools:context="com.htdwps.grateful.SubmitActivity">
 
     <TextView
         android:id="@+id/tv_submit_title"
+        style="@style/textview_header_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_xsmall"
-        android:text="@string/submit.grateful.title"
-        android:textAllCaps="true"
-        android:textColor="@color/color_text_white"
-        android:textSize="@dimen/font_medium"
-        android:textStyle="bold"/>
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_xsmall"
-        android:orientation="horizontal"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall">
-
-        <RadioButton
-            android:id="@+id/radio_label_post"
-            style="@style/radio_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/radio_label_post"/>
-
-        <RadioButton
-            android:id="@+id/radio_label_journal"
-            style="@style/radio_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/radio_label_journal"/>
-    </RadioGroup>
+        android:layout_alignParentTop="true"
+        android:text="@string/submit.grateful.title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding_large"
-        android:layout_marginTop="@dimen/padding_xsmall"
-        android:orientation="horizontal"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall">
-
-        <TextView
-            android:id="@+id/submission_tv_label_anonymous"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/submit.privacy.text"
-            android:textColor="@color/color_text_white"
-            android:textSize="@dimen/font_small"/>
-
-        <Switch
-            android:id="@+id/switch_private_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/et_post_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_xsmall"
-        android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
-        android:maxLength="300"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall"
-        android:textColor="@color/color_text_white"
-        android:textSize="@dimen/font_large"/>
-
-    <TextView
-        android:id="@+id/submit_hint_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall"
-        android:text="@string/submit.hint.post"
-        android:textColor="@color/color_text_white"
-        android:textSize="@dimen/font_mini"/>
-
-    <LinearLayout
-        android:id="@+id/journal_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_submit_title"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall">
 
-        <EditText
-            android:id="@+id/et_journal_input"
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_xsmall"
-            android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textLongMessage|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="2"
-            android:paddingEnd="@dimen/padding_xsmall"
-            android:paddingStart="@dimen/padding_xsmall"
-            android:textColor="@color/color_text_white"
-            android:textSize="@dimen/font_large"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/submit_hint_journal"
+            <RadioButton
+                android:id="@+id/radio_label_post"
+                style="@style/radio_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/radio_label_post"/>
+
+            <RadioButton
+                android:id="@+id/radio_label_journal"
+                style="@style/radio_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/radio_label_journal"/>
+        </RadioGroup>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/padding_xsmall"
-            android:paddingStart="@dimen/padding_xsmall"
-            android:text="@string/submit.hint.journal"
-            android:textColor="@color/color_text_white"
-            android:textSize="@dimen/font_mini"/>
+            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_xsmall"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/submission_tv_label_anonymous"
+                style="@style/text_font_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/submit.privacy.text"
+                android:textSize="@dimen/font_small"/>
+
+            <Switch
+                android:id="@+id/switch_private_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_post_input"
+            style="@style/submit_edittext_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
+            android:maxLength="300"/>
+
+        <TextView
+            android:id="@+id/submit_hint_post"
+            style="@style/submit_edit_field_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit.hint.post"/>
+
+        <LinearLayout
+            android:id="@+id/journal_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/et_journal_input"
+                style="@style/submit_edittext_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textLongMessage|textMultiLine"
+                android:maxLength="2000"
+                android:maxLines="2"/>
+
+            <TextView
+                android:id="@+id/submit_hint_journal"
+                style="@style/submit_edit_field_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit.hint.journal"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_submit_button"
+        style="@style/submit_textview_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_xsmall"
-        android:background="@color/colorPrimaryDark"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/submit.button"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/color_text_white"
-        android:textSize="@dimen/font_small"/>
+        android:layout_alignParentBottom="true"
+        android:text="@string/submit.button"/>
 
-</LinearLayout>
+</RelativeLayout>

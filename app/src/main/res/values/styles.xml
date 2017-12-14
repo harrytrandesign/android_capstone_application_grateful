@@ -27,13 +27,44 @@
     </style>
 
     <!-- Layout Object Styles -->
-    <style name="radio_button">
+    <style name="text_font_color">
+        <item name="android:textColor">@color/color_text_white</item>
+    </style>
+
+    <style name="textview_header_style" parent="text_font_color">
+        <item name="android:padding">@dimen/padding_tiny</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="submit_edittext_field" parent="text_font_color">
+        <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
+        <item name="android:backgroundTint">@color/grey_light</item>
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="submit_edit_field_hint" parent="text_font_color">
+        <item name="android:paddingEnd">@dimen/padding_medium</item>
+        <item name="android:paddingStart">@dimen/padding_medium</item>
+        <item name="android:textSize">@dimen/font_mini</item>
+    </style>
+
+    <style name="radio_button" parent="text_font_color">
         <item name="android:onClick">onRadioButtonClicked</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/color_text_white</item>
         <item name="android:textSize">@dimen/font_small</item>
         <item name="android:textStyle">bold</item>
         <item name="android:buttonTint">@color/color_text_white</item>
+    </style>
+
+    <style name="submit_textview_button">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:padding">@dimen/padding_medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/color_text_white</item>
+        <item name="android:textSize">@dimen/font_standard</item>
     </style>
 
     <style name="horizontal_divider_line">

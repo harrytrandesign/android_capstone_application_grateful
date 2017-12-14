@@ -22,24 +22,19 @@
                 android:id="@+id/tv_application_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_xxlarge"
-                android:textColor="@color/color_text_white"
                 android:layout_centerInParent="true"
-                android:text="@string/app_name"/>
+                android:text="@string/app_name"
+                android:textColor="@color/color_text_white"
+                android:textSize="@dimen/font_xxlarge"/>
 
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_signin_button"
+            style="@style/submit_textview_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:padding="@dimen/padding_medium"
-            android:text="@string/logon_button_text"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/color_text_white"
-            android:textSize="@dimen/font_small"/>
+            android:text="@string/logon_button_text"/>
 
     </LinearLayout>
 
