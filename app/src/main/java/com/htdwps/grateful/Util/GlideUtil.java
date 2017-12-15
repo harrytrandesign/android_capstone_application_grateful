@@ -14,7 +14,7 @@ import com.htdwps.grateful.R;
 
 public class GlideUtil {
 
-    public static void loadImage(String url, ImageView imageView) {
+    public static void loadImage(int url, ImageView imageView) {
         Context context = imageView.getContext();
         ColorDrawable colorDrawable = new ColorDrawable(ContextCompat.getColor(context, R.color.colorPrimary));
         Glide.with(context)
