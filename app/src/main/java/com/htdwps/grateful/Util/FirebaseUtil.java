@@ -40,28 +40,28 @@ public class FirebaseUtil {
         return new User(user.getUid(), user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString());
     }
 
-    public static DatabaseReference getPrivateListRef() {
-        return getBaseRef().child("personal_list_items");
+    public static DatabaseReference getUserPostRef() {
+        return getBaseRef().child("post_private_user");
     }
 
-    public static DatabaseReference getPublicListRef() {
-        return getBaseRef().child("public_list_items");
+    public static DatabaseReference getAllPostRef() {
+        return getBaseRef().child("post_public_all");
+    }
+
+    public static DatabaseReference getUserJournalRef() {
+        return getBaseRef().child("journal_private_user");
+    }
+
+    public static DatabaseReference getAllJournalRef() {
+        return getBaseRef().child("journal_public_all");
     }
 
     public static DatabaseReference getJournalListRef() {
         return getBaseRef().child("journal_entries");
     }
 
-    public static DatabaseReference getPersonalJournalEntriesRef() {
-        return getBaseRef().child("personal_journal_items");
-    }
-
-    public static DatabaseReference getPublicJournalEntriesRef() {
-        return getBaseRef().child("public_journal_items");
-    }
-
     public static DatabaseReference getCommentListRef() {
-        return getBaseRef().child("public_comment_list");
+        return getBaseRef().child("all_comment");
     }
 
     public static DatabaseReference getFeedbackRef() {

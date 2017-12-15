@@ -7,7 +7,7 @@ package com.htdwps.grateful.Model;
 public class Entries {
 
     private User    user;
-    private String  username;           // firebaseuser.getdisplayname
+    private String  userDisplayName;    // firebaseuser.getdisplayname
     private String  entryType;          // "Post" or "Journal"
     private String  postText;
     private String  journalText;        // Only available if entrytype = "Journal"
@@ -20,7 +20,7 @@ public class Entries {
 
     public Entries(User user, String username, String entryType, String postText, Object timestamp, String entryImageUrl) {
         this.user = user;
-        this.username = username;
+        this.userDisplayName = username;
         this.entryType = entryType;
         this.postText = postText;
         this.timestamp = timestamp;
@@ -29,7 +29,7 @@ public class Entries {
 
     public Entries(User user, String username, String entryType, String postText, String journalText, Object timestamp, String entryImageUrl) {
         this.user = user;
-        this.username = username;
+        this.userDisplayName = username;
         this.entryType = entryType;
         this.postText = postText;
         this.journalText = journalText;
@@ -41,8 +41,8 @@ public class Entries {
         return user;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserDisplayName() {
+        return userDisplayName;
     }
 
     public String getEntryType() {

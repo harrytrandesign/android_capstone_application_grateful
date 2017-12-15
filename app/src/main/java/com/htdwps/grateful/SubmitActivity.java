@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
-import com.htdwps.grateful.Model.Post;
+import com.htdwps.grateful.Model.Entries;
 import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.Util.FirebaseUtil;
 
@@ -27,32 +27,35 @@ import java.util.Map;
 
 public class SubmitActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DatabaseReference   publicReference;
-    private DatabaseReference   privateReference;
-    FirebaseAuth                firebaseAuth;
-    FirebaseUser                firebaseUser;
-    EditText                    postText;
-    EditText                    journalText;
-    LinearLayout                journalLayout;
-    TextView                    postButton;
-    TextView                    tvEntryHeader;
-    TextView                    tvSubmitJournalHint;
-    RadioButton                 radioButtonPost;
-    RadioButton                 radioButtonJournal;
-    Switch                      publicSwitch;
-    String                      entryType;
-    String                      postString;
-    String                      journalString;
-    Boolean                     isPublic;
-    Typeface                    editTextFont;
-    User                        user;
+    private DatabaseReference mainReference;
+    private DatabaseReference publicReference;
+    private DatabaseReference personalReference;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    EditText postText;
+    EditText journalText;
+    LinearLayout journalLayout;
+    TextView postButton;
+    TextView tvEntryHeader;
+    TextView tvSubmitJournalHint;
+    RadioButton radioButtonPost;
+    RadioButton radioButtonJournal;
+    Switch publicSwitch;
+    String entryType;
+    String postString;
+    String journalString;
+    Boolean isPublic;
+    Typeface editTextFont;
+
+    Entries entries;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
 
-        isPublic = false;
+        isPublic = true;
         entryType = "Post";
         postString = "";
         journalString = "";
@@ -62,8 +65,9 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setupFirebase() {
-        publicReference = FirebaseUtil.getPublicListRef();
-        privateReference = FirebaseUtil.getPrivateListRef();
+        mainReference = FirebaseUtil.getBaseRef();
+        personalReference = FirebaseUtil.getUserPostRef();
+        publicReference = FirebaseUtil.getAllPostRef();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
     }
@@ -99,8 +103,10 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
                 String onOffString;
                 if (isPublic) {
+                    isPublic = false;
                     onOffString = getResources().getString(R.string.switch_label_private);
                 } else {
+                    isPublic = true;
                     onOffString = getResources().getString(R.string.switch_label_public);
                 }
                 Toast.makeText(SubmitActivity.this, onOffString, Toast.LENGTH_SHORT).show();
@@ -118,7 +124,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.radio_label_post:
                 if (checked) {
-                    // Pirates are the best
+
                     Toast.makeText(this, "Post selected", Toast.LENGTH_SHORT).show();
                     entryType = "Post";
                     journalLayout.setVisibility(View.GONE);
@@ -127,13 +133,14 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.radio_label_journal:
                 if (checked) {
-                    // Ninjas rule
+
                     Toast.makeText(this, "Journal selected", Toast.LENGTH_SHORT).show();
                     entryType = "Journal";
+                    isPublic = true;
+                    publicSwitch.setChecked(false);
+                    publicSwitch.setEnabled(false);
                     if (journalLayout.getVisibility() == View.GONE) {
                         journalLayout.setVisibility(View.VISIBLE);
-                        publicSwitch.setChecked(false);
-                        publicSwitch.setEnabled(false);
                     }
                 }
                 break;
@@ -147,33 +154,66 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         //  If Post entry, if private than only send to personal folder.
         //  else, if public is set send a copy to personal folder and a copy to public folder.
 
-        String randomPostKey = publicReference.push().getKey();
+        String randomPostKey = mainReference.push().getKey();
 
         user = FirebaseUtil.getCurrentUser();
 
-        postString = postText.getText().toString();
-
-        Post post = new Post(user, postString, "Test", ServerValue.TIMESTAMP, "");
-
         Map<String, Object> newPost = new HashMap<>();
 
-        if (isPublic) {
-            newPost.put("personal_list_items/" + user.getUserid() + "/" + randomPostKey, post);
-            newPost.put("public_list_items/" + randomPostKey, post);
-        } else {
-            newPost.put("personal_list_items/" + user.getUserid() + "/" + randomPostKey, post);
+        switch (entryType) {
+
+            case "Post":
+                postString = postText.getText().toString();
+
+                entries = new Entries(user, user.getUserDisplayName(), entryType, postString, ServerValue.TIMESTAMP, "");
+
+                if (isPublic) {
+                    newPost.put("post_public_all/" + randomPostKey, entries);
+                }
+
+                newPost.put("post_private_user/" + user.getUserid() + "/" + randomPostKey, entries);
+
+                publishToDatabase(newPost);
+                
+                break;
+
+            case "Journal":
+                postString = postText.getText().toString();
+                journalString = journalText.getText().toString();
+
+                entries = new Entries(user, user.getUserDisplayName(), entryType, postString, journalString, ServerValue.TIMESTAMP, "");
+
+                newPost.put("journal_public_all/" + randomPostKey, entries);
+                newPost.put("journal_private_user/" + user.getUserid() + "/" + randomPostKey, true);
+
+                publishToDatabase(newPost);
+
+                break;
+
+            default:
+
+                break;
+
         }
 
+    }
+
+    private void publishToDatabase(Map<String, Object> newPost) {
         FirebaseUtil.getBaseRef().updateChildren(newPost, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                Toast.makeText(SubmitActivity.this, "Stay Grateful", Toast.LENGTH_SHORT).show();
+                if (databaseError == null) {
+                    Toast.makeText(SubmitActivity.this, "Stay Grateful", Toast.LENGTH_SHORT).show();
 
-                Intent completeIntent = new Intent(SubmitActivity.this, ListActivity.class);
-                completeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(completeIntent);
+                    Intent completeIntent = new Intent(SubmitActivity.this, ListActivity.class);
+                    completeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(completeIntent);
+                } else {
+                    Toast.makeText(SubmitActivity.this, "Sorry try again in a little", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
     }
 
     @Override
@@ -181,7 +221,9 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
 
             case R.id.tv_submit_button:
+
                 uploadPostToDatabase();
+
                 break;
         }
     }
