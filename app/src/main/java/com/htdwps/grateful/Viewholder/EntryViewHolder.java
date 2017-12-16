@@ -32,6 +32,14 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         entryCommentCount = itemView.findViewById(R.id.item_tv_comment_count);
     }
 
+    public void setViewObjects(String text1, String text2, String text3, String text4, String text5) {
+        setEntryTypeImage(text1);
+        setEntryUserDisplayName(text2);
+        setEntryPostText(text3);
+        setEntryJournalText(text4);
+        setEntryTimestamp(text5);
+    }
+
     public void setEntryTypeImage(String text) {
         switch (text) {
             case "Post":
@@ -49,7 +57,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setEntryUserDisplayName(String text) {
-        this.entryUserDisplayName.setText(text);
+        this.entryUserDisplayName.setText(text + " shared...");
     }
 
     public void setEntryPostText(String text) {
@@ -57,7 +65,11 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setEntryJournalText(String text) {
-        this.entryJournalText.setText(text);
+        if ("".equals(text)) {
+            this.entryJournalText.setVisibility(View.GONE);
+        } else {
+            this.entryJournalText.setText(text);
+        }
     }
 
     public void setEntryTimestamp(String text) {

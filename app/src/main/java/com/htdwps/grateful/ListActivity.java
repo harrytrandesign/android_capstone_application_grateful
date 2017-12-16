@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,9 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Fragment.UserPostFragment;
+import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GlideUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,6 +35,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
+    DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
@@ -65,6 +71,12 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         runInitializer();
         runLayout();
 
+        if (savedInstanceState == null) {
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_DISCUSSION;
+            loadHomeFragment();
+        }
+
     }
 
     // Load the navigation menu header, such as header background image, profile name, etc
@@ -82,6 +94,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         navigationView = findViewById(R.id.mainfeed_navigation_view_layout);
         floatingActionButton = findViewById(R.id.btn_floating_action);
         floatingActionButton.setOnClickListener(this);
+
+        activityTitles = getResources().getStringArray(R.array.navigation_labels);
 
         // Navigation Drawer View's Header Section
         View viewNavHeader = navigationView.getHeaderView(0);
@@ -103,6 +117,68 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
+    }
+
+    private Fragment getHomeFragment() {
+        switch (navItemIndex) {
+            case 0:
+                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+            case 1:
+                return new UserPostFragment();
+            case 2:
+                return new UserPostFragment();
+            default:
+                return new UserPostFragment();
+        }
+    }
+
+    private void loadHomeFragment() {
+
+        selectNavMenu();
+
+        setToolbarTitle();
+
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
+            drawerLayout.closeDrawers();
+
+            toggleContentButton();
+            return;
+        }
+
+        if (navItemIndex < 3) {
+            Runnable mPendingRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    Fragment fragment = getHomeFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                    fragmentTransaction.replace(R.id.frame_layout, fragment, CURRENT_TAG);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+            };
+
+            mHandler.post(mPendingRunnable);
+
+        }
+
+        toggleContentButton();
+
+        // Close the navigation drawer when item is pressed.
+        drawerLayout.closeDrawers();
+
+        // Refresh the toolbar menu
+        invalidateOptionsMenu();
+
+    }
+
+    private void selectNavMenu() {
+        navigationView.getMenu().getItem(navItemIndex).setChecked(true);
+    }
+
+    private void setToolbarTitle() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+        }
     }
 
     private void signOffUser() {
@@ -156,18 +232,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                         navItemIndex = 0;
                 }
 
-//                if (navItemIndex < 4) {
-//                    selectNavMenu();
-//                }
-//
-//                if (navItemIndex != 3) {
-//                    setToolbarTitle();
-//                    switchFragment();
-//                }
-
                 drawerLayout.closeDrawers();
                 toggleContentButton();
-//                loadHomeFragment();
+                loadHomeFragment();
 
                 return true;
             }

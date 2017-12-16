@@ -15,6 +15,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/padding_tiny"
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall"
         android:paddingTop="@dimen/padding_tiny">
 
         <ImageView
@@ -79,7 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/item_tv_timestamp"
+                    android:text="@string/item_tv_comment_count"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/color_text_white"
                     android:textSize="@dimen/font_mini"/>
