@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/item_post_displayname"
                 android:textColor="@color/color_text_white"
-                android:textSize="@dimen/font_standard"
+                android:textSize="@dimen/font_small"
                 android:textStyle="bold"/>
 
             <TextView
