@@ -47,28 +47,35 @@
                 android:text="@string/radio_label_journal"/>
         </RadioGroup>
 
-        <LinearLayout
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="@dimen/padding_small"-->
+            <!--android:layout_marginTop="@dimen/padding_xsmall"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/submission_tv_label_anonymous"-->
+                <!--style="@style/text_font_color"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="@string/submit.privacy.text"-->
+                <!--android:textSize="@dimen/font_small"/>-->
+
+            <!--<Switch-->
+                <!--android:id="@+id/switch_private_post"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+        <!--</LinearLayout>-->
+
+        <TextView
+            android:id="@+id/submit_hint_post"
+            style="@style/submit_edit_field_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_small"
-            android:layout_marginTop="@dimen/padding_xsmall"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/submission_tv_label_anonymous"
-                style="@style/text_font_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/submit.privacy.text"
-                android:textSize="@dimen/font_small"/>
-
-            <Switch
-                android:id="@+id/switch_private_post"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
+            android:text="@string/submit.hint.post"/>
 
         <EditText
             android:id="@+id/et_post_input"
@@ -78,19 +85,19 @@
             android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
             android:maxLength="300"/>
 
-        <TextView
-            android:id="@+id/submit_hint_post"
-            style="@style/submit_edit_field_hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/submit.hint.post"/>
-
         <LinearLayout
             android:id="@+id/journal_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible">
+
+            <TextView
+                android:id="@+id/submit_hint_journal"
+                style="@style/submit_edit_field_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit.hint.journal"/>
 
             <EditText
                 android:id="@+id/et_journal_input"
@@ -101,17 +108,11 @@
                 android:maxLength="2000"
                 android:maxLines="2"/>
 
-            <TextView
-                android:id="@+id/submit_hint_journal"
-                style="@style/submit_edit_field_hint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/submit.hint.journal"/>
-
         </LinearLayout>
 
     </LinearLayout>
 
+    <!--TODO: HIDE THIS BUTTON UNTIL ALL THE PARAMETERS ARE MET WITH SUBMITTING NEW ENTRIES-->
     <TextView
         android:id="@+id/tv_submit_button"
         style="@style/submit_textview_button"

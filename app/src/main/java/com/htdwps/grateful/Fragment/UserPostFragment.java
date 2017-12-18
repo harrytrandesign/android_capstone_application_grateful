@@ -76,7 +76,15 @@ public class UserPostFragment extends Fragment {
             protected void populateViewHolder(EntryViewHolder viewHolder, Entries model, int position) {
                 final String postKey = ((FirebaseRecyclerAdapter) listAdapter).getRef(position).getKey();
 
-                viewHolder.setViewObjects(model.getEntryType(), model.getUserDisplayName(), model.getPostText(), model.getJournalText(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
+                String displayName;
+                String userId = model.getUser().getUserid();
+                if (userId.equals(firebaseUser.getUid())) {
+                    displayName = "You";
+                } else {
+                    displayName = model.getUserDisplayName();
+                }
+
+                viewHolder.setViewObjects(model.getEntryType(), displayName, model.getPostText(), model.getJournalText(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
 
             }
         };

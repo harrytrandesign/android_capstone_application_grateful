@@ -15,6 +15,6 @@
         android:startColor="@android:color/transparent" />
 
     <solid
-        android:color="@color/color_text_white"/>
+        android:color="@color/white_transparent_frost"/>
 
 </shape>

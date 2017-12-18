@@ -5,11 +5,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +38,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     TextView tvSubmitJournalHint;
     RadioButton radioButtonPost;
     RadioButton radioButtonJournal;
-    Switch publicSwitch;
+//    Switch publicSwitch;
     String entryType;
     String postString;
     String journalString;
@@ -55,6 +53,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
 
+        // TODO: Hide the switch for now, all posts receive isPublic = true until later update
         isPublic = true;
         entryType = "Post";
         postString = "";
@@ -95,23 +94,23 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         radioButtonJournal = findViewById(R.id.radio_label_journal);
         postButton = findViewById(R.id.tv_submit_button);
         postButton.setOnClickListener(this);
-        publicSwitch = findViewById(R.id.switch_private_post);
-        publicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isPublic = b;
-
-                String onOffString;
-                if (isPublic) {
-                    isPublic = false;
-                    onOffString = getResources().getString(R.string.switch_label_private);
-                } else {
-                    isPublic = true;
-                    onOffString = getResources().getString(R.string.switch_label_public);
-                }
-                Toast.makeText(SubmitActivity.this, onOffString, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        publicSwitch = findViewById(R.id.switch_private_post);
+//        publicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                isPublic = b;
+//
+//                String onOffString;
+//                if (isPublic) {
+//                    isPublic = false;
+//                    onOffString = getResources().getString(R.string.switch_label_private);
+//                } else {
+//                    isPublic = true;
+//                    onOffString = getResources().getString(R.string.switch_label_public);
+//                }
+//                Toast.makeText(SubmitActivity.this, onOffString, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         setCustomTypeface();
     }
@@ -128,7 +127,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(this, "Post selected", Toast.LENGTH_SHORT).show();
                     entryType = "Post";
                     journalLayout.setVisibility(View.GONE);
-                    publicSwitch.setEnabled(true);
+//                    publicSwitch.setEnabled(true);
                 }
                 break;
             case R.id.radio_label_journal:
@@ -137,8 +136,8 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(this, "Journal selected", Toast.LENGTH_SHORT).show();
                     entryType = "Journal";
                     isPublic = true;
-                    publicSwitch.setChecked(false);
-                    publicSwitch.setEnabled(false);
+//                    publicSwitch.setChecked(false);
+//                    publicSwitch.setEnabled(false);
                     if (journalLayout.getVisibility() == View.GONE) {
                         journalLayout.setVisibility(View.VISIBLE);
                     }
