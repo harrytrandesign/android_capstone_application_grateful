@@ -25,7 +25,7 @@
             android:icon="@drawable/icon_like_list"
             android:title="@string/navigation_menu_invite"/>
         <item
-            android:id="@+id/navigation_menu_comments_list"
+            android:id="@+id/navigation_menu_log_off"
             android:icon="@drawable/icon_like_list"
             android:title="@string/navigation_menu_signout"/>
     </group>

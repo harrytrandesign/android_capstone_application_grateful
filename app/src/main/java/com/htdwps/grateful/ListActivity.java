@@ -1,8 +1,11 @@
 package com.htdwps.grateful;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -14,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +33,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GlideUtil;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.Fabric;
@@ -60,6 +71,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     private Handler mHandler;
 
+    static final String API_URL = "http://api.forismatic.com/api/1.0/?";
+    String api_method = "getQuote";     // Method of Api call;
+    String api_format = "text";         // Format available xml, json, html, text;
+    String api_lang = "en";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +86,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         runInitializer();
         runLayout();
+        runQuoteRequest();
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
@@ -119,14 +136,108 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         Fabric.with(fabric);
     }
 
+    // TODO: Move this over to the submit new post page
+    public void runQuoteRequest() {
+        // Point to this web api
+        String quoteUrl = API_URL + "method=" + api_method + "&format=" + api_format + "&lang=" + api_lang;
+
+        // Place what we return into this string
+        String result;
+
+        // Create new instnce of the AsyncTask
+        HttpGetRequest getRequest = new HttpGetRequest();
+
+        // Perform doInBackground method from AsyncTask getting the results for result string passing in our url
+        try {
+            result = getRequest.execute(quoteUrl).get();
+            Log.i("api", result);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(result)
+                    .setCancelable(true)
+                    .setPositiveButton("Close   ", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static class HttpGetRequest extends AsyncTask<String, Void, String> {
+
+        private static final String REQUEST_METHOD = "GET";
+        private static final int READ_TIMEOUT = 15000;
+        private static final int CONNECTION_TIMEOUT = 15000;
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String stringUrl = strings[0];
+            String result;
+            String inputLine;
+
+            try {
+                // Create a URL object holding our url
+                URL myUrl = new URL(stringUrl);
+
+                // Create a connection
+                HttpURLConnection connection = (HttpURLConnection) myUrl.openConnection();
+
+                // Set methods and timeouts
+                connection.setRequestMethod(REQUEST_METHOD);
+                connection.setReadTimeout(READ_TIMEOUT);
+                connection.setConnectTimeout(CONNECTION_TIMEOUT);
+
+                // Connect to the url
+                connection.connect();
+
+                //Create a new InputStreamReader
+                InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
+                //Create a new buffered reader and String Builder
+                BufferedReader reader = new BufferedReader(streamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                //Check if the line we are reading is not null
+                while((inputLine = reader.readLine()) != null){
+                    stringBuilder.append(inputLine);
+                }
+                //Close our InputStream and Buffered reader
+                reader.close();
+                streamReader.close();
+                //Set our result equal to our stringBuilder
+                result = stringBuilder.toString();
+            }
+            catch(IOException e){
+                e.printStackTrace();
+                result = null;
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
+
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
+                // Pass param of DatabaseReference to use the same Fragment but swap the database each time
                 return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             case 1:
-                return new UserPostFragment();
+                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             case 2:
-                return new UserPostFragment();
+                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+            case 3:
+                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+            case 4:
+                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             default:
                 return new UserPostFragment();
         }
@@ -215,18 +326,38 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                         navItemIndex = 0;
 
                         break;
-                    case R.id.navigation_menu_public_posts:
+                    case R.id.navigation_menu_personal_journal:
 
                         CURRENT_TAG = TAG_PERSONAL;
                         navItemIndex = 1;
 
                         break;
-                    case R.id.navigation_menu_comments_list:
+                    case R.id.navigation_menu_public_posts:
 
                         CURRENT_TAG = TAG_LIKED;
                         navItemIndex = 2;
 
                         break;
+
+                    case R.id.navigation_menu_public_journal:
+
+                        CURRENT_TAG = TAG_PERSONAL;
+                        navItemIndex = 3;
+
+                        break;
+
+                    case R.id.navigation_menu_invite_friends:
+
+                        CURRENT_TAG = TAG_LIKED;
+                        navItemIndex = 4;
+
+                        break;
+
+                    case R.id.navigation_menu_log_off:
+
+                        signOffUser();
+
+                        return true;
 
                     default:
                         navItemIndex = 0;

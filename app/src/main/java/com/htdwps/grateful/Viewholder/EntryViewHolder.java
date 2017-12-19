@@ -66,7 +66,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setEntryUserDisplayName(String text) {
-        this.entryUserDisplayName.setText(text + " shared...");
+        this.entryUserDisplayName.setText(text + " wrote...");
     }
 
     public void setEntryPostText(String text) {
