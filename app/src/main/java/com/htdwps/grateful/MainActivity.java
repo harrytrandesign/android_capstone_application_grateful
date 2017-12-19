@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             // If user ISN'T null, send them to the main feed page.
             progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
 
-            Intent mainIntent = new Intent(this, ListActivity.class);
+            Intent mainIntent = new Intent(this, QuoteActivity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(mainIntent);
             finish();

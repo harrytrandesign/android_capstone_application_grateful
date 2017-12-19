@@ -45,7 +45,7 @@
     <string name="submit.button">Submit</string>
 
     <!-- Placeholder Text -->
-    <string name="item_post_displayname">Member shared...</string>
+    <string name="item_post_displayname">Member shared…</string>
     <string name="item_post_short_text">This is what I am grateful about</string>
     <string name="item_post_long_text">If this is a journal entry than there will be a lot of text that follows this part of the item.</string>
     <string name="item_tv_timestamp">December 13, 2017</string>
@@ -55,5 +55,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_tv_comment_count">Comment</string>
+    <string name="next_button_text">Next</string>
 
 </resources>

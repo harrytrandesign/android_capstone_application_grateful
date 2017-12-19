@@ -49,7 +49,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         setEntryTimestamp(text5);
     }
 
-    public void setEntryTypeImage(String text) {
+    private void setEntryTypeImage(String text) {
         switch (text) {
             case "Post":
 
@@ -65,15 +65,15 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         }
     }
 
-    public void setEntryUserDisplayName(String text) {
-        this.entryUserDisplayName.setText(text + " wrote...");
+    private void setEntryUserDisplayName(String text) {
+        this.entryUserDisplayName.setText(String.format("%s wrote...", text));
     }
 
-    public void setEntryPostText(String text) {
+    private void setEntryPostText(String text) {
         this.entryPostText.setText(text);
     }
 
-    public void setEntryJournalText(String text) {
+    private void setEntryJournalText(String text) {
         if ("".equals(text)) {
             this.entryJournalText.setVisibility(View.GONE);
         } else {
@@ -81,7 +81,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         }
     }
 
-    public void setEntryTimestamp(String text) {
+    private void setEntryTimestamp(String text) {
         this.entryTimestamp.setText(text);
     }
 
