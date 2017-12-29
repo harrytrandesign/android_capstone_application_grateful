@@ -18,9 +18,9 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
     String api_format = "text";         // Format available xml, json, html, text;
     String api_lang = "en";
 
+    TextView inspireText;
     TextView quoteText;
     TextView buttonText;
-    Typeface scriptFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,19 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
 
     public void runLayout() {
 
-        scriptFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
+        // Load font assets
+        Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
+        Typeface scriptFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/Bevan-Regular.ttf");
 
+        inspireText = findViewById(R.id.tv_inspire_daily);
         quoteText = findViewById(R.id.tv_inspiration_quote);
         buttonText = findViewById(R.id.tv_next_button);
         buttonText.setOnClickListener(this);
 
+        inspireText.setTypeface(headerFont);
         quoteText.setTypeface(scriptFont);
+        buttonText.setTypeface(buttonFont);
     }
 
     // TODO: Move this over to the submit new post page

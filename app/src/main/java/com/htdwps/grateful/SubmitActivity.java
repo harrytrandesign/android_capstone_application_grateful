@@ -43,7 +43,6 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     String postString;
     String journalString;
     Boolean isPublic;
-    Typeface editTextFont;
 
     Entries entries;
     User user;
@@ -73,13 +72,15 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
     public void setCustomTypeface() {
         // Load the font asset
-        editTextFont = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+        Typeface editTextFont = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/Bevan-Regular.ttf");
 
         tvEntryHeader.setTypeface(editTextFont);
         postText.setTypeface(editTextFont);
         journalText.setTypeface(editTextFont);
         radioButtonPost.setTypeface(editTextFont);
         radioButtonJournal.setTypeface(editTextFont);
+        postButton.setTypeface(buttonFont);
     }
 
     public void setupLayout() {
