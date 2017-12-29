@@ -1,6 +1,7 @@
 package com.htdwps.grateful.Fragment;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,7 @@ public class UserPostFragment extends Fragment {
     FirebaseUser                            firebaseUser;
     LinearLayoutManager                     linearLayoutManager;
     RecyclerView                            recyclerView;
+    TextView                                tvUserWrote;
     User                                    user;
 
     public UserPostFragment() {
@@ -44,6 +47,9 @@ public class UserPostFragment extends Fragment {
     }
 
     public void runLayout(View view) {
+        Typeface headerFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Bevan-Regular.ttf");
+        tvUserWrote = view.findViewById(R.id.tv_user_wrote_title);
+        tvUserWrote.setTypeface(headerFont);
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
     }
 
@@ -85,6 +91,7 @@ public class UserPostFragment extends Fragment {
                 }
 
                 viewHolder.setViewObjects(model.getEntryType(), displayName, model.getPostText(), model.getJournalText(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
+                viewHolder.hideUserDisplayName();
 
             }
         };

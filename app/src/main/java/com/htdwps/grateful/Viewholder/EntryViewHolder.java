@@ -81,6 +81,10 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         }
     }
 
+    public void hideUserDisplayName() {
+        this.entryUserDisplayName.setVisibility(View.GONE);
+    }
+
     private void setEntryTimestamp(String text) {
         this.entryTimestamp.setText(text);
     }

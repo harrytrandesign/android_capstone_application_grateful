@@ -35,7 +35,7 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
     public void runLayout() {
 
         // Load font assets
-        Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
+        Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
         Typeface scriptFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
         Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/Bevan-Regular.ttf");
 
@@ -49,7 +49,6 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
         buttonText.setTypeface(buttonFont);
     }
 
-    // TODO: Move this over to the submit new post page
     public void runQuoteRequest() {
         // Point to this web api
         String quoteUrl = API_URL + "method=" + api_method + "&format=" + api_format + "&lang=" + api_lang;

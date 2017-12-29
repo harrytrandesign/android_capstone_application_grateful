@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorPrimaryLight">#90caf9</color>
     <color name="colorAccent">#f5f5f5</color>
+    <color name="colorPrimaryLightest">#bbdefb</color>
     <color name="colorPeaceful">#64b5f6</color>
 
     <color name="color_logon_button">#90CAF9</color>

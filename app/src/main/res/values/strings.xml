@@ -38,7 +38,7 @@
     <string name="radio_label_journal">Journal</string>
     <string name="switch_label_public">Entry Will Be Public</string>
     <string name="switch_label_private">Entry Will Be Private</string>
-    <string name="submit.grateful.title">Something you\'re grateful about</string>
+    <string name="submit.grateful.title">Remember to stay grateful</string>
     <string name="submit.privacy.text">Keep this private? (Only for posts)</string>
     <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
     <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
@@ -56,6 +56,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_tv_comment_count">Comment</string>
     <string name="next_button_text">Next</string>
-    <string name="tv_quote_inspire_daily">Inspire Yourself Daily</string>
+    <string name="tv_quote_inspire_daily">Inspire Yourself Daily…</string>
+    <string name="tv_user_wrote">You Wrote</string>
 
 </resources>
