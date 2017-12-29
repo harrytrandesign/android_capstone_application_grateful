@@ -14,15 +14,39 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_standard"
+            android:layout_marginTop="@dimen/padding_standard"
+            android:paddingEnd="@dimen/padding_standard"
+            android:paddingStart="@dimen/padding_standard"
+            android:text="@string/tv_quote_inspire_daily"
+            android:textAllCaps="true"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/font_standard"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/padding_xlarge"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sun"/>
+
+        <TextView
             android:id="@+id/tv_inspiration_quote"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/padding_standard"
+            android:layout_marginStart="@dimen/padding_standard"
             android:layout_weight="1"
             android:gravity="center|center_vertical"
             android:padding="@dimen/padding_large"
             android:textColor="@color/color_text_white"
-            android:textSize="@dimen/font_large"/>
+            android:textSize="@dimen/font_standard"/>
 
         <TextView
             android:id="@+id/tv_next_button"

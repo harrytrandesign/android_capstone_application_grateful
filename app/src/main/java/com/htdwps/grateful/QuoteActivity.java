@@ -34,7 +34,7 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
 
     public void runLayout() {
 
-        scriptFont = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
+        scriptFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
 
         quoteText = findViewById(R.id.tv_inspiration_quote);
         buttonText = findViewById(R.id.tv_next_button);
