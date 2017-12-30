@@ -8,14 +8,10 @@
 
     <TextView
         android:id="@+id/tv_user_wrote_title"
+        style="@style/textview_recyclerview_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:paddingEnd="@dimen/padding_small"
-        android:paddingStart="@dimen/padding_small"
-        android:text="@string/tv_user_wrote"
-        android:textAllCaps="false"
-        android:textColor="@color/color_text_white"/>
+        android:text="@string/tv_user_wrote"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recyclerview_post"

@@ -54,7 +54,7 @@ public class UserPostFragment extends Fragment {
     }
 
     public void setTypeFace() {
-        Typeface headerFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Bevan-Regular.ttf");
+        Typeface headerFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Courgette-Regular.ttf");
         tvUserWrote.setTypeface(headerFont);
     }
 

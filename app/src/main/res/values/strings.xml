@@ -58,6 +58,7 @@
     <string name="next_button_text">Next</string>
     <string name="tv_quote_inspire_daily">Inspire Yourself Daily…</string>
     <string name="tv_user_wrote">You Wrote…</string>
+    <string name="tv_user_journal_wrote">Your Journal Entries</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

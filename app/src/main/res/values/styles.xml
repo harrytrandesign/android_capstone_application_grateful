@@ -38,6 +38,7 @@
     <style name="item_layout_textview" parent="text_font_color">
     </style>
 
+    <!-- TextView -->
     <style name="textview_header_style" parent="text_font_color">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginBottom">@dimen/padding_xsmall</item>
@@ -49,6 +50,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="textview_recyclerview_header">
+        <item name="android:paddingBottom">@dimen/padding_tiny</item>
+        <item name="android:paddingEnd">@dimen/padding_small</item>
+        <item name="android:paddingStart">@dimen/padding_small</item>
+        <item name="android:paddingTop">@dimen/padding_four</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/font_standard</item>
+    </style>
+
+    <!-- EditText -->
     <style name="submit_edittext_field" parent="text_font_color">
         <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
         <item name="android:backgroundTint">@color/colorPrimary</item>
@@ -61,6 +73,7 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
+    <!-- Radio || Switch Buttons-->
     <style name="radio_button" parent="text_font_color">
         <item name="android:onClick">onRadioButtonClicked</item>
         <item name="android:textAllCaps">true</item>
@@ -69,6 +82,7 @@
         <item name="android:buttonTint">@color/colorPrimary</item>
     </style>
 
+    <!-- Submit Button Styling -->
     <style name="submit_textview_button">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:padding">@dimen/padding_medium</item>
@@ -78,6 +92,7 @@
         <item name="android:textSize">@dimen/font_standard</item>
     </style>
 
+    <!-- Divider Lines -->
     <style name="horizontal_divider_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/line_height</item>

@@ -26,6 +26,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Fragment.UserJournalFragment;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GlideUtil;
@@ -131,7 +132,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 // Pass param of DatabaseReference to use the same Fragment but swap the database each time
                 return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             case 1:
-                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+                return new UserJournalFragment();
             case 2:
                 return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             case 3:
