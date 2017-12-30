@@ -7,54 +7,56 @@
     android:layout_height="match_parent"
     tools:context="com.htdwps.grateful.QuoteActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_inspire_daily"
+            style="@style/textview_header_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_standard"
-            android:layout_marginTop="@dimen/padding_standard"
-            android:paddingEnd="@dimen/padding_standard"
-            android:paddingStart="@dimen/padding_standard"
-            android:text="@string/tv_quote_inspire_daily"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/font_standard"
-            android:textStyle="bold"/>
+            android:text="@string/tv_quote_inspire_daily"/>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/padding_xlarge"
-            android:layout_marginTop="@dimen/padding_xlarge"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sunny_icon"/>
-
-        <TextView
-            android:id="@+id/tv_inspiration_quote"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/padding_standard"
-            android:layout_marginStart="@dimen/padding_standard"
-            android:layout_weight="1"
-            android:gravity="center|center_vertical"
-            android:padding="@dimen/padding_large"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/font_standard"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/padding_xlarge"
+                android:layout_marginTop="@dimen/padding_xlarge"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sunny_icon"/>
+
+            <TextView
+                android:id="@+id/tv_inspiration_quote"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/padding_standard"
+                android:layout_marginStart="@dimen/padding_standard"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical"
+                android:padding="@dimen/padding_large"
+                android:textColor="@color/color_text_primary"
+                android:textSize="@dimen/font_standard"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_next_button"
             style="@style/submit_textview_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:text="@string/next_button_text"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

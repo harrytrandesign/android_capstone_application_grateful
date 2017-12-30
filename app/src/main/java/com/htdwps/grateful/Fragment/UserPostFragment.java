@@ -47,10 +47,15 @@ public class UserPostFragment extends Fragment {
     }
 
     public void runLayout(View view) {
-        Typeface headerFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Bevan-Regular.ttf");
         tvUserWrote = view.findViewById(R.id.tv_user_wrote_title);
-        tvUserWrote.setTypeface(headerFont);
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
+
+        setTypeFace();
+    }
+
+    public void setTypeFace() {
+        Typeface headerFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Bevan-Regular.ttf");
+        tvUserWrote.setTypeface(headerFont);
     }
 
     public void runInitialize() {

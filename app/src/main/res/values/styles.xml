@@ -39,30 +39,34 @@
     </style>
 
     <style name="textview_header_style" parent="text_font_color">
-        <item name="android:padding">@dimen/padding_xsmall</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginBottom">@dimen/padding_xsmall</item>
+        <item name="android:layout_marginTop">@dimen/padding_standard</item>
+        <item name="android:paddingEnd">@dimen/padding_standard</item>
+        <item name="android:paddingStart">@dimen/padding_standard</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/font_xstandard</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="submit_edittext_field" parent="text_font_color">
         <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
-        <item name="android:backgroundTint">@color/color_text_white</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/font_large</item>
     </style>
 
     <style name="submit_edit_field_hint" parent="text_font_color">
         <item name="android:paddingEnd">@dimen/padding_xsmall</item>
         <item name="android:paddingStart">@dimen/padding_xsmall</item>
-        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textSize">@dimen/font_small</item>
     </style>
 
     <style name="radio_button" parent="text_font_color">
         <item name="android:onClick">onRadioButtonClicked</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:buttonTint">@color/color_text_white</item>
+        <item name="android:buttonTint">@color/colorPrimary</item>
     </style>
 
     <style name="submit_textview_button">

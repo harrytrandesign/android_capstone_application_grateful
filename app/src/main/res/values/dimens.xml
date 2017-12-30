@@ -19,6 +19,7 @@
     <dimen name="font_small">16sp</dimen>
     <dimen name="font_medium">18sp</dimen>
     <dimen name="font_standard">24sp</dimen>
+    <dimen name="font_xstandard">32sp</dimen>
     <dimen name="font_large">36sp</dimen>
     <dimen name="font_xlarge">48sp</dimen>
     <dimen name="font_xxlarge">64sp</dimen>

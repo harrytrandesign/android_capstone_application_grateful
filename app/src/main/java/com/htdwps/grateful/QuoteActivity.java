@@ -29,7 +29,6 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
 
         runLayout();
         runQuoteRequest();
-
     }
 
     public void runLayout() {
@@ -37,7 +36,7 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
         // Load font assets
         Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
         Typeface scriptFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
-        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/Bevan-Regular.ttf");
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
 
         inspireText = findViewById(R.id.tv_inspire_daily);
         quoteText = findViewById(R.id.tv_inspiration_quote);

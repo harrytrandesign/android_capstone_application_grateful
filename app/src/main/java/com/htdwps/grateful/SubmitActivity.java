@@ -35,6 +35,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout journalLayout;
     TextView postButton;
     TextView tvEntryHeader;
+    TextView tvPostHint;
     TextView tvSubmitJournalHint;
     RadioButton radioButtonPost;
     RadioButton radioButtonJournal;
@@ -72,14 +73,19 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
     public void setCustomTypeface() {
         // Load the font asset
+        Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
         Typeface editTextFont = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
-        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/Bevan-Regular.ttf");
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
 
-        tvEntryHeader.setTypeface(editTextFont);
+        tvEntryHeader.setTypeface(headerFont);
+
         postText.setTypeface(editTextFont);
         journalText.setTypeface(editTextFont);
         radioButtonPost.setTypeface(editTextFont);
         radioButtonJournal.setTypeface(editTextFont);
+
+        tvPostHint.setTypeface(buttonFont);
+        tvSubmitJournalHint.setTypeface(buttonFont);
         postButton.setTypeface(buttonFont);
     }
 
@@ -87,6 +93,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         journalLayout = findViewById(R.id.journal_layout);
         journalLayout.setVisibility(View.GONE);
         tvEntryHeader = findViewById(R.id.tv_submit_title);
+        tvPostHint = findViewById(R.id.submit_hint_post);
         tvSubmitJournalHint = findViewById(R.id.submit_hint_journal);
         postText = findViewById(R.id.et_post_input);
         journalText = findViewById(R.id.et_journal_input);
@@ -95,6 +102,8 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         radioButtonJournal = findViewById(R.id.radio_label_journal);
         postButton = findViewById(R.id.tv_submit_button);
         postButton.setOnClickListener(this);
+
+        // Privacy check switch, switch between private and public posting
 //        publicSwitch = findViewById(R.id.switch_private_post);
 //        publicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
@@ -149,10 +158,11 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
     public void uploadPostToDatabase() {
 
-        //  If Journal entry, make sure they add in journal description, than upload to a single journal folder.
-        //      Journal folder distinguished by user uploaded by key username and value auth.uid match.
-        //  If Post entry, if private than only send to personal folder.
-        //  else, if public is set send a copy to personal folder and a copy to public folder.
+        /*  If Journal entry, make sure they add in journal description, than upload to a single journal folder.
+         *  Journal folder distinguished by user uploaded by key username and value auth.uid match.
+         *  If Post entry, if private than only send to personal folder.
+         *  else, if public is set send a copy to personal folder and a copy to public folder.
+         */
 
         String randomPostKey = mainReference.push().getKey();
 

@@ -4,21 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingEnd="@dimen/padding_small"
-    android:paddingStart="@dimen/padding_small"
     tools:context="com.htdwps.grateful.Fragment.UserPostFragment">
 
     <TextView
         android:id="@+id/tv_user_wrote_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingEnd="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_small"
         android:text="@string/tv_user_wrote"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@color/color_text_white"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recyclerview_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall"/>
 
 </LinearLayout>
