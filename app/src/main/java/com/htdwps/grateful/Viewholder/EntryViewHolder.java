@@ -47,6 +47,8 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         setEntryPostText(text3);
         setEntryJournalText(text4);
         setEntryTimestamp(text5);
+        // TODO: 12/30/17 - Hide the comment count until it's needed.
+        entryCommentCount.setVisibility(View.INVISIBLE);
     }
 
     private void setEntryTypeImage(String text) {

@@ -20,8 +20,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recyclerview_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -43,6 +43,8 @@
     <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
     <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
     <string name="submit.button">Submit</string>
+    <string name="submit_error_post_title_text">Enter a Title</string>
+    <string name="submit_error_journal_text">Enter a journal entry</string>
 
     <!-- Placeholder Text -->
     <string name="item_post_displayname">Member shared…</string>
@@ -52,11 +54,11 @@
     <string name="navi_tv_displayname_placeholder">Welcome Username</string>
     <string name="navi_tv_welcome_user">Welcome</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_tv_comment_count">Comment</string>
     <string name="next_button_text">Next</string>
     <string name="tv_quote_inspire_daily">Inspire Yourself Daily…</string>
-    <string name="tv_user_wrote">You Wrote</string>
+    <string name="tv_user_wrote">You Wrote…</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -41,7 +41,6 @@ public class        AuthActivity
     ProgressDialog progressDialog;
     TextView applicationLogo;
     TextView signinButton;
-    Typeface logoFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,17 +73,23 @@ public class        AuthActivity
     }
 
     public void setCustomTypeface() {
-        logoFont = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
-        applicationLogo.setTypeface(logoFont);
+
+        Typeface logoTypeface = Typeface.createFromAsset(getAssets(), "fonts/sacramento.ttf");
+        Typeface buttonTypeface = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
+
+        applicationLogo.setTypeface(logoTypeface);
+        signinButton.setTypeface(buttonTypeface);
 
     }
 
     public void setupLayout() {
+
         applicationLogo = findViewById(R.id.tv_application_logo);
         signinButton = findViewById(R.id.tv_signin_button);
         signinButton.setOnClickListener(this);
 
         setCustomTypeface();
+
     }
 
     private void signInNow() {

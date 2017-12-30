@@ -1,7 +1,5 @@
 package com.htdwps.grateful;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,12 +26,9 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.htdwps.grateful.Adapter.HttpApiGetRequest;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GlideUtil;
-
-import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.Fabric;
@@ -129,37 +123,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
-    }
-
-    // TODO: Move this over to the submit new post page
-    public void runQuoteRequest() {
-        // Point to this web api
-        String quoteUrl = API_URL + "method=" + api_method + "&format=" + api_format + "&lang=" + api_lang;
-
-        // Place what we return into this string
-        String result;
-
-        // Create new instnce of the AsyncTask
-        HttpApiGetRequest getRequest = new HttpApiGetRequest();
-
-        // Perform doInBackground method from AsyncTask getting the results for result string passing in our url
-        try {
-            result = getRequest.execute(quoteUrl).get();
-            Log.i("api", result);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(result)
-                    .setCancelable(true)
-                    .setPositiveButton("Close   ", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
     }
 
     private Fragment getHomeFragment() {

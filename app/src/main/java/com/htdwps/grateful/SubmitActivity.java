@@ -19,6 +19,7 @@ import com.google.firebase.database.ServerValue;
 import com.htdwps.grateful.Model.Entries;
 import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.UserAuthCheckUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +31,8 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference personalReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    EditText postText;
-    EditText journalText;
+    EditText etPostTitleText;
+    EditText etJournalEntryText;
     LinearLayout journalLayout;
     TextView postButton;
     TextView tvEntryHeader;
@@ -56,11 +57,18 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         // TODO: Hide the switch for now, all posts receive isPublic = true until later update
         isPublic = true;
         entryType = "Post";
-        postString = "";
-        journalString = "";
+//        postString = "";
+//        journalString = "";
 
         setupFirebase();
         setupLayout();
+
+    }
+
+    public void authUserVerification() {
+        Intent signOnIntent = new Intent(SubmitActivity.this, AuthActivity.class);
+        signOnIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(signOnIntent);
     }
 
     public void setupFirebase() {
@@ -69,6 +77,14 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         publicReference = FirebaseUtil.getAllPostRef();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        // Check user isn't null
+        if (firebaseUser == null) {
+
+            UserAuthCheckUtil.authUserVerification(this);
+
+        }
+
     }
 
     public void setCustomTypeface() {
@@ -79,8 +95,8 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
         tvEntryHeader.setTypeface(headerFont);
 
-        postText.setTypeface(editTextFont);
-        journalText.setTypeface(editTextFont);
+        etPostTitleText.setTypeface(editTextFont);
+        etJournalEntryText.setTypeface(editTextFont);
         radioButtonPost.setTypeface(editTextFont);
         radioButtonJournal.setTypeface(editTextFont);
 
@@ -95,8 +111,8 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         tvEntryHeader = findViewById(R.id.tv_submit_title);
         tvPostHint = findViewById(R.id.submit_hint_post);
         tvSubmitJournalHint = findViewById(R.id.submit_hint_journal);
-        postText = findViewById(R.id.et_post_input);
-        journalText = findViewById(R.id.et_journal_input);
+        etPostTitleText = findViewById(R.id.et_post_input);
+        etJournalEntryText = findViewById(R.id.et_journal_input);
         radioButtonPost = findViewById(R.id.radio_label_post);
         radioButtonPost.setChecked(true);
         radioButtonJournal = findViewById(R.id.radio_label_journal);
@@ -173,32 +189,63 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         switch (entryType) {
 
             case "Post":
-                postString = postText.getText().toString();
 
-                entries = new Entries(user, user.getUserDisplayName(), entryType, postString, ServerValue.TIMESTAMP, "");
+                postString = etPostTitleText.getText().toString();
 
-                if (isPublic) {
-                    newPost.put("post_public_all/" + randomPostKey, entries);
+                if (postString.equals("") || postString == null || postString.length() < 1) {
+
+                    etPostTitleText.setError(getApplication().getResources().getString(R.string.submit_error_post_title_text));
+
+                    break;
+
+                } else {
+
+                    entries = new Entries(user, user.getUserDisplayName(), entryType, postString, ServerValue.TIMESTAMP, "");
+
+                    // For the moment every post is set to isPublic = true
+                    if (isPublic) {
+
+                        newPost.put("post_public_all/" + randomPostKey, entries);
+
+                    }
+
+                    newPost.put("post_private_user/" + user.getUserid() + "/" + randomPostKey, entries);
+
+                    publishToDatabase(newPost);
+
+                    break;
+
                 }
 
-                newPost.put("post_private_user/" + user.getUserid() + "/" + randomPostKey, entries);
-
-                publishToDatabase(newPost);
-                
-                break;
-
             case "Journal":
-                postString = postText.getText().toString();
-                journalString = journalText.getText().toString();
 
-                entries = new Entries(user, user.getUserDisplayName(), entryType, postString, journalString, ServerValue.TIMESTAMP, "");
+                postString = etPostTitleText.getText().toString();
+                journalString = etJournalEntryText.getText().toString();
 
-                newPost.put("journal_public_all/" + randomPostKey, entries);
-                newPost.put("journal_private_user/" + user.getUserid() + "/" + randomPostKey, true);
+                if (postString.equals("") || postString == null || postString.length() < 1) {
 
-                publishToDatabase(newPost);
+                    etPostTitleText.setError(getApplication().getResources().getString(R.string.submit_error_post_title_text));
 
-                break;
+                    break;
+
+                } else if (journalString.equals("") || journalString == null || journalString.length() < 1) {
+
+                    etJournalEntryText.setError(getApplication().getResources().getString(R.string.submit_error_journal_text));
+
+                    break;
+
+                } else {
+
+                    entries = new Entries(user, user.getUserDisplayName(), entryType, postString, journalString, ServerValue.TIMESTAMP, "");
+
+                    newPost.put("journal_public_all/" + randomPostKey, entries);
+                    newPost.put("journal_private_user/" + user.getUserid() + "/" + randomPostKey, true);
+
+                    publishToDatabase(newPost);
+
+                    break;
+
+                }
 
             default:
 
