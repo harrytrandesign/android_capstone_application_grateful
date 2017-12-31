@@ -6,27 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navigation_menu_personal_posts"
-            android:icon="@drawable/icon_like_list"
+            android:icon="@drawable/ic_inbox_black_48dp"
             android:title="@string/navigation_menu_personal"/>
         <item
             android:id="@+id/navigation_menu_personal_journal"
-            android:icon="@drawable/icon_like_list"
+            android:icon="@drawable/ic_library_books_black_48dp"
             android:title="@string/navigation_menu_journal_personal"/>
         <item
             android:id="@+id/navigation_menu_public_posts"
-            android:icon="@drawable/icon_like_list"
+            android:icon="@drawable/ic_line_weight_black_48dp"
             android:title="@string/navigation_menu_public"/>
         <item
             android:id="@+id/navigation_menu_public_journal"
-            android:icon="@drawable/icon_like_list"
+            android:icon="@drawable/ic_view_agenda_black_48dp"
             android:title="@string/navigation_menu_journal_public"/>
         <item
             android:id="@+id/navigation_menu_invite_friends"
-            android:icon="@drawable/icon_like_list"
+            android:icon="@drawable/ic_person_add_black_48dp"
             android:title="@string/navigation_menu_invite"/>
         <item
             android:id="@+id/navigation_menu_log_off"
-            android:icon="@drawable/icon_like_list"
+            android:icon="@drawable/ic_exit_to_app_black_48dp"
             android:title="@string/navigation_menu_signout"/>
     </group>
 

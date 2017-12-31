@@ -90,7 +90,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     public void setCustomTypeface() {
         // Load the font asset
         Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
-        Typeface editTextFont = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+        Typeface editTextFont = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
         Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
 
         tvEntryHeader.setTypeface(headerFont);

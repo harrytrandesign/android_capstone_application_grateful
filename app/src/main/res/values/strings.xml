@@ -23,10 +23,13 @@
     <string name="navigation_menu_invite">Invite Friends</string>
     <string name="navigation_menu_signout">Log Off</string>
 
+    <string name="navigation_menu_user_post">Your Posts</string>
+    <string name="navigation_menu_user_journal">Your Entries</string>
+
     <!-- Labels for the menu items -->
     <string-array name="navigation_labels">
-        <item>@string/navigation_menu_personal</item>
-        <item>@string/navigation_menu_journal_personal</item>
+        <item>@string/navigation_menu_user_post</item>
+        <item>@string/navigation_menu_user_journal</item>
         <item>@string/navigation_menu_public</item>
         <item>@string/navigation_menu_journal_public</item>
         <item>@string/navigation_menu_invite</item>

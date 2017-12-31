@@ -21,12 +21,12 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
     private TextView entryJournalText;
     private TextView entryTimestamp;
     private TextView entryCommentCount;
-    private Typeface listTypeface;
 
     public EntryViewHolder(View itemView) {
         super(itemView);
 
-        listTypeface = Typeface.createFromAsset(itemView.getContext().getAssets(),"fonts/raleway.ttf");
+        Typeface listTypeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/passion.ttf");
+        Typeface footerTypeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/raleway.ttf");
 
         entryTypeImage = itemView.findViewById(R.id.iv_icon_entry_type);
         entryUserDisplayName = itemView.findViewById(R.id.item_tv_post_author);
@@ -37,8 +37,8 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
 
         this.entryPostText.setTypeface(listTypeface);
         this.entryJournalText.setTypeface(listTypeface);
-        this.entryTimestamp.setTypeface(listTypeface);
-        this.entryCommentCount.setTypeface(listTypeface);
+        this.entryTimestamp.setTypeface(footerTypeface);
+        this.entryCommentCount.setTypeface(footerTypeface);
     }
 
     public void setViewObjects(String text1, String text2, String text3, String text4, String text5) {
@@ -55,13 +55,13 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         switch (text) {
             case "Post":
 
-                GlideUtil.loadImage(R.drawable.post, entryTypeImage);
+                GlideUtil.loadImage(R.drawable.ic_local_parking_black_48dp, entryTypeImage);
 
                 break;
 
             case "Journal":
 
-                GlideUtil.loadImage(R.drawable.journal, entryTypeImage);
+                GlideUtil.loadImage(R.drawable.ic_content_paste_black_48dp, entryTypeImage);
 
                 break;
         }

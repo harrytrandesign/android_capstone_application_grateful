@@ -6,13 +6,6 @@
     android:orientation="vertical"
     tools:context="com.htdwps.grateful.Fragment.UserJournalFragment">
 
-    <TextView
-        android:id="@+id/tv_user_journal_wrote_title"
-        style="@style/textview_recyclerview_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_user_journal_wrote"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recyclerview_journal"
         android:layout_width="match_parent"

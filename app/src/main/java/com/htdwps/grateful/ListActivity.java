@@ -26,6 +26,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Fragment.JournalFragment;
 import com.htdwps.grateful.Fragment.UserJournalFragment;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -132,11 +133,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 // Pass param of DatabaseReference to use the same Fragment but swap the database each time
                 return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             case 1:
-                return new UserJournalFragment();
+                return UserJournalFragment.newInstance(FirebaseUtil.getJournalListRef());
             case 2:
                 return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             case 3:
-                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+                return JournalFragment.newInstance(FirebaseUtil.getJournalListRef());
             case 4:
                 return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
             default:
@@ -157,7 +158,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if (navItemIndex < 3) {
+        if (navItemIndex < 4) {
             Runnable mPendingRunnable = new Runnable() {
                 @Override
                 public void run() {

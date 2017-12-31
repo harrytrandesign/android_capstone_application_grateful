@@ -5,24 +5,28 @@
 
     <item
         android:id="@+id/settings_menu_terms_rules_link"
+        android:icon="@drawable/ic_content_paste_black_48dp"
         android:orderInCategory="97"
         android:title="@string/menu.label.terms"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/settings_menu_privacy_policy_link"
+        android:icon="@drawable/ic_local_parking_black_48dp"
         android:orderInCategory="98"
         android:title="@string/menu.label.privacy"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/settings_menu_feedback_link"
+        android:icon="@drawable/ic_mail_outline_black_48dp"
         android:orderInCategory="99"
         android:title="@string/menu.label.feedback"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/settings_menu_logout_link"
+        android:icon="@drawable/ic_exit_to_app_black_48dp"
         android:orderInCategory="100"
         android:title="@string/menu.label.logoff"
         app:showAsAction="never"/>
