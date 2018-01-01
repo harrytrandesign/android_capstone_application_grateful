@@ -15,7 +15,10 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Model.Entries;
 import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.R;
@@ -29,6 +32,7 @@ public class UserJournalFragment extends Fragment {
     RecyclerView.Adapter<EntryViewHolder>   listAdapter;
     DatabaseReference                       mainReference;
     DatabaseReference                       userJournalReference;
+    DatabaseReference                       publicJournalReference;
     FirebaseUser                            firebaseUser;
     LinearLayoutManager                     linearLayoutManager;
     RecyclerView                            recyclerView;
@@ -59,7 +63,8 @@ public class UserJournalFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         user = FirebaseUtil.getCurrentUser();
         mainReference = FirebaseUtil.getBaseRef();
-        userJournalReference = FirebaseUtil.getAllJournalRef();
+        userJournalReference = FirebaseUtil.getUserJournalRef().child(user.getUserid());
+        publicJournalReference = FirebaseUtil.getAllJournalRef();
     }
 
     public LinearLayoutManager createLayoutManager() {
@@ -72,28 +77,48 @@ public class UserJournalFragment extends Fragment {
     }
 
     public RecyclerView.Adapter<EntryViewHolder> createAdapter(DatabaseReference databaseReference) {
-        listAdapter = new FirebaseRecyclerAdapter<Entries, EntryViewHolder>
+        listAdapter = new FirebaseRecyclerAdapter<Boolean, EntryViewHolder>
                 (
-                        Entries.class,
+                        Boolean.class,
                         R.layout.item_grateful_post,
                         EntryViewHolder.class,
                         databaseReference
                 ) {
 
             @Override
-            protected void populateViewHolder(EntryViewHolder viewHolder, Entries model, int position) {
-                final String postKey = ((FirebaseRecyclerAdapter) listAdapter).getRef(position).getKey();
+            protected void populateViewHolder(final EntryViewHolder viewHolder, Boolean bool, int position) {
+                final String postKey = this.getRef(position).getKey();
 
-                String displayName;
-                String userId = model.getUser().getUserid();
-                if (userId.equals(firebaseUser.getUid())) {
-                    displayName = "You";
-                } else {
-                    displayName = model.getUserDisplayName();
-                }
+                publicJournalReference.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Entries entries = dataSnapshot.getValue(Entries.class);
 
-                viewHolder.setViewObjects(model.getEntryType(), displayName, model.getPostText(), model.getJournalText(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
-                // viewHolder.hideUserDisplayName();
+                        if (entries != null) {
+                            String displayName;
+                            String userId = entries.getUser().getUserid();
+
+                            // Own journals don't need to show the you wrote... header above each journal post
+                            if (userId != null && userId.equals(firebaseUser.getUid())) {
+
+                                displayName = "You";
+                                viewHolder.hideUserDisplayName();
+
+                            } else {
+
+                                displayName = entries.getUser().getUserDisplayName();
+
+                            }
+
+                            viewHolder.setViewObjects(entries.getEntryType(), displayName, entries.getPostText(), entries.getJournalText(), DateUtils.getRelativeTimeSpanString((long) entries.getTimestamp()).toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         };

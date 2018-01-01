@@ -26,6 +26,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Adapter.FeedbackSubmitDialogBox;
 import com.htdwps.grateful.Fragment.JournalFragment;
 import com.htdwps.grateful.Fragment.UserJournalFragment;
 import com.htdwps.grateful.Fragment.UserPostFragment;
@@ -52,12 +53,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private static final int REQUEST_INVITE = 0;
 
     // Tags used to attach the fragments
-    private static final String TAG_DISCUSSION = "discussion";
-    private static final String TAG_PERSONAL = "personal";
-    private static final String TAG_LIKED = "liked";
+    private static final String TAG_PRIVATE_POST = "posts_private";
+    private static final String TAG_PRIVATE_JOURNAL = "journal_private";
+    private static final String TAG_PUBLIC_JOURNAL = "journal_public";
     private static final String TAG_INVITE = "invite";
-    private static final String TAG_CATEGORY = "category";
-    public static String CURRENT_TAG = TAG_DISCUSSION;
+    public static String CURRENT_TAG = TAG_PRIVATE_POST;
     private String[] activityTitles;
 
     private Handler mHandler;
@@ -81,7 +81,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_DISCUSSION;
+            CURRENT_TAG = TAG_PRIVATE_POST;
             loadHomeFragment();
         }
 
@@ -135,11 +135,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 return UserJournalFragment.newInstance(FirebaseUtil.getJournalListRef());
             case 2:
-                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
-            case 3:
-                return JournalFragment.newInstance(FirebaseUtil.getJournalListRef());
-            case 4:
-                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+                return JournalFragment.newInstance(FirebaseUtil.getAllJournalRef());
             default:
                 return new UserPostFragment();
         }
@@ -158,7 +154,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if (navItemIndex < 4) {
+        if (navItemIndex < 3) {
             Runnable mPendingRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -224,34 +220,36 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.navigation_menu_personal_posts:
 
-                        CURRENT_TAG = TAG_DISCUSSION;
+                        CURRENT_TAG = TAG_PRIVATE_POST;
                         navItemIndex = 0;
 
                         break;
                     case R.id.navigation_menu_personal_journal:
 
-                        CURRENT_TAG = TAG_PERSONAL;
+                        CURRENT_TAG = TAG_PRIVATE_JOURNAL;
                         navItemIndex = 1;
 
                         break;
-                    case R.id.navigation_menu_public_posts:
-
-                        CURRENT_TAG = TAG_LIKED;
-                        navItemIndex = 2;
-
-                        break;
+//                    case R.id.navigation_menu_public_posts:
+//
+//                        CURRENT_TAG = TAG_PUBLIC_JOURNAL;
+//                        navItemIndex = 2;
+//
+//                        break;
 
                     case R.id.navigation_menu_public_journal:
 
-                        CURRENT_TAG = TAG_PERSONAL;
-                        navItemIndex = 3;
+                        CURRENT_TAG = TAG_PUBLIC_JOURNAL;
+                        navItemIndex = 2;
 
                         break;
 
                     case R.id.navigation_menu_invite_friends:
 
-                        CURRENT_TAG = TAG_LIKED;
-                        navItemIndex = 4;
+                        CURRENT_TAG = TAG_INVITE;
+                        navItemIndex = 3;
+
+                        sendInvitationWindow();
 
                         break;
 
@@ -315,13 +313,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.settings_menu_feedback_link:
 
-//                Intent commentTestIntent = new Intent(FeedActivity.this, PostCommentActivity.class);
-//                startActivity(commentTestIntent);
-
-//                startActivity(new Intent(this, PostCommentActivity.class));
-
-//                FeedbackDialogBoxOpen feedbackDialogBoxOpen = new FeedbackDialogBoxOpen(this);
-//                feedbackDialogBoxOpen.cloneInContext(this);
+                FeedbackSubmitDialogBox feedbackSubmitDialogBox = new FeedbackSubmitDialogBox(this);
+                feedbackSubmitDialogBox.cloneInContext(this);
 
                 break;
 

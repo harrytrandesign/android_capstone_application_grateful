@@ -7,28 +7,49 @@ package com.htdwps.grateful.Model;
 public class Feedback {
 
     private User user;
-    private String text;
+    private String feedback;
     private Object timestamp;
+    private Boolean adminread;
 
     public Feedback() {
-        // Empty POJO
     }
 
-    public Feedback(User user, String text, Object timestamp) {
+    public Feedback(User user, String feedback, Object timestamp, Boolean adminread) {
         this.user = user;
-        this.text = text;
+        this.feedback = feedback;
         this.timestamp = timestamp;
+        this.adminread = adminread;
     }
 
     public User getUser() {
         return user;
     }
 
-    public String getText() {
-        return text;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
     public Object getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(Object timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Boolean getAdminread() {
+        return adminread;
+    }
+
+    public void setAdminread(Boolean adminread) {
+        this.adminread = adminread;
     }
 }

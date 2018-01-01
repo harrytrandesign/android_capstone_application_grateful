@@ -7,10 +7,10 @@
     <string name="logon_button_text">Sign In</string>
     <string name="dialog.message.loading">Loading…</string>
     <string name="invite.title.label">Invite Your Friends</string>
-    <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for, like me.</string>
+    <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for. You know, like me.</string>
     <string name="menu.label.terms">Terms &amp; Conditions</string>
     <string name="menu.label.privacy">Privacy Policy</string>
-    <string name="menu.label.feedback">Feedback</string>
+    <string name="menu.label.feedback">Provide Feedback</string>
     <string name="menu.label.logoff">Log Off</string>
     <string name="drawer.open">Open Drawer</string>
     <string name="drawer.close">Close Drawer</string>
@@ -18,7 +18,7 @@
     <!-- Navigation Drawer menu labels -->
     <string name="navigation_menu_personal">My Posts</string>
     <string name="navigation_menu_journal_personal">My Journal</string>
-    <string name="navigation_menu_public">Public Posts</string>
+    <!--<string name="navigation_menu_public">Public Posts</string>-->
     <string name="navigation_menu_journal_public">Public Journal</string>
     <string name="navigation_menu_invite">Invite Friends</string>
     <string name="navigation_menu_signout">Log Off</string>
@@ -30,7 +30,7 @@
     <string-array name="navigation_labels">
         <item>@string/navigation_menu_user_post</item>
         <item>@string/navigation_menu_user_journal</item>
-        <item>@string/navigation_menu_public</item>
+        <!--<item>@string/navigation_menu_public</item>-->
         <item>@string/navigation_menu_journal_public</item>
         <item>@string/navigation_menu_invite</item>
         <item>@string/navigation_menu_signout</item>
@@ -56,6 +56,9 @@
     <string name="item_tv_timestamp">December 13, 2017</string>
     <string name="navi_tv_displayname_placeholder">Welcome Username</string>
     <string name="navi_tv_welcome_user">Welcome</string>
+
+    <string name="new_feedback_title">Feedback (Max 300 characters)</string>
+    <string name="feedback_hint">We want to hear from you.</string>
 
     <string name="item_tv_comment_count">Comment</string>
     <string name="next_button_text">Next</string>

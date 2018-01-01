@@ -12,10 +12,10 @@
             android:id="@+id/navigation_menu_personal_journal"
             android:icon="@drawable/ic_library_books_black_48dp"
             android:title="@string/navigation_menu_journal_personal"/>
-        <item
-            android:id="@+id/navigation_menu_public_posts"
-            android:icon="@drawable/ic_line_weight_black_48dp"
-            android:title="@string/navigation_menu_public"/>
+        <!--<item-->
+            <!--android:id="@+id/navigation_menu_public_posts"-->
+            <!--android:icon="@drawable/ic_line_weight_black_48dp"-->
+            <!--android:title="@string/navigation_menu_public"/>-->
         <item
             android:id="@+id/navigation_menu_public_journal"
             android:icon="@drawable/ic_view_agenda_black_48dp"
