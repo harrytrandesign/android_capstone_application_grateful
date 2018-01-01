@@ -47,7 +47,7 @@ public class FeedbackSubmitDialogBox extends LayoutInflater implements View.OnTo
         feedbackReference = FirebaseUtil.getFeedbackRef();
         final User user = FirebaseUtil.getCurrentUser();
 
-        feedback_text_field = (EditText) view.findViewById(R.id.wyd_feedback_add);
+        feedback_text_field = view.findViewById(R.id.wyd_feedback_add);
 
         feedback_text_field.addTextChangedListener(new TextWatcher() {
             @Override

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/new_feedback_title"
         android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/font_tiny"
         android:textStyle="bold"/>
 

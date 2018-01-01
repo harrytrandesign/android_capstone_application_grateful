@@ -25,13 +25,14 @@
 
     <string name="navigation_menu_user_post">Your Posts</string>
     <string name="navigation_menu_user_journal">Your Entries</string>
+    <string name="navigation_menu_public_journal_feed">Public Journal Feed</string>
 
     <!-- Labels for the menu items -->
     <string-array name="navigation_labels">
         <item>@string/navigation_menu_user_post</item>
         <item>@string/navigation_menu_user_journal</item>
         <!--<item>@string/navigation_menu_public</item>-->
-        <item>@string/navigation_menu_journal_public</item>
+        <item>@string/navigation_menu_public_journal_feed</item>
         <item>@string/navigation_menu_invite</item>
         <item>@string/navigation_menu_signout</item>
     </string-array>
@@ -57,7 +58,7 @@
     <string name="navi_tv_displayname_placeholder">Welcome Username</string>
     <string name="navi_tv_welcome_user">Welcome</string>
 
-    <string name="new_feedback_title">Feedback (Max 300 characters)</string>
+    <string name="new_feedback_title">We Want Your Feedback (Max 300 characters)</string>
     <string name="feedback_hint">We want to hear from you.</string>
 
     <string name="item_tv_comment_count">Comment</string>
