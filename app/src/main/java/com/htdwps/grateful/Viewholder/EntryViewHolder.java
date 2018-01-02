@@ -36,7 +36,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         entryCommentCount = itemView.findViewById(R.id.item_tv_comment_count);
 
         this.entryPostText.setTypeface(listTypeface);
-        this.entryJournalText.setTypeface(listTypeface);
+//        this.entryJournalText.setTypeface(listTypeface);
         this.entryTimestamp.setTypeface(footerTypeface);
         this.entryCommentCount.setTypeface(footerTypeface);
     }

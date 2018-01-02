@@ -16,8 +16,8 @@
     <string name="drawer.close">Close Drawer</string>
 
     <!-- Navigation Drawer menu labels -->
-    <string name="navigation_menu_personal">My Posts</string>
-    <string name="navigation_menu_journal_personal">My Journal</string>
+    <string name="navigation_menu_personal">Grateful Posts</string>
+    <string name="navigation_menu_journal_personal">Journal Entries</string>
     <!--<string name="navigation_menu_public">Public Posts</string>-->
     <string name="navigation_menu_journal_public">Public Journal</string>
     <string name="navigation_menu_invite">Invite Friends</string>
@@ -30,7 +30,7 @@
     <!-- Labels for the menu items -->
     <string-array name="navigation_labels">
         <item>@string/navigation_menu_user_post</item>
-        <item>@string/navigation_menu_user_journal</item>
+        <item>@string/navigation_menu_journal_personal</item>
         <!--<item>@string/navigation_menu_public</item>-->
         <item>@string/navigation_menu_public_journal_feed</item>
         <item>@string/navigation_menu_invite</item>
@@ -42,7 +42,7 @@
     <string name="radio_label_journal">Journal</string>
     <string name="switch_label_public">Entry Will Be Public</string>
     <string name="switch_label_private">Entry Will Be Private</string>
-    <string name="submit.grateful.title">Remember to stay grateful</string>
+    <string name="submit.grateful.title">Remember to stay Grateful</string>
     <string name="submit.privacy.text">Keep this private? (Only for posts)</string>
     <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
     <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
