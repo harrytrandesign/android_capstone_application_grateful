@@ -67,6 +67,8 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
         privateReference = FirebaseUtil.getGratefulPersonalRef();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
         etGratefulPostEntryField = findViewById(R.id.et_grateful_post_entry);
         tvUploadImageButtonBtn = findViewById(R.id.tv_upload_image_button);
@@ -140,7 +142,9 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
 
         Timber.i("Submitting to firebase already.");
-        StorageReference reference = storageReference.child(firebaseUser.getUid()).child("grateful_images");
+        String randomPostKey = publicReference.push().getKey();
+
+        StorageReference reference = storageReference.child(firebaseUser.getUid()).child("image" + randomPostKey);
         reference.putBytes(bytes).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
