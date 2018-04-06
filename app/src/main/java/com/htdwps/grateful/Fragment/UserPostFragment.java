@@ -44,6 +44,27 @@ public class UserPostFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_user_post, container, false);
+
+        runLayout(view);
+        runInitialize();
+        createLayoutManager();
+        createAdapter(userPostReference);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(listAdapter);
+
+        return view;
+    }
+
     public void runLayout(View view) {
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
 
@@ -99,27 +120,6 @@ public class UserPostFragment extends Fragment {
         };
 
         return listAdapter;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_post, container, false);
-
-        runLayout(view);
-        runInitialize();
-        createLayoutManager();
-        createAdapter(userPostReference);
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(listAdapter);
-
-        return view;
     }
 
     public void onButtonPressed(Uri uri) {

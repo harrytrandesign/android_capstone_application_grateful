@@ -69,6 +69,7 @@
                     style="@style/item_layout_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxLines="5"
                     android:text="@string/item_post_long_text"
                     android:textSize="@dimen/font_small"/>

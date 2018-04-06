@@ -40,6 +40,14 @@ public class FirebaseUtil {
         return new User(user.getUid(), user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString());
     }
 
+    public static DatabaseReference getGratefulPostsRef() {
+        return getBaseRef().child("grateful_posts_public");
+    }
+
+    public static DatabaseReference getGratefulPersonalRef() {
+        return getBaseRef().child("grateful_personal_posts");
+    }
+
     public static DatabaseReference getUserPostRef() {
         return getBaseRef().child("post_private_user");
     }
