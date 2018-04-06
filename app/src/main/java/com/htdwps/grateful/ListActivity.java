@@ -200,7 +200,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createTopic() {
-        Intent discussionIntent = new Intent(ListActivity.this, SubmitActivity.class);
+        Intent discussionIntent = new Intent(ListActivity.this, SubmitActivityV2.class);
         startActivity(discussionIntent);
     }
 

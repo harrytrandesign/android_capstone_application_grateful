@@ -1,6 +1,7 @@
 package com.htdwps.grateful.Util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
@@ -31,6 +32,14 @@ public class GlideUtil {
                 .load(url)
                 .dontAnimate()
                 .fitCenter()
+                .into(imageView);
+    }
+
+    public static void loadBitmapImage(Bitmap bitmap, byte[] baosArray, ImageView imageView) {
+        Context context = imageView.getContext();
+        Glide.with(context)
+                .load(baosArray)
+                .asBitmap()
                 .into(imageView);
     }
 

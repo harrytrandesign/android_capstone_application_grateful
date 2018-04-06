@@ -20,15 +20,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.htdwps.grateful.Model.GratefulPost;
+import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.GlideUtil;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by HTDWPS on 4/5/18.
@@ -56,6 +61,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_submit_v2);
 
         publicReference = FirebaseUtil.getGratefulPostsRef();
         privateReference = FirebaseUtil.getGratefulPersonalRef();
@@ -68,9 +74,38 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
 
         tvUploadImageButtonBtn.setOnClickListener(this);
         tvSubmitGratefulEntryBtn.setOnClickListener(this);
+        tvSubmitGratefulEntryBtn.setEnabled(false);
 
     }
 
+    public void uploadPostToDatabase() {
+
+        String randomPostKey = publicReference.push().getKey();
+
+        User user = FirebaseUtil.getCurrentUser();
+
+        String postString = etGratefulPostEntryField.getText().toString();
+
+        if (postString.equals("") || postString.length() < 1) {
+
+            etGratefulPostEntryField.setError(getApplication().getResources().getString(R.string.submit_error_post_title_text));
+
+        } else {
+
+            GratefulPost gratefulPost = new GratefulPost(user, user.getUserDisplayName(), postString, ServerValue.TIMESTAMP, imageUrlString);
+
+            Map<String, Object> newPost = new HashMap<>();
+
+            newPost.put("grateful_posts_public/" + randomPostKey, gratefulPost);
+
+            newPost.put("grateful_personal_posts/" + randomPostKey, gratefulPost);
+
+            publishToDatabase(newPost);
+
+        }
+
+
+    }
 
     private void publishToDatabase(Map<String, Object> newPost) {
         FirebaseUtil.getBaseRef().updateChildren(newPost, new DatabaseReference.CompletionListener() {
@@ -97,7 +132,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
-    public void submitImageToFirebaseStorage(String propertyKey, final byte[] bytes, final Bitmap bitmap) {
+    public void submitImageToFirebaseStorage(final byte[] bytes, final Bitmap bitmap) {
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
@@ -105,22 +140,24 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
 
         Timber.i("Submitting to firebase already.");
-        StorageReference reference = storageReference.child(firebaseUser.getUid()).child("property_images").child(propertyKey);
+        StorageReference reference = storageReference.child(firebaseUser.getUid()).child("grateful_images");
         reference.putBytes(bytes).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 imageUrlString = taskSnapshot.getDownloadUrl().toString();
-                GlideUtil.loadBitmapImage(bitmap, bytes, mPropertyImageView);
+//                GlideUtil.loadBitmapImage(bitmap, bytes, mPropertyImageView);
 
                 progressDialog.dismiss();
-                Toast.makeText(AddPropertyActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubmitActivityV2.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                tvSubmitGratefulEntryBtn.setEnabled(true);
+
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddPropertyActivity.this, "Your upload size exceeds the 5MB limit.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SubmitActivityV2.this, "Your upload size exceeds the 5MB limit.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -165,11 +202,13 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
 
             case R.id.tv_upload_image_button:
 
+                chooseImageToUpload();
 
                 break;
 
             case R.id.tv_submit_button:
 
+                uploadPostToDatabase();
 
                 break;
 
