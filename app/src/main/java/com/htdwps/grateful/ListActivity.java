@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -27,10 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Adapter.FeedbackSubmitDialogBox;
-import com.htdwps.grateful.Fragment.JournalFragment;
-import com.htdwps.grateful.Fragment.UserJournalFragment;
 import com.htdwps.grateful.Fragment.UserPostFragment;
-import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GlideUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,22 +40,27 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
+    private static final String ALL_POSTS_PARAM = "public_posts";
+    private static final String USER_POSTS_PARAM = "user_posts";
+
     private CircleImageView imageProfile;
-    private TextView textName;
+    private DrawerLayout drawerLayout;
     private FloatingActionButton floatingActionButton;
+    private NavigationView navigationView;
+    private TextView textName;
+    private Toolbar toolbar;
+//    private CollapsingToolbarLayout toolbar;
+    private AppBarLayout appBarLayout;
 
     public static int navItemIndex = 0;
     private static final int REQUEST_INVITE = 0;
 
     // Tags used to attach the fragments
-    private static final String TAG_PRIVATE_POST = "posts_private";
-    private static final String TAG_PRIVATE_JOURNAL = "journal_private";
+    private static final String TAG_PUBLIC_SUBMITS = "posts_by_all";
+    private static final String TAG_PRIVATE_SUBMITS = "posts_by_user";
     private static final String TAG_PUBLIC_JOURNAL = "journal_public";
     private static final String TAG_INVITE = "invite";
-    public static String CURRENT_TAG = TAG_PRIVATE_POST;
+    public static String CURRENT_TAG = TAG_PUBLIC_SUBMITS;
     private String[] activityTitles;
 
     private Handler mHandler;
@@ -81,7 +84,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_PRIVATE_POST;
+            CURRENT_TAG = TAG_PUBLIC_SUBMITS;
             loadHomeFragment();
         }
 
@@ -94,9 +97,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void runLayout() {
+//        appBarLayout = findViewById(R.id.app_bar_layout);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
+//        appBarLayout.setBackgroundColor(getResources().getColor(R.color.black_transparent));
+//        appBarLayout.setBackground(new ColorDrawable(getResources().getColor(R.color.black_transparent)));
+//        toolbar.setBackgroundColor(getResources().getColor(R.color.black_transparent));
+//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black_transparent)));
+//        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black_transparent)));
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.mainfeed_navigation_view_layout);
@@ -131,11 +140,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         switch (navItemIndex) {
             case 0:
                 // Pass param of DatabaseReference to use the same Fragment but swap the database each time
-                return UserPostFragment.newInstance(FirebaseUtil.getAllPostRef());
+                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
             case 1:
-                return UserJournalFragment.newInstance(FirebaseUtil.getJournalListRef());
-            case 2:
-                return JournalFragment.newInstance(FirebaseUtil.getAllJournalRef());
+                return UserPostFragment.newInstance(USER_POSTS_PARAM);
+//            case 2:
+//                return JournalFragment.newInstance(FirebaseUtil.getAllJournalRef());
             default:
                 return new UserPostFragment();
         }
@@ -154,7 +163,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if (navItemIndex < 3) {
+        // Return the number found in the menu string array.
+        if (navItemIndex < 2) {
             Runnable mPendingRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -218,15 +228,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_menu_personal_posts:
+                    case R.id.navigation_menu_all_posts:
 
-                        CURRENT_TAG = TAG_PRIVATE_POST;
+                        CURRENT_TAG = TAG_PUBLIC_SUBMITS;
                         navItemIndex = 0;
 
                         break;
-                    case R.id.navigation_menu_personal_journal:
+                    case R.id.navigation_menu_personal_posts:
 
-                        CURRENT_TAG = TAG_PRIVATE_JOURNAL;
+                        CURRENT_TAG = TAG_PRIVATE_SUBMITS;
                         navItemIndex = 1;
 
                         break;
@@ -237,17 +247,17 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 //
 //                        break;
 
-                    case R.id.navigation_menu_public_journal:
-
-                        CURRENT_TAG = TAG_PUBLIC_JOURNAL;
-                        navItemIndex = 2;
-
-                        break;
+//                    case R.id.navigation_menu_public_journal:
+//
+//                        CURRENT_TAG = TAG_PUBLIC_JOURNAL;
+//                        navItemIndex = 2;
+//
+//                        break;
 
                     case R.id.navigation_menu_invite_friends:
 
                         CURRENT_TAG = TAG_INVITE;
-                        navItemIndex = 3;
+                        navItemIndex = 1;
 
                         sendInvitationWindow();
 
@@ -291,7 +301,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void toggleContentButton() {
-        if (navItemIndex != 3) {
+        if (navItemIndex != 2) {
             floatingActionButton.show();
         } else {
             floatingActionButton.hide();
@@ -344,6 +354,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

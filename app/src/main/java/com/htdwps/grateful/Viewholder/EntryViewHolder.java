@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.htdwps.grateful.R;
-import com.htdwps.grateful.Util.GlideUtil;
 
 /**
  * Created by HTDWPS on 12/15/17.
@@ -55,13 +54,13 @@ public class EntryViewHolder extends RecyclerView.ViewHolder{
         switch (text) {
             case "Post":
 
-                GlideUtil.loadImage(R.drawable.ic_local_parking_black_48dp, entryTypeImage);
+//                GlideUtil.loadImage(R.drawable.ic_local_parking_black_48dp, entryTypeImage);
 
                 break;
 
             case "Journal":
 
-                GlideUtil.loadImage(R.drawable.ic_content_paste_black_48dp, entryTypeImage);
+//                GlideUtil.loadImage(R.drawable.ic_content_paste_black_48dp, entryTypeImage);
 
                 break;
         }

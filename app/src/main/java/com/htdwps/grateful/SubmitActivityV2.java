@@ -3,14 +3,18 @@ package com.htdwps.grateful;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,7 @@ import com.google.firebase.storage.UploadTask;
 import com.htdwps.grateful.Model.GratefulPost;
 import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.GlideUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -53,15 +58,21 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
+    TextView tvTagLineHeaderText;
+    TextView tvPreviewLabelText;
     EditText etGratefulPostEntryField;
     TextView tvUploadImageButtonBtn;
     TextView tvSubmitGratefulEntryBtn;
-
+    ImageView ivPreviewImage;
+    TextView tvPreviewText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_v2);
+
+        Typeface headerTypeface = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
+        Typeface buttonTypeface = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
 
         publicReference = FirebaseUtil.getGratefulPostsRef();
         privateReference = FirebaseUtil.getGratefulPersonalRef();
@@ -70,13 +81,49 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
 
+        tvTagLineHeaderText = findViewById(R.id.tv_submit_message_tagline);
+        tvPreviewLabelText = findViewById(R.id.tv_preview_post_text);
         etGratefulPostEntryField = findViewById(R.id.et_grateful_post_entry);
         tvUploadImageButtonBtn = findViewById(R.id.tv_upload_image_button);
         tvSubmitGratefulEntryBtn = findViewById(R.id.tv_submit_button);
+        ivPreviewImage = findViewById(R.id.iv_image_preview);
+        tvPreviewText = findViewById(R.id.tv_text_preview);
+
+        // Add Typeface to buttons
+        tvTagLineHeaderText.setTypeface(headerTypeface);
+        tvPreviewLabelText.setTypeface(buttonTypeface);
+        tvUploadImageButtonBtn.setTypeface(buttonTypeface);
+        tvSubmitGratefulEntryBtn.setTypeface(buttonTypeface);
 
         tvUploadImageButtonBtn.setOnClickListener(this);
         tvSubmitGratefulEntryBtn.setOnClickListener(this);
         tvSubmitGratefulEntryBtn.setEnabled(false);
+
+        etGratefulPostEntryField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence.length() > 0) {
+                    tvPreviewText.setVisibility(View.VISIBLE);
+                    tvPreviewText.setText(charSequence);
+                } else {
+                    tvPreviewText.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+//                tvPreviewText.setText(editable.toString());
+
+            }
+        });
 
     }
 
@@ -100,7 +147,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
 
             newPost.put("grateful_posts_public/" + randomPostKey, gratefulPost);
 
-            newPost.put("grateful_personal_posts/" + randomPostKey, gratefulPost);
+            newPost.put("grateful_personal_posts/" + user.getUserid() + "/" + randomPostKey, gratefulPost);
 
             publishToDatabase(newPost);
 
@@ -151,6 +198,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
                 imageUrlString = taskSnapshot.getDownloadUrl().toString();
 //                GlideUtil.loadBitmapImage(bitmap, bytes, mPropertyImageView);
 
+                GlideUtil.loadImage(imageUrlString, ivPreviewImage);
                 progressDialog.dismiss();
                 Toast.makeText(SubmitActivityV2.this, "Uploaded", Toast.LENGTH_SHORT).show();
                 tvSubmitGratefulEntryBtn.setEnabled(true);

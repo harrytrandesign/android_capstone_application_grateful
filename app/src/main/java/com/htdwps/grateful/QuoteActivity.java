@@ -34,18 +34,18 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
     public void runLayout() {
 
         // Load font assets
-        Typeface headerFont = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
-        Typeface scriptFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
-        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
+        Typeface headerTypeface = Typeface.createFromAsset(getAssets(), "fonts/kaushan.ttf");
+        Typeface scriptTypeface = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
+        Typeface buttonTypeface = Typeface.createFromAsset(getAssets(), "fonts/passion.ttf");
 
         inspireText = findViewById(R.id.tv_inspire_daily);
         quoteText = findViewById(R.id.tv_inspiration_quote);
         buttonText = findViewById(R.id.tv_next_button);
         buttonText.setOnClickListener(this);
 
-        inspireText.setTypeface(headerFont);
-        quoteText.setTypeface(scriptFont);
-        buttonText.setTypeface(buttonFont);
+        inspireText.setTypeface(headerTypeface);
+        quoteText.setTypeface(scriptTypeface);
+        buttonText.setTypeface(buttonTypeface);
     }
 
     public void runQuoteRequest() {

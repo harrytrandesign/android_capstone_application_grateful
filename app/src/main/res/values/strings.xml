@@ -16,23 +16,24 @@
     <string name="drawer.close">Close Drawer</string>
 
     <!-- Navigation Drawer menu labels -->
-    <string name="navigation_menu_personal">Grateful Posts</string>
-    <string name="navigation_menu_journal_personal">Journal Entries</string>
+    <string name="navigation_menu_all_submits">Grateful Posts</string>
+    <string name="navigation_menu_personal_submits">Personal Posts</string>
     <!--<string name="navigation_menu_public">Public Posts</string>-->
     <string name="navigation_menu_journal_public">Public Journal</string>
     <string name="navigation_menu_invite">Invite Friends</string>
     <string name="navigation_menu_signout">Log Off</string>
 
-    <string name="navigation_menu_user_post">Your Posts</string>
+    <string name="navigation_menu_public_post">All Posts</string>
+    <string name="navigation_menu_user_posts">My Posts</string>
     <string name="navigation_menu_user_journal">Your Entries</string>
     <string name="navigation_menu_public_journal_feed">Public Journal Feed</string>
 
     <!-- Labels for the menu items -->
     <string-array name="navigation_labels">
-        <item>@string/navigation_menu_user_post</item>
-        <item>@string/navigation_menu_journal_personal</item>
+        <item>@string/navigation_menu_public_post</item>
+        <item>@string/navigation_menu_user_posts</item>
         <!--<item>@string/navigation_menu_public</item>-->
-        <item>@string/navigation_menu_public_journal_feed</item>
+        <!--<item>@string/navigation_menu_public_journal_feed</item>-->
         <item>@string/navigation_menu_invite</item>
         <item>@string/navigation_menu_signout</item>
     </string-array>

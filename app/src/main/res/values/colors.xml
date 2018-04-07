@@ -3,7 +3,7 @@
     <color name="colorPrimary">#1e88e5</color>
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorPrimaryLight">#90caf9</color>
-    <color name="colorAccent">#f5f5f5</color>
+    <color name="colorAccent">@color/colorPrimaryLightest</color>
     <color name="colorPrimaryLightest">#bbdefb</color>
     <color name="colorPeaceful">#64b5f6</color>
 
@@ -20,7 +20,7 @@
     <color name="grey_transparent_dark">#99000000</color>
     <color name="grey_transparent_light">#44000000</color>
     <color name="black_transparent">#00000000</color>
-    <color name="white_transparent_frost">#bbffffff</color>
+    <color name="white_transparent_frost">#00ffffff</color>
     <color name="grey_text_disabled">#a0a0a0</color>
 
 </resources>

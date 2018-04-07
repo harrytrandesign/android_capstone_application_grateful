@@ -17,18 +17,28 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Model.Entries;
+import com.htdwps.grateful.Model.GratefulPost;
 import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.EntryViewHolder;
+import com.htdwps.grateful.Viewholder.GratePostViewHolder;
 
 public class UserPostFragment extends Fragment {
 
     private OnFragmentInteractionListener   mListener;
 
+    private static final String DATABASE_PARAM = "database_reference_param";
+    private static final String ALL_POSTS_PARAM = "public_posts";
+    private static final String USER_POSTS_PARAM = "user_posts";
+
+    private DatabaseReference queryRefrence;
+    String queryTypeString;
+
     RecyclerView.Adapter<EntryViewHolder>   listAdapter;
-    DatabaseReference                       mainReference;
-    DatabaseReference                       userPostReference;
+    RecyclerView.Adapter<GratePostViewHolder> gratefulAdapter;
+    DatabaseReference mainAllPostsReference;
+    DatabaseReference userOnlyPostsReference;
     FirebaseUser                            firebaseUser;
     LinearLayoutManager                     linearLayoutManager;
     RecyclerView                            recyclerView;
@@ -38,15 +48,26 @@ public class UserPostFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static UserPostFragment newInstance(DatabaseReference databaseReference) {
+    public static UserPostFragment newInstance(String databaseReferenceString) {
 
-        return new UserPostFragment();
+        UserPostFragment userPostFragment = new UserPostFragment();
+
+        Bundle args = new Bundle();
+        args.putString(DATABASE_PARAM, databaseReferenceString);
+        userPostFragment.setArguments(args);
+
+        return userPostFragment;
 
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            queryTypeString = getArguments().getString(DATABASE_PARAM);
+        } else {
+            throw new RuntimeException("You must specify a property reference.");
+        }
     }
 
     @Override
@@ -57,10 +78,11 @@ public class UserPostFragment extends Fragment {
         runLayout(view);
         runInitialize();
         createLayoutManager();
-        createAdapter(userPostReference);
+//        createAdapter(userOnlyPostsReference);
+        createRecyclerViewAdater(queryRefrence);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(listAdapter);
+        recyclerView.setAdapter(gratefulAdapter);
 
         return view;
     }
@@ -79,8 +101,18 @@ public class UserPostFragment extends Fragment {
     public void runInitialize() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         user = FirebaseUtil.getCurrentUser();
-        mainReference = FirebaseUtil.getBaseRef();
-        userPostReference = FirebaseUtil.getUserPostRef().child(user.getUserid());
+        mainAllPostsReference = FirebaseUtil.getGratefulPostsRef();
+        userOnlyPostsReference = FirebaseUtil.getGratefulPersonalRef().child(user.getUserid());
+
+        if (queryTypeString.equals(ALL_POSTS_PARAM)) {
+
+            queryRefrence = mainAllPostsReference;
+
+        } else if (queryTypeString.equals(USER_POSTS_PARAM)) {
+
+            queryRefrence = userOnlyPostsReference;
+
+        }
     }
 
     public LinearLayoutManager createLayoutManager() {
@@ -90,6 +122,27 @@ public class UserPostFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
 
         return linearLayoutManager;
+    }
+
+    public RecyclerView.Adapter<GratePostViewHolder> createRecyclerViewAdater(DatabaseReference databaseReference) {
+        gratefulAdapter = new FirebaseRecyclerAdapter<GratefulPost, GratePostViewHolder>(
+                GratefulPost.class,
+                R.layout.item_grateful_post_v2,
+                GratePostViewHolder.class,
+                databaseReference
+        ) {
+
+            @Override
+            protected void populateViewHolder(GratePostViewHolder viewHolder, GratefulPost model, int position) {
+
+                String displayname = model.getUser().getUserid().equals(firebaseUser.getUid()) ? "You" : model.getUserDisplayName();
+
+                viewHolder.populatePostEntry(displayname, model.getGratefulMessage(), model.getPhotoUrlString());
+
+            }
+        };
+
+        return gratefulAdapter;
     }
 
     public RecyclerView.Adapter<EntryViewHolder> createAdapter(DatabaseReference databaseReference) {
