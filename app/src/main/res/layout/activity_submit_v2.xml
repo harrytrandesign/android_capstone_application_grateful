@@ -17,16 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_xlarge"
+            android:paddingEnd="@dimen/padding_standard"
+            android:paddingStart="@dimen/padding_standard"
             android:text="@string/submit.grateful.title"
-            android:textSize="@dimen/font_standard"/>
-
-        <TextView
-            android:id="@+id/tv_preview_post_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="Preview"/>
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/font_xstandard"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -56,11 +51,20 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_preview_post_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="Preview"/>
+
+        <TextView
             android:id="@+id/submit_hint_post"
             style="@style/submit_edit_field_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/submit.hint.post"/>
+            android:text="@string/submit.hint.post"
+            android:textColor="@color/color_text_primary"/>
 
         <EditText
             android:id="@+id/et_grateful_post_entry"
@@ -69,34 +73,30 @@
             android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
             android:maxLength="300"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_upload_image_button"
+            style="@style/submit_textview_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/padding_xsmall"
+            android:background="@color/color_text_white"
+            android:elevation="1dp"
+            android:text="@string/submit_upload_image"
+            android:textColor="@color/colorPrimaryDark"/>
 
-            <TextView
-                android:id="@+id/tv_upload_image_button"
-                style="@style/submit_textview_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="@dimen/padding_xsmall"
-                android:layout_marginStart="@dimen/padding_xsmall"
-                android:layout_weight="1"
-                android:lines="1"
-                android:text="Upload Image"
-                android:textColor="@color/color_text_white"/>
+        <TextView
+            android:id="@+id/tv_submit_button"
+            style="@style/submit_textview_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_xsmall"
+            android:layout_marginStart="@dimen/padding_xsmall"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="1dp"
+            android:text="@string/submit.button"
+            android:textColor="@color/color_text_white"/>
 
-            <TextView
-                android:id="@+id/tv_submit_button"
-                style="@style/submit_textview_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/padding_xsmall"
-                android:layout_weight="1"
-                android:text="@string/submit.button"/>
-
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

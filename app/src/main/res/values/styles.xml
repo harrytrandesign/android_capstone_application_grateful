@@ -87,11 +87,9 @@
 
     <!-- Submit Button Styling -->
     <style name="submit_textview_button">
-        <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:padding">@dimen/padding_medium</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/color_text_white</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     tools:context="com.htdwps.grateful.QuoteActivity">
 
     <RelativeLayout
@@ -14,6 +15,7 @@
         <TextView
             android:id="@+id/tv_inspire_daily"
             style="@style/textview_header_style"
+            android:textColor="@color/color_text_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_quote_inspire_daily"/>
@@ -43,7 +45,7 @@
                 android:layout_weight="1"
                 android:gravity="center|center_vertical"
                 android:padding="@dimen/padding_large"
-                android:textColor="@color/color_text_primary"
+                android:textColor="@color/color_text_white"
                 android:textSize="@dimen/font_standard"/>
 
         </LinearLayout>
@@ -52,6 +54,8 @@
             android:id="@+id/tv_next_button"
             style="@style/submit_textview_button"
             android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/color_text_white"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="@string/next_button_text"/>
