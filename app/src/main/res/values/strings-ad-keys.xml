@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--App ID: ca-app-pub-8585047845719802~5211237658-->
+    <string name="admob_app_id">ca-app-pub-8585047845719802~5211237658</string>
+    <string name="admob_banner_id_live">ca-app-pub-8585047845719802/4167541303</string>
+</resources>

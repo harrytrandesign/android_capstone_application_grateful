@@ -15,10 +15,10 @@
         <TextView
             android:id="@+id/tv_inspire_daily"
             style="@style/textview_header_style"
-            android:textColor="@color/color_text_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_quote_inspire_daily"/>
+            android:text="@string/tv_quote_inspire_daily"
+            android:textColor="@color/color_text_white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,11 +54,13 @@
             android:id="@+id/tv_next_button"
             style="@style/submit_textview_button"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/color_text_white"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/next_button_text"/>
+            android:layout_margin="@dimen/padding_xsmall"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="1dp"
+            android:text="@string/next_button_text"
+            android:textColor="@color/color_text_white"/>
 
     </RelativeLayout>
 

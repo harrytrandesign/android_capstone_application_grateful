@@ -3,6 +3,7 @@ package com.htdwps.grateful;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -80,6 +82,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_list);
 
         mHandler = new Handler();
+        MobileAds.initialize(this, ListActivity.this.getResources().getString(R.string.admob_app_id));
 
         runInitializer();
         runLayout();
@@ -96,7 +99,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     // Load the navigation menu header, such as header background image, profile name, etc
     private void loadNavHeader() {
         textName.setText(String.format("%s %s", String.valueOf(getBaseContext().getResources().getString(R.string.navi_tv_welcome_user)), firebaseUser.getDisplayName()));
-        GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
+        }
     }
 
     public void runLayout() {
@@ -125,7 +130,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         // Navigation Drawer View's Header Section
         View viewNavHeader = navigationView.getHeaderView(0);
         textName = viewNavHeader.findViewById(R.id.navigation_tv_user_displayname);
-        imageProfile = viewNavHeader.findViewById(R.id.navigation_iv_user_photo);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            // Remove the Circle image completely.
+        } else {
+            imageProfile = viewNavHeader.findViewById(R.id.navigation_iv_user_photo);
+        }
 
         // Load the navigation menu header
         loadNavHeader();
