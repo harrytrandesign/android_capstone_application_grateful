@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -124,6 +125,19 @@ public class UserPostFragment extends Fragment {
         return linearLayoutManager;
     }
 
+    public Fragment launchFragment(String userKey, String userDisplayName, String userImageString) {
+        Fragment fragment = null;
+
+        fragment = PersonProfileFragment.newInstance(userKey, userDisplayName, userImageString);
+
+        return fragment;
+    }
+
+    public void openFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
+    }
+
     public RecyclerView.Adapter<GratePostViewHolder> createRecyclerViewAdater(DatabaseReference databaseReference) {
         gratefulAdapter = new FirebaseRecyclerAdapter<GratefulPost, GratePostViewHolder>(
                 GratefulPost.class,
@@ -133,11 +147,22 @@ public class UserPostFragment extends Fragment {
         ) {
 
             @Override
-            protected void populateViewHolder(GratePostViewHolder viewHolder, GratefulPost model, int position) {
+            protected void populateViewHolder(GratePostViewHolder viewHolder, final GratefulPost model, int position) {
 
                 String displayname = model.getUser().getUserid().equals(firebaseUser.getUid()) ? "You" : model.getUserDisplayName();
 
                 viewHolder.populatePostEntry(displayname, model.getGratefulMessage(), model.getPhotoUrlString());
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Fragment userFragment = launchFragment(model.getUser().getUserid(), model.getUser().getUserDisplayName(), model.getUser().getUserPhoto());
+
+                        openFragment(userFragment);
+
+                    }
+                });
 
             }
         };
