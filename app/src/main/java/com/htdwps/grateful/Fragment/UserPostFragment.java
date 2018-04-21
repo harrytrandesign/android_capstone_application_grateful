@@ -1,6 +1,7 @@
 package com.htdwps.grateful.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Model.Entries;
 import com.htdwps.grateful.Model.GratefulPost;
 import com.htdwps.grateful.Model.User;
+import com.htdwps.grateful.PersonalPostsGridActivity;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.EntryViewHolder;
@@ -32,6 +34,10 @@ public class UserPostFragment extends Fragment {
     private static final String DATABASE_PARAM = "database_reference_param";
     private static final String ALL_POSTS_PARAM = "public_posts";
     private static final String USER_POSTS_PARAM = "user_posts";
+
+    private static final String USER_PROFILE_KEY = "user_profile_id_key";
+    private static final String USER_DISPLAY_NAME = "user_displayname";
+    private static final String USER_PICTURE = "user_photo_url";
 
     private DatabaseReference queryRefrence;
     String queryTypeString;
@@ -157,9 +163,11 @@ public class UserPostFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        Fragment userFragment = launchFragment(model.getUser().getUserid(), model.getUser().getUserDisplayName(), model.getUser().getUserPhoto());
-
-                        openFragment(userFragment);
+                        Intent gridIntent = new Intent(UserPostFragment.this.getContext(), PersonalPostsGridActivity.class);
+                        gridIntent.putExtra(USER_PROFILE_KEY, model.getUser().getUserid());
+                        gridIntent.putExtra(USER_DISPLAY_NAME, model.getUser().getUserDisplayName());
+                        gridIntent.putExtra(USER_PICTURE, model.getUser().getUserPhoto());
+                        startActivity(gridIntent);
 
                     }
                 });

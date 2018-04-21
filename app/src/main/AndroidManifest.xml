@@ -7,12 +7,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon_inverse_rounded"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_inverse_rounded"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -34,6 +33,7 @@
         </activity>
         <activity
             android:name=".ListActivity"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
@@ -49,6 +49,14 @@
         <activity
             android:name=".QuoteActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".PersonalPostsGridActivity"
+            android:parentActivityName=".ListActivity">
+        </activity>
+        <activity
+            android:name=".PrivacyTermsActivity"
+            android:parentActivityName=".ListActivity">
         </activity>
     </application>
 

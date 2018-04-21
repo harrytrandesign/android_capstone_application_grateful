@@ -98,6 +98,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
         tvUploadImageButtonBtn.setOnClickListener(this);
         tvSubmitGratefulEntryBtn.setOnClickListener(this);
         tvSubmitGratefulEntryBtn.setEnabled(false);
+        tvSubmitGratefulEntryBtn.setBackgroundColor(getResources().getColor(R.color.color_divider));
 
         etGratefulPostEntryField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -202,6 +203,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
                 progressDialog.dismiss();
                 Toast.makeText(SubmitActivityV2.this, "Uploaded", Toast.LENGTH_SHORT).show();
                 tvSubmitGratefulEntryBtn.setEnabled(true);
+                tvSubmitGratefulEntryBtn.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
             }
         })

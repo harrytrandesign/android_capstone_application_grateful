@@ -107,7 +107,7 @@ public class PersonProfileFragment extends Fragment {
         postOwnerDisplayName = view.findViewById(R.id.tv_user_display_name);
 //        postOwnerDisplayImage = view.findViewById(R.id.iv_user_image_icon);
 
-        postOwnerDisplayName.setText(userDisplayName);
+        postOwnerDisplayName.setText("Posts by " + userDisplayName);
 
         theUsersPostsReference = FirebaseUtil.getGratefulPersonalRef().child(userReferenceKey);
 
@@ -134,16 +134,6 @@ public class PersonProfileFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

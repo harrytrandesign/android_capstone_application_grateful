@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Adapter.FeedbackSubmitDialogBox;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Util.GlideUtil;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.Fabric;
@@ -44,6 +45,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
+    private static final String TERMS_LABEL = "TERMS";
+    private static final String PRIVACY_LABEL = "PRIVACY";
+    private static final String STATEMENT_TYPE = "StatementType";
     private static final String ALL_POSTS_PARAM = "public_posts";
     private static final String USER_POSTS_PARAM = "user_posts";
 
@@ -54,7 +58,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private NavigationView navigationView;
     private TextView textName;
     private Toolbar toolbar;
-//    private CollapsingToolbarLayout toolbar;
+    //    private CollapsingToolbarLayout toolbar;
     private AppBarLayout appBarLayout;
 
     public static int navItemIndex = 0;
@@ -347,11 +351,17 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.settings_menu_terms_rules_link:
 
+                Intent termsIntent = new Intent(ListActivity.this, PrivacyTermsActivity.class);
+                termsIntent.putExtra(StringConstantsUtil.STATEMENT_TYPE, StringConstantsUtil.TERMS_LABEL);
+                startActivity(termsIntent);
+
                 break;
 
             case R.id.settings_menu_privacy_policy_link:
 
-//                startActivity(new Intent(this, PrivacyActivity.class));
+                Intent privacyIntent = new Intent(ListActivity.this, PrivacyTermsActivity.class);
+                privacyIntent.putExtra(StringConstantsUtil.STATEMENT_TYPE, StringConstantsUtil.PRIVACY_LABEL);
+                startActivity(privacyIntent);
 
                 break;
 
