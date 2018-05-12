@@ -16,8 +16,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Entries;
-import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.EntryViewHolder;
@@ -32,7 +32,7 @@ public class JournalFragment extends Fragment {
     FirebaseUser                            firebaseUser;
     LinearLayoutManager                     linearLayoutManager;
     RecyclerView                            recyclerView;
-    User                                    user;
+    CustomUser user;
 
     public JournalFragment() {
         // Required empty public constructor

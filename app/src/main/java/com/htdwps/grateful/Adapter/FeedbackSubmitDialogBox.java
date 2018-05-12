@@ -16,8 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
+import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Feedback;
-import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 
@@ -45,7 +45,7 @@ public class FeedbackSubmitDialogBox extends LayoutInflater implements View.OnTo
         View view = layoutInflater.inflate(R.layout.alert_dialog_feedback_window, null);
 
         feedbackReference = FirebaseUtil.getFeedbackRef();
-        final User user = FirebaseUtil.getCurrentUser();
+        final CustomUser user = FirebaseUtil.getCurrentUser();
 
         feedback_text_field = view.findViewById(R.id.wyd_feedback_add);
 

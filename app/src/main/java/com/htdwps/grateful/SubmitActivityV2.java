@@ -29,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.GratefulPost;
 import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -132,7 +133,7 @@ public class SubmitActivityV2 extends AppCompatActivity implements View.OnClickL
 
         String randomPostKey = publicReference.push().getKey();
 
-        User user = FirebaseUtil.getCurrentUser();
+        CustomUser user = FirebaseUtil.getCurrentUser();
 
         String postString = etGratefulPostEntryField.getText().toString();
 

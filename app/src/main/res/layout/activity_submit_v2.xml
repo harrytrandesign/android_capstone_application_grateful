@@ -59,6 +59,19 @@
             android:text="Preview"/>
 
         <TextView
+            android:id="@+id/tv_upload_image_button"
+            style="@style/submit_textview_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/padding_xsmall"
+            android:background="@color/color_text_white"
+            android:elevation="1dp"
+            android:text="@string/submit_upload_image"
+            android:textColor="@color/colorPrimaryDark"/>
+
+
+        <TextView
             android:id="@+id/submit_hint_post"
             style="@style/submit_edit_field_hint"
             android:layout_width="match_parent"
@@ -72,18 +85,6 @@
             android:layout_height="wrap_content"
             android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
             android:maxLength="300"/>
-
-        <TextView
-            android:id="@+id/tv_upload_image_button"
-            style="@style/submit_textview_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/padding_xsmall"
-            android:background="@color/color_text_white"
-            android:elevation="1dp"
-            android:text="@string/submit_upload_image"
-            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/tv_submit_button"

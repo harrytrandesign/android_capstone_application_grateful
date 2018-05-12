@@ -1,5 +1,6 @@
 package com.htdwps.grateful;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,13 +17,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -78,6 +83,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     String api_method = "getQuote";     // Method of Api call;
     String api_format = "text";         // Format available xml, json, html, text;
     String api_lang = "en";
+    MaterialDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +110,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private void loadNavHeader() {
         textName.setText(String.format("%s %s", String.valueOf(getBaseContext().getResources().getString(R.string.navi_tv_welcome_user)), firebaseUser.getDisplayName()));
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
+            if (firebaseUser.getPhotoUrl() != null) {
+                GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
+            }
         }
     }
 
@@ -145,6 +153,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         // Initializing navigation menu
         setUpNavigationView();
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                .title(R.string.tv_quote_inspire_daily)
+                .content(QuoteActivity.runQuoteRequest())
+                .positiveText(R.string.tv_close_quote);
+
+        dialog = builder.build();
+        dialog.show();
+
     }
 
     public void runInitializer() {
@@ -382,12 +399,33 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    public void createMaterialDialogBeanCreator(final Context context, View view) {
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        final View theView = layoutInflater.inflate(R.layout.material_dialog_custom_layout_view, null);
+        final EditText editText = theView.findViewById(R.id.et_beans_message_textbox);
+
+        new MaterialDialog.Builder(this)
+                .customView(theView, false)
+                .positiveText("Submit")
+                .negativeText("Cancel")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                String text = editText.getText().toString();
+                                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                                // Connect this part to Firebase Database UI. Extend a helper method class
+                    }
+                })
+                .show();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_floating_action:
 
-                createTopic();
+//                createTopic();
+                createMaterialDialogBeanCreator(this, view);
 
                 break;
 
@@ -396,6 +434,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
 
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (dialog != null) {
+            dialog.dismiss();
         }
     }
 }

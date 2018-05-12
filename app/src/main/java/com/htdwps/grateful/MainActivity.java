@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             // If user ISN'T null, send them to the main feed page.
             progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
 
-            Intent mainIntent = new Intent(this, QuoteActivity.class);
+            Intent mainIntent = new Intent(this, ListActivity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(mainIntent);
             finish();
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             // If user IS null, send to sign in page to create a new account.
             progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
 
-            Intent signInIntent = new Intent(this, AuthActivity.class);
+            Intent signInIntent = new Intent(this, FirebaseUiAuthActivity.class);
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(signInIntent);
             finish();

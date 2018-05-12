@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.htdwps.grateful.Model.User;
+import com.htdwps.grateful.Model.CustomUser;
 
 /**
  * Created by HTDWPS on 12/8/17.
@@ -32,12 +32,12 @@ public class FirebaseUtil {
         return null;
     }
 
-    public static User getCurrentUser() {
+    public static CustomUser getCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) return null;
 
-        return new User(user.getUid(), user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString());
+        return new CustomUser(user.getUid(), user.getDisplayName(), user.getEmail());
     }
 
     public static DatabaseReference getGratefulPostsRef() {
@@ -46,6 +46,10 @@ public class FirebaseUtil {
 
     public static DatabaseReference getGratefulPersonalRef() {
         return getBaseRef().child("grateful_personal_posts");
+    }
+
+    public static DatabaseReference getUsernamesRef() {
+        return getBaseRef().child("all_usernames");
     }
 
     public static DatabaseReference getUserPostRef() {

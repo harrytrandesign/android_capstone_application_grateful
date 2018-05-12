@@ -18,9 +18,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Entries;
 import com.htdwps.grateful.Model.GratefulPost;
-import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.PersonalPostsGridActivity;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -49,7 +49,7 @@ public class UserPostFragment extends Fragment {
     FirebaseUser                            firebaseUser;
     LinearLayoutManager                     linearLayoutManager;
     RecyclerView                            recyclerView;
-    User                                    user;
+    CustomUser user;
 
     public UserPostFragment() {
         // Required empty public constructor
@@ -166,7 +166,7 @@ public class UserPostFragment extends Fragment {
                         Intent gridIntent = new Intent(UserPostFragment.this.getContext(), PersonalPostsGridActivity.class);
                         gridIntent.putExtra(USER_PROFILE_KEY, model.getUser().getUserid());
                         gridIntent.putExtra(USER_DISPLAY_NAME, model.getUser().getUserDisplayName());
-                        gridIntent.putExtra(USER_PICTURE, model.getUser().getUserPhoto());
+//                        gridIntent.putExtra(USER_PICTURE, model.getUser().getUserPhoto());
                         startActivity(gridIntent);
 
                     }

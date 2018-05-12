@@ -5,7 +5,7 @@ package com.htdwps.grateful.Model;
  */
 public class GratefulPost {
 
-    private User user;
+    private CustomUser user;
     private String userDisplayName;
     private String gratefulMessage;
     private Object timestamp;
@@ -15,7 +15,7 @@ public class GratefulPost {
         // Empty POJO;
     }
 
-    public GratefulPost(User user, String userDisplayName, String gratefulMessage, Object timestamp, String photoUrlString) {
+    public GratefulPost(CustomUser user, String userDisplayName, String gratefulMessage, Object timestamp, String photoUrlString) {
         this.user = user;
         this.userDisplayName = userDisplayName;
         this.gratefulMessage = gratefulMessage;
@@ -23,11 +23,11 @@ public class GratefulPost {
         this.photoUrlString = photoUrlString;
     }
 
-    public User getUser() {
+    public CustomUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(CustomUser user) {
         this.user = user;
     }
 

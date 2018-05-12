@@ -15,9 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ServerValue;
+import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Entries;
-import com.htdwps.grateful.Model.User;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.UserAuthCheckUtil;
 
@@ -47,7 +46,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     Boolean isPublic;
 
     Entries entries;
-    User user;
+    CustomUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +199,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
                 } else {
 
-                    entries = new Entries(user, user.getUserDisplayName(), entryType, postString, ServerValue.TIMESTAMP, "");
+//                    entries = new Entries(user, user.getUserDisplayName(), entryType, postString, ServerValue.TIMESTAMP, "");
 
                     // For the moment every post is set to isPublic = true
                     if (isPublic) {
@@ -236,7 +235,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
 
                 } else {
 
-                    entries = new Entries(user, user.getUserDisplayName(), entryType, postString, journalString, ServerValue.TIMESTAMP, "");
+//                    entries = new Entries(user, user.getUserDisplayName(), entryType, postString, journalString, ServerValue.TIMESTAMP, "");
 
                     newPost.put("journal_public_all/" + randomPostKey, entries);
                     newPost.put("journal_private_user/" + user.getUserid() + "/" + randomPostKey, true);

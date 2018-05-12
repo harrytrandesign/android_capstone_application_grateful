@@ -13,10 +13,10 @@ import java.util.concurrent.ExecutionException;
 
 public class QuoteActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static final String API_URL = "http://api.forismatic.com/api/1.0/?";
-    String api_method = "getQuote";     // Method of Api call;
-    String api_format = "text";         // Format available xml, json, html, text;
-    String api_lang = "en";
+    public static final String API_URL = "http://api.forismatic.com/api/1.0/?";
+    public static final String api_method = "getQuote";     // Method of Api call;
+    public static final String api_format = "text";         // Format available xml, json, html, text;
+    public static final String api_lang = "en";
 
     TextView inspireText;
     TextView quoteText;
@@ -48,7 +48,7 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
         buttonText.setTypeface(buttonTypeface);
     }
 
-    public void runQuoteRequest() {
+    public static String runQuoteRequest() {
         // Point to this web api
         String quoteUrl = API_URL + "method=" + api_method + "&format=" + api_format + "&lang=" + api_lang;
 
@@ -61,16 +61,20 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
         // Perform doInBackground method from AsyncTask getting the results for result string passing in our url
         try {
             result = getRequest.execute(quoteUrl).get();
-            quoteText.setText(result);
+
+            return result;
+//            quoteText.setText(result);
 
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+        return "";
     }
 
     public void nextActivity() {
         Intent mainIntent = new Intent(this, ListActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mainIntent);
         finish();
     }

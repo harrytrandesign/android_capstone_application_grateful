@@ -149,7 +149,7 @@ public class        AuthActivity
 
                             progressDialog.dismiss();
 
-                            Intent switchIntent = new Intent(AuthActivity.this, QuoteActivity.class);
+                            Intent switchIntent = new Intent(AuthActivity.this, ListActivity.class);
                             switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(switchIntent);
 //
