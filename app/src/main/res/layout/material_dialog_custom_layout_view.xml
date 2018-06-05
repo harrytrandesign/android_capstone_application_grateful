@@ -4,7 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_xsmall">
+    android:padding="@dimen/padding_medium">
+
+    <Spinner
+        android:id="@+id/spinner_emoji_expression_moods_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_xsmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tv_today_text"
@@ -13,16 +21,9 @@
         android:layout_marginBottom="@dimen/padding_xsmall"
         android:text="@string/tv_today_feeling"
         android:textSize="@dimen/font_standard"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Spinner
-        android:id="@+id/spinner_emoji_moods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_xsmall"
-        app:layout_constraintStart_toEndOf="@id/tv_today_text"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
 
     <TextView
         android:id="@+id/tv_mood_expression_text"
@@ -32,10 +33,11 @@
         android:gravity=""
         android:text="Excited"
         android:textAllCaps="true"
+        android:textColor="@color/color_text_primary"
         android:textSize="@dimen/font_standard"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/spinner_emoji_moods"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toEndOf="@id/tv_today_text"
+        app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
 
     <EditText
         android:id="@+id/et_beans_message_textbox"

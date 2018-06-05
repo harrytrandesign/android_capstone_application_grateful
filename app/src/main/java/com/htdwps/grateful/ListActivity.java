@@ -22,7 +22,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +79,39 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG_INVITE = "invite";
     public static String CURRENT_TAG = TAG_PUBLIC_SUBMITS;
     private String[] activityTitles;
+    ArrayAdapter<String> emojiExpressionAdapter;
+
+    private String[] emojiExpressionTextValue = new String[]{
+            "On Fire",
+            "Happy",
+            "In Love",
+            "Cool",
+            "Deep Thoughts",
+            "Agony",
+            "Exhausted",
+            "Nervous",
+            "Sad",
+            "Furious",
+            "Pooped",
+            "100%",
+            "Cha-Ching",
+            "Blessed"};
+
+    private String[] emojiExpressionOptions = new String[]{
+            String.valueOf(Character.toChars(0x1F525)) + " " + emojiExpressionTextValue[0],
+            String.valueOf(Character.toChars(0x1F603)) + " " + emojiExpressionTextValue[1],
+            String.valueOf(Character.toChars(0x1F60D)) + " " + emojiExpressionTextValue[2],
+            String.valueOf(Character.toChars(0x1F60E)) + " " + emojiExpressionTextValue[3],
+            String.valueOf(Character.toChars(0x1F914)) + " " + emojiExpressionTextValue[4],
+            String.valueOf(Character.toChars(0x1F623)) + " " + emojiExpressionTextValue[5],
+            String.valueOf(Character.toChars(0x1F62A)) + " " + emojiExpressionTextValue[6],
+            String.valueOf(Character.toChars(0x1F613)) + " " + emojiExpressionTextValue[7],
+            String.valueOf(Character.toChars(0x1F61F)) + " " + emojiExpressionTextValue[8],
+            String.valueOf(Character.toChars(0x1F620)) + " " + emojiExpressionTextValue[9],
+            String.valueOf(Character.toChars(0x1F4A9)) + " " + emojiExpressionTextValue[10],
+            String.valueOf(Character.toChars(0x1F4AF)) + " " + emojiExpressionTextValue[11],
+            String.valueOf(Character.toChars(0x1F4B0)) + " " + emojiExpressionTextValue[12],
+            String.valueOf(Character.toChars(0x1F47C)) + " " + emojiExpressionTextValue[13]};
 
     private Handler mHandler;
 
@@ -138,6 +174,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         floatingActionButton.setOnClickListener(this);
 
         activityTitles = getResources().getStringArray(R.array.navigation_labels);
+//        emojiExpressionOptions = getResources().getIntArray(R.array.emoji_spinner_dropdown_choices);
+        emojiExpressionAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, emojiExpressionOptions);
+//        emojiExpressionAdapter = new ArrayAdapter<Integer>(this, R.layout.support_simple_spinner_dropdown_item, emojiExpressionOptions);
 
         // Navigation Drawer View's Header Section
         View viewNavHeader = navigationView.getHeaderView(0);
@@ -154,6 +193,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         // Initializing navigation menu
         setUpNavigationView();
 
+        // TODO: Run an internet connection check here before calling out this Quote.
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title(R.string.tv_quote_inspire_daily)
                 .content(QuoteActivity.runQuoteRequest())
@@ -161,6 +201,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         dialog = builder.build();
         dialog.show();
+        // Stop internet check here.
 
     }
 
@@ -404,6 +445,25 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         final View theView = layoutInflater.inflate(R.layout.material_dialog_custom_layout_view, null);
         final EditText editText = theView.findViewById(R.id.et_beans_message_textbox);
 
+        final TextView expressionTextLabel = theView.findViewById(R.id.tv_mood_expression_text);
+        Spinner expressionDrop = theView.findViewById(R.id.spinner_emoji_expression_moods_dropdown);
+        expressionDrop.setAdapter(emojiExpressionAdapter);
+        expressionDrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                int expressionValue = i;
+
+                expressionTextLabel.setText(emojiExpressionTextValue[i]);
+                Toast.makeText(context, emojiExpressionOptions[i] + " " + expressionValue, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         new MaterialDialog.Builder(this)
                 .customView(theView, false)
                 .positiveText("Submit")
@@ -411,9 +471,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                String text = editText.getText().toString();
-                                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-                                // Connect this part to Firebase Database UI. Extend a helper method class
+                        String text = editText.getText().toString();
+                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                        // Connect this part to Firebase Database UI. Extend a helper method class
                     }
                 })
                 .show();

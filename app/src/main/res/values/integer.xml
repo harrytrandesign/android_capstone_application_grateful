@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Grab the Character unicode numbers and put it into a string-array-->
+    <integer name="emoji_type_one_onfire">0x1F525</integer>
+    <integer name="emoji_type_five_happy">0x1F603</integer>
+    <integer name="emoji_type_three_inlove">0x1F60D</integer>
+    <integer name="emoji_type_four_cool">0x1F60E</integer>
+    <integer name="emoji_type_six_deepthought">0x1F914</integer>
+    <integer name="emoji_type_seven_terrible">0x1F623</integer>
+    <integer name="emoji_type_eight_exhausted">0x1F62A</integer>
+    <integer name="emoji_type_nine_nervous">0x1F613</integer>
+    <integer name="emoji_type_ten_sad">0x2639</integer>
+    <integer name="emoji_type_eleven_furious">0x1F620</integer>
+    <integer name="emoji_type_twelve_poop">0x1F4A9</integer>
+    <integer name="emoji_type_thirteen_100percent">0x1F4AF</integer>
+    <integer name="emoji_type_money">0x1F4B0</integer>
+
+    <integer-array name="emoji_spinner_dropdown_choices">
+        <item>@integer/emoji_type_one_onfire</item>
+        <item>@integer/emoji_type_five_happy</item>
+        <item>@integer/emoji_type_three_inlove</item>
+        <item>@integer/emoji_type_four_cool</item>
+        <item>@integer/emoji_type_six_deepthought</item>
+        <item>@integer/emoji_type_seven_terrible</item>
+        <item>@integer/emoji_type_eight_exhausted</item>
+        <item>@integer/emoji_type_nine_nervous</item>
+        <item>@integer/emoji_type_ten_sad</item>
+        <item>@integer/emoji_type_eleven_furious</item>
+        <item>@integer/emoji_type_twelve_poop</item>
+        <item>@integer/emoji_type_thirteen_100percent</item>
+        <item>@integer/emoji_type_money</item>
+    </integer-array>
+
+</resources>

@@ -68,7 +68,7 @@
     <string name="tv_close_quote">Close</string>
     <string name="tv_user_wrote">You Wrote…</string>
     <string name="tv_user_journal_wrote">Your Journal Entries</string>
-    <string name="tv_today_feeling">Today I\'m Feeling</string>
+    <string name="tv_today_feeling">I\'m Feeling</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="submit_upload_image">Upload Image</string>
@@ -80,5 +80,36 @@
     <string name="test_test_label">test</string>
     <string name="et_what_to_say_text">What do you want to say</string>
     <string name="checkbox_share_public_text">Share with public</string>
+
+    <!--&lt;!&ndash; Grab the Character unicode numbers and put it into a string-array&ndash;&gt;-->
+    <!--<string name="emoji_type_one_onfire">0x1F525</string>-->
+    <!--<string name="emoji_type_five_happy">0x1F603</string>-->
+    <!--<string name="emoji_type_three_inlove">0x1F60D</string>-->
+    <!--<string name="emoji_type_four_cool">0x1F60E</string>-->
+    <!--<string name="emoji_type_six_deepthought">0x1F914</string>-->
+    <!--<string name="emoji_type_seven_terrible">0x1F623</string>-->
+    <!--<string name="emoji_type_eight_exhausted">0x1F62A</string>-->
+    <!--<string name="emoji_type_nine_nervous">0x1F613</string>-->
+    <!--<string name="emoji_type_ten_sad">0x2639</string>-->
+    <!--<string name="emoji_type_eleven_furious">0x1F620</string>-->
+    <!--<string name="emoji_type_twelve_poop">0x1F4A9</string>-->
+    <!--<string name="emoji_type_thirteen_100percent">0x1F4AF</string>-->
+    <!--<string name="emoji_type_money">0x1F4B0</string>-->
+
+    <!--<integer-array name="emoji_spinner_dropdown_choices">-->
+        <!--<item>@string/emoji_type_one_onfire</item>-->
+        <!--<item>@string/emoji_type_five_happy</item>-->
+        <!--<item>@string/emoji_type_three_inlove</item>-->
+        <!--<item>@string/emoji_type_four_cool</item>-->
+        <!--<item>@string/emoji_type_six_deepthought</item>-->
+        <!--<item>@string/emoji_type_seven_terrible</item>-->
+        <!--<item>@string/emoji_type_eight_exhausted</item>-->
+        <!--<item>@string/emoji_type_nine_nervous</item>-->
+        <!--<item>@string/emoji_type_ten_sad</item>-->
+        <!--<item>@string/emoji_type_eleven_furious</item>-->
+        <!--<item>@string/emoji_type_twelve_poop</item>-->
+        <!--<item>@string/emoji_type_thirteen_100percent</item>-->
+        <!--<item>@string/emoji_type_money</item>-->
+    <!--</integer-array>-->
 
 </resources>
