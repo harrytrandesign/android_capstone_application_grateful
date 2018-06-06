@@ -39,9 +39,11 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.htdwps.grateful.Adapter.FeedbackSubmitDialogBox;
 import com.htdwps.grateful.Fragment.UserPostFragment;
+import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GlideUtil;
+import com.htdwps.grateful.Util.MaterialHelperUtil;
 import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -400,10 +402,20 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.settings_menu_invite_friend:
+
+                sendInvitationWindow();
+
+                break;
+
             case R.id.settings_menu_feedback_link:
 
-                FeedbackSubmitDialogBox feedbackSubmitDialogBox = new FeedbackSubmitDialogBox(this);
-                feedbackSubmitDialogBox.cloneInContext(this);
+                CustomUser user = FirebaseUtil.getCurrentUser();
+
+                MaterialHelperUtil.submitFeedbackToDeveloper(this, user);
+
+//                FeedbackSubmitDialogBox feedbackSubmitDialogBox = new FeedbackSubmitDialogBox(this);
+//                feedbackSubmitDialogBox.cloneInContext(this);
 
                 break;
 
