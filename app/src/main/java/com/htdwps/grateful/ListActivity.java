@@ -1,6 +1,5 @@
 package com.htdwps.grateful;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -17,19 +16,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
@@ -41,8 +35,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.GlideUtil;
 import com.htdwps.grateful.Util.MaterialHelperUtil;
 import com.htdwps.grateful.Util.StringConstantsUtil;
 
@@ -54,6 +48,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    CustomUser user;
 
     private static final String TERMS_LABEL = "TERMS";
     private static final String PRIVACY_LABEL = "PRIVACY";
@@ -83,37 +78,21 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private String[] activityTitles;
     ArrayAdapter<String> emojiExpressionAdapter;
 
-    private String[] emojiExpressionTextValue = new String[]{
-            "On Fire",
-            "Happy",
-            "In Love",
-            "Cool",
-            "Deep Thoughts",
-            "Agony",
-            "Exhausted",
-            "Nervous",
-            "Sad",
-            "Furious",
-            "Pooped",
-            "100%",
-            "Cha-Ching",
-            "Blessed"};
-
-    private String[] emojiExpressionOptions = new String[]{
-            String.valueOf(Character.toChars(0x1F525)) + " " + emojiExpressionTextValue[0],
-            String.valueOf(Character.toChars(0x1F603)) + " " + emojiExpressionTextValue[1],
-            String.valueOf(Character.toChars(0x1F60D)) + " " + emojiExpressionTextValue[2],
-            String.valueOf(Character.toChars(0x1F60E)) + " " + emojiExpressionTextValue[3],
-            String.valueOf(Character.toChars(0x1F914)) + " " + emojiExpressionTextValue[4],
-            String.valueOf(Character.toChars(0x1F623)) + " " + emojiExpressionTextValue[5],
-            String.valueOf(Character.toChars(0x1F62A)) + " " + emojiExpressionTextValue[6],
-            String.valueOf(Character.toChars(0x1F613)) + " " + emojiExpressionTextValue[7],
-            String.valueOf(Character.toChars(0x1F61F)) + " " + emojiExpressionTextValue[8],
-            String.valueOf(Character.toChars(0x1F620)) + " " + emojiExpressionTextValue[9],
-            String.valueOf(Character.toChars(0x1F4A9)) + " " + emojiExpressionTextValue[10],
-            String.valueOf(Character.toChars(0x1F4AF)) + " " + emojiExpressionTextValue[11],
-            String.valueOf(Character.toChars(0x1F4B0)) + " " + emojiExpressionTextValue[12],
-            String.valueOf(Character.toChars(0x1F47C)) + " " + emojiExpressionTextValue[13]};
+//    private String[] emojiExpressionOptions = new String[]{
+//            String.valueOf(Character.toChars(0x1F525)) + " " + EmojiSelectUtil.emojiExpressionTextValue[0],
+//            String.valueOf(Character.toChars(0x1F603)) + " " + EmojiSelectUtil.emojiExpressionTextValue[1],
+//            String.valueOf(Character.toChars(0x1F60D)) + " " + EmojiSelectUtil.emojiExpressionTextValue[2],
+//            String.valueOf(Character.toChars(0x1F60E)) + " " + EmojiSelectUtil.emojiExpressionTextValue[3],
+//            String.valueOf(Character.toChars(0x1F914)) + " " + EmojiSelectUtil.emojiExpressionTextValue[4],
+//            String.valueOf(Character.toChars(0x1F623)) + " " + EmojiSelectUtil.emojiExpressionTextValue[5],
+//            String.valueOf(Character.toChars(0x1F62A)) + " " + EmojiSelectUtil.emojiExpressionTextValue[6],
+//            String.valueOf(Character.toChars(0x1F613)) + " " + EmojiSelectUtil.emojiExpressionTextValue[7],
+//            String.valueOf(Character.toChars(0x1F61F)) + " " + EmojiSelectUtil.emojiExpressionTextValue[8],
+//            String.valueOf(Character.toChars(0x1F620)) + " " + EmojiSelectUtil.emojiExpressionTextValue[9],
+//            String.valueOf(Character.toChars(0x1F4A9)) + " " + EmojiSelectUtil.emojiExpressionTextValue[10],
+//            String.valueOf(Character.toChars(0x1F4AF)) + " " + EmojiSelectUtil.emojiExpressionTextValue[11],
+//            String.valueOf(Character.toChars(0x1F4B0)) + " " + EmojiSelectUtil.emojiExpressionTextValue[12],
+//            String.valueOf(Character.toChars(0x1F47C)) + " " + EmojiSelectUtil.emojiExpressionTextValue[13]};
 
     private Handler mHandler;
 
@@ -147,11 +126,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     // Load the navigation menu header, such as header background image, profile name, etc
     private void loadNavHeader() {
         textName.setText(String.format("%s %s", String.valueOf(getBaseContext().getResources().getString(R.string.navi_tv_welcome_user)), firebaseUser.getDisplayName()));
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            if (firebaseUser.getPhotoUrl() != null) {
-                GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
-            }
-        }
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//            if (firebaseUser.getPhotoUrl() != null) {
+////                GlideUtil.loadProfileIcon(firebaseUser.getPhotoUrl().toString(), imageProfile);
+//            }
+//        }
     }
 
     public void runLayout() {
@@ -177,7 +156,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         activityTitles = getResources().getStringArray(R.array.navigation_labels);
 //        emojiExpressionOptions = getResources().getIntArray(R.array.emoji_spinner_dropdown_choices);
-        emojiExpressionAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, emojiExpressionOptions);
+        emojiExpressionAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, EmojiSelectUtil.emojiForSpinnerDropdown);
 //        emojiExpressionAdapter = new ArrayAdapter<Integer>(this, R.layout.support_simple_spinner_dropdown_item, emojiExpressionOptions);
 
         // Navigation Drawer View's Header Section
@@ -215,6 +194,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
+        user = FirebaseUtil.getCurrentUser();
     }
 
     private Fragment getHomeFragment() {
@@ -335,14 +315,14 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 //
 //                        break;
 
-                    case R.id.navigation_menu_invite_friends:
-
-                        CURRENT_TAG = TAG_INVITE;
-                        navItemIndex = 1;
-
-                        sendInvitationWindow();
-
-                        break;
+//                    case R.id.navigation_menu_invite_friends:
+//
+//                        CURRENT_TAG = TAG_INVITE;
+//                        navItemIndex = 1;
+//
+//                        sendInvitationWindow();
+//
+//                        break;
 
                     case R.id.navigation_menu_log_off:
 
@@ -410,8 +390,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.settings_menu_feedback_link:
 
-                CustomUser user = FirebaseUtil.getCurrentUser();
-
                 MaterialHelperUtil.submitFeedbackToDeveloper(this, user);
 
 //                FeedbackSubmitDialogBox feedbackSubmitDialogBox = new FeedbackSubmitDialogBox(this);
@@ -452,52 +430,14 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    public void createMaterialDialogBeanCreator(final Context context, View view) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        final View theView = layoutInflater.inflate(R.layout.material_dialog_custom_layout_view, null);
-        final EditText editText = theView.findViewById(R.id.et_beans_message_textbox);
-
-        final TextView expressionTextLabel = theView.findViewById(R.id.tv_mood_expression_text);
-        Spinner expressionDrop = theView.findViewById(R.id.spinner_emoji_expression_moods_dropdown);
-        expressionDrop.setAdapter(emojiExpressionAdapter);
-        expressionDrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                int expressionValue = i;
-
-                expressionTextLabel.setText(emojiExpressionTextValue[i]);
-                Toast.makeText(context, emojiExpressionOptions[i] + " " + expressionValue, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        new MaterialDialog.Builder(this)
-                .customView(theView, false)
-                .positiveText("Submit")
-                .negativeText("Cancel")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        String text = editText.getText().toString();
-                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-                        // Connect this part to Firebase Database UI. Extend a helper method class
-                    }
-                })
-                .show();
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_floating_action:
 
+//                CustomUser user = FirebaseUtil.getCurrentUser();
 //                createTopic();
-                createMaterialDialogBeanCreator(this, view);
+                MaterialHelperUtil.createMaterialDialogBeanCreator(this, view, emojiExpressionAdapter, EmojiSelectUtil.emojiForSpinnerDropdown, EmojiSelectUtil.emojiExpressionTextValue, user);
 
                 break;
 

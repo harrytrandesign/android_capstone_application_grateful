@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
-    app:itemIconTint="@color/color_text_white">
+    android:background="@color/color_text_white"
+    app:itemIconTint="@color/color_text_primary">
 
     <LinearLayout
         android:id="@+id/navigation_ll_header_container"
@@ -26,10 +26,10 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/navigation_iv_user_photo"
-                android:layout_width="@dimen/icon_navi_logo"
-                android:layout_height="@dimen/icon_navi_logo"
+                android:layout_width="@dimen/icon_header_logo"
+                android:layout_height="@dimen/icon_header_logo"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/icon_like_list"/>
+                android:src="@mipmap/bean"/>
 
             <TextView
                 android:id="@+id/navigation_tv_user_displayname"
@@ -41,7 +41,7 @@
                 android:paddingTop="@dimen/padding_small"
                 android:text="@string/navi_tv_displayname_placeholder"
                 android:textAlignment="center"
-                android:textColor="@color/color_text_white"
+                android:textColor="@color/color_text_primary"
                 android:textSize="@dimen/font_medium"
                 android:textStyle="bold"/>
 

@@ -84,4 +84,14 @@ public class FirebaseUtil {
         return getBaseRef().child("report");
     }
 
+    public static DatabaseReference getTagListRef() {
+        // TagsUsed >> Food:true, College:true
+        return getBaseRef().child("tagsUsedList");
+    }
+
+    public static DatabaseReference getTagPostsListRef() {
+        // TagPosts >> Food >> key:true, key:true, College >> key:true
+        return getBaseRef().child("tagPostsList");
+    }
+
 }

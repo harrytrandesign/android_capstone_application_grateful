@@ -39,15 +39,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_today_text"/>
 
-
     <EditText
         android:id="@+id/et_beans_message_textbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
-        android:background="@color/fui_transparent"
         android:gravity="top|start"
         android:hint="@string/et_what_to_say_text"
+        android:inputType="text|textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
         android:lines="4"
         android:minLines="4"
         android:padding="@dimen/padding_xsmall"

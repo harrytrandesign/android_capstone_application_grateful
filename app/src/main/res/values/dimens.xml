@@ -44,6 +44,7 @@
     <dimen name="icon_user_profile_thumbnail">40dp</dimen>
     <dimen name="icon_user_profile_full">200dp</dimen>
     <dimen name="icon_navi_logo">60dp</dimen>
+    <dimen name="icon_header_logo">80dp</dimen>
 
     <!-- Extras -->
     <dimen name="edittext_box_corner_radius">5dp</dimen>
