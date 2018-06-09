@@ -18,18 +18,20 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Entries;
 import com.htdwps.grateful.Model.GratefulPost;
 import com.htdwps.grateful.PersonalPostsGridActivity;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Viewholder.BeanPostViewHolder;
 import com.htdwps.grateful.Viewholder.EntryViewHolder;
 import com.htdwps.grateful.Viewholder.GratePostViewHolder;
 
 public class UserPostFragment extends Fragment {
 
-    private OnFragmentInteractionListener   mListener;
+    private OnFragmentInteractionListener mListener;
 
     private static final String DATABASE_PARAM = "database_reference_param";
     private static final String ALL_POSTS_PARAM = "public_posts";
@@ -42,13 +44,14 @@ public class UserPostFragment extends Fragment {
     private DatabaseReference queryRefrence;
     String queryTypeString;
 
-    RecyclerView.Adapter<EntryViewHolder>   listAdapter;
+    RecyclerView.Adapter<EntryViewHolder> listAdapter;
     RecyclerView.Adapter<GratePostViewHolder> gratefulAdapter;
+    RecyclerView.Adapter<BeanPostViewHolder> beanPostAdapter;
     DatabaseReference mainAllPostsReference;
     DatabaseReference userOnlyPostsReference;
-    FirebaseUser                            firebaseUser;
-    LinearLayoutManager                     linearLayoutManager;
-    RecyclerView                            recyclerView;
+    FirebaseUser firebaseUser;
+    LinearLayoutManager linearLayoutManager;
+    RecyclerView recyclerView;
     CustomUser user;
 
     public UserPostFragment() {
@@ -86,10 +89,10 @@ public class UserPostFragment extends Fragment {
         runInitialize();
         createLayoutManager();
 //        createAdapter(userOnlyPostsReference);
-        createRecyclerViewAdater(queryRefrence);
+        createBeanRecyclerViewAdapter(queryRefrence);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(gratefulAdapter);
+        recyclerView.setAdapter(beanPostAdapter);
 
         return view;
     }
@@ -100,7 +103,7 @@ public class UserPostFragment extends Fragment {
         setTypeFace();
     }
 
-//
+    //
     public void setTypeFace() {
         Typeface headerFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Courgette-Regular.ttf");
     }
@@ -108,16 +111,16 @@ public class UserPostFragment extends Fragment {
     public void runInitialize() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         user = FirebaseUtil.getCurrentUser();
-        mainAllPostsReference = FirebaseUtil.getGratefulPostsRef();
+        mainAllPostsReference = FirebaseUtil.getUserPostRef();
         userOnlyPostsReference = FirebaseUtil.getGratefulPersonalRef().child(user.getUserid());
 
         if (queryTypeString.equals(ALL_POSTS_PARAM)) {
 
-            queryRefrence = mainAllPostsReference;
+            queryRefrence = mainAllPostsReference.child(user.getUserid());
 
-        } else if (queryTypeString.equals(USER_POSTS_PARAM)) {
+        } else if (queryTypeString.equals(ALL_POSTS_PARAM)) {
 
-            queryRefrence = userOnlyPostsReference;
+            queryRefrence = mainAllPostsReference.child(user.getUserid());
 
         }
     }
@@ -142,6 +145,24 @@ public class UserPostFragment extends Fragment {
     public void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
+    }
+
+    public RecyclerView.Adapter<BeanPostViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
+        beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostViewHolder>(
+                Beans.class,
+                R.layout.item_grateful_post_user_posts,
+                BeanPostViewHolder.class,
+                databaseReference
+        ) {
+            @Override
+            protected void populateViewHolder(BeanPostViewHolder viewHolder, Beans model, int position) {
+
+                viewHolder.setBeanPostFields(model.getMoodType(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString(), model.getBeanText(), model.getTagList(), model.isPublic());
+
+            }
+        };
+
+        return beanPostAdapter;
     }
 
     public RecyclerView.Adapter<GratePostViewHolder> createRecyclerViewAdater(DatabaseReference databaseReference) {

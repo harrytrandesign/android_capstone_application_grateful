@@ -203,11 +203,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 // Pass param of DatabaseReference to use the same Fragment but swap the database each time
                 return UserPostFragment.newInstance(ALL_POSTS_PARAM);
             case 1:
-                return UserPostFragment.newInstance(USER_POSTS_PARAM);
+                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
 //            case 2:
 //                return JournalFragment.newInstance(FirebaseUtil.getAllJournalRef());
             default:
-                return new UserPostFragment();
+                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
         }
     }
 

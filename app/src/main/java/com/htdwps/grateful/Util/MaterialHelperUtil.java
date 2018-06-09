@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,9 +41,17 @@ public class MaterialHelperUtil {
     // Submit a grateful bean to the fb database here
     public static void createMaterialDialogBeanCreator(final Context context, View view, ArrayAdapter<String> adapter, final String[] emojiList, final String[] emotionList, final CustomUser customUser) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
+
         final View theView = layoutInflater.inflate(R.layout.material_dialog_custom_layout_view, null);
         final EditText editText = theView.findViewById(R.id.et_beans_message_textbox);
         final EditText tagText = theView.findViewById(R.id.et_beans_extra_taglist);
+        final CheckBox checkBox = theView.findViewById(R.id.checkbox_public_box);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean isPublic = b;
+            }
+        });
 
         final TextView expressionTextLabel = theView.findViewById(R.id.tv_mood_expression_text);
         final Spinner expressionDrop = theView.findViewById(R.id.spinner_emoji_expression_moods_dropdown);
@@ -100,7 +110,7 @@ public class MaterialHelperUtil {
 //                                list.add(tag);
 //                            }
 
-                            Beans beans = new Beans(customUser, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, false);
+                            Beans beans = new Beans(customUser, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, checkBox.isChecked());
                             FirebaseUtil.getUserPostRef().child(customUser.getUserid()).push().setValue(beans).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
