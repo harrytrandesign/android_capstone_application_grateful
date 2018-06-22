@@ -42,6 +42,7 @@ import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -108,6 +109,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_list);
 
+        Timber.i("ListActivity OnCreate is initializing.");
+
         mHandler = new Handler();
         MobileAds.initialize(this, ListActivity.this.getResources().getString(R.string.admob_app_id));
 
@@ -120,6 +123,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             CURRENT_TAG = TAG_PUBLIC_SUBMITS;
             loadHomeFragment();
         }
+
+        Timber.i("ListActivity completed.");
 
     }
 
@@ -174,6 +179,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         // Initializing navigation menu
         setUpNavigationView();
 
+        generateInspirationalQuote();
+
+    }
+
+    private void generateInspirationalQuote() {
         // TODO: Run an internet connection check here before calling out this Quote.
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title(R.string.tv_quote_inspire_daily)
@@ -183,7 +193,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         dialog = builder.build();
         dialog.show();
         // Stop internet check here.
-
     }
 
     public void runInitializer() {
@@ -195,6 +204,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
         Fabric.with(fabric);
         user = FirebaseUtil.getCurrentUser();
+        Timber.i("Firebase is being initialized, firebase is complete.");
     }
 
     private Fragment getHomeFragment() {
@@ -382,6 +392,12 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.settings_menu_new_quote:
+
+                generateInspirationalQuote();
+
+                break;
+
             case R.id.settings_menu_invite_friend:
 
                 sendInvitationWindow();
@@ -437,7 +453,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
 //                CustomUser user = FirebaseUtil.getCurrentUser();
 //                createTopic();
-                MaterialHelperUtil.createMaterialDialogBeanCreator(this, view, emojiExpressionAdapter, EmojiSelectUtil.emojiForSpinnerDropdown, EmojiSelectUtil.emojiExpressionTextValue, user);
+//                MaterialHelperUtil.createMaterialDialogBeanCreator(this, view, emojiExpressionAdapter, EmojiSelectUtil.emojiForSpinnerDropdown, EmojiSelectUtil.emojiExpressionTextValue, user);
+                Intent submitBeanIntent = new Intent(ListActivity.this, SubmitBeanActivity.class);
+                startActivity(submitBeanIntent);
 
                 break;
 

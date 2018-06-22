@@ -14,9 +14,9 @@ import java.util.concurrent.ExecutionException;
 public class QuoteActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String API_URL = "http://api.forismatic.com/api/1.0/?";
-    public static final String api_method = "getQuote";     // Method of Api call;
-    public static final String api_format = "text";         // Format available xml, json, html, text;
-    public static final String api_lang = "en";
+    public static final String API_METHOD = "getQuote";     // Method of Api call;
+    public static final String API_FORMAT = "text";         // Format available xml, json, html, text;
+    public static final String API_LANG = "en";
 
     TextView inspireText;
     TextView quoteText;
@@ -50,7 +50,7 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
 
     public static String runQuoteRequest() {
         // Point to this web api
-        String quoteUrl = API_URL + "method=" + api_method + "&format=" + api_format + "&lang=" + api_lang;
+        String quoteUrl = API_URL + "method=" + API_METHOD + "&format=" + API_FORMAT + "&lang=" + API_LANG;
 
         // Place what we return into this string
         String result;

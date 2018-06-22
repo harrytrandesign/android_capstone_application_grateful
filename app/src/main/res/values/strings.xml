@@ -9,6 +9,7 @@
     <string name="dialog.message.loading">Loading…</string>
     <string name="invite.title.label">Invite Your Friends</string>
     <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for. You know, like me.</string>
+    <string name="menu_label_quote">Generate Quote</string>
     <string name="menu_label_invites">Invite Friends</string>
     <string name="menu.label.terms">Terms &amp; Conditions</string>
     <string name="menu.label.privacy">Privacy Policy</string>
@@ -67,7 +68,7 @@
 
     <string name="item_tv_comment_count">Comment</string>
     <string name="next_button_text">Next</string>
-    <string name="tv_quote_inspire_daily">Inspire Yourself Daily…</string>
+    <string name="tv_quote_inspire_daily">Inspire Yourself…</string>
     <string name="tv_close_quote">Close</string>
     <string name="tv_user_wrote">You Wrote…</string>
     <string name="tv_user_journal_wrote">Your Journal Entries</string>
@@ -103,21 +104,22 @@
     <string name="emoji_type_twelve_poop">0x1F4A9</string>
     <string name="emoji_type_thirteen_100percent">0x1F4AF</string>
     <string name="emoji_type_money">0x1F4B0</string>
+    <string name="submit_tag_label">Tag</string>
 
     <!--<integer-array name="emoji_spinner_dropdown_choices">-->
-        <!--<item>@string/emoji_type_one_onfire</item>-->
-        <!--<item>@string/emoji_type_five_happy</item>-->
-        <!--<item>@string/emoji_type_three_inlove</item>-->
-        <!--<item>@string/emoji_type_four_cool</item>-->
-        <!--<item>@string/emoji_type_six_deepthought</item>-->
-        <!--<item>@string/emoji_type_seven_terrible</item>-->
-        <!--<item>@string/emoji_type_eight_exhausted</item>-->
-        <!--<item>@string/emoji_type_nine_nervous</item>-->
-        <!--<item>@string/emoji_type_ten_sad</item>-->
-        <!--<item>@string/emoji_type_eleven_furious</item>-->
-        <!--<item>@string/emoji_type_twelve_poop</item>-->
-        <!--<item>@string/emoji_type_thirteen_100percent</item>-->
-        <!--<item>@string/emoji_type_money</item>-->
+    <!--<item>@string/emoji_type_one_onfire</item>-->
+    <!--<item>@string/emoji_type_five_happy</item>-->
+    <!--<item>@string/emoji_type_three_inlove</item>-->
+    <!--<item>@string/emoji_type_four_cool</item>-->
+    <!--<item>@string/emoji_type_six_deepthought</item>-->
+    <!--<item>@string/emoji_type_seven_terrible</item>-->
+    <!--<item>@string/emoji_type_eight_exhausted</item>-->
+    <!--<item>@string/emoji_type_nine_nervous</item>-->
+    <!--<item>@string/emoji_type_ten_sad</item>-->
+    <!--<item>@string/emoji_type_eleven_furious</item>-->
+    <!--<item>@string/emoji_type_twelve_poop</item>-->
+    <!--<item>@string/emoji_type_thirteen_100percent</item>-->
+    <!--<item>@string/emoji_type_money</item>-->
     <!--</integer-array>-->
 
 </resources>

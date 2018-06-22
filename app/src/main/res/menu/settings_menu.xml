@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/settings_menu_new_quote"
+        android:orderInCategory="89"
+        android:title="@string/menu_label_quote"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/settings_menu_invite_friend"
         android:orderInCategory="90"
         android:title="@string/menu_label_invites"

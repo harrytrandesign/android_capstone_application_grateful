@@ -8,18 +8,18 @@ import java.util.ArrayList;
 public class Beans {
 
     private CustomUser customUser;
-    private int moodType;
+    private int moodValue;
     private String beanText;
     private Object timestamp;
     private ArrayList<String> tagList;
-    private boolean isPublic;
+    private boolean isPublic; // Not changeable
 
     public Beans() {
     }
 
-    public Beans(CustomUser customUser, int moodType, String beanText, Object timestamp, ArrayList<String> tagList, boolean isPublic) {
+    public Beans(CustomUser customUser, int moodValue, String beanText, Object timestamp, ArrayList<String> tagList, boolean isPublic) {
         this.customUser = customUser;
-        this.moodType = moodType;
+        this.moodValue = moodValue;
         this.beanText = beanText;
         this.timestamp = timestamp;
         this.tagList = tagList;
@@ -30,8 +30,8 @@ public class Beans {
         this.customUser = customUser;
     }
 
-    public void setMoodType(int moodType) {
-        this.moodType = moodType;
+    public void setMoodValue(int moodValue) {
+        this.moodValue = moodValue;
     }
 
     public void setBeanText(String beanText) {
@@ -54,8 +54,8 @@ public class Beans {
         return customUser;
     }
 
-    public int getMoodType() {
-        return moodType;
+    public int getMoodValue() {
+        return moodValue;
     }
 
     public String getBeanText() {

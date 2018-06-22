@@ -60,6 +60,8 @@
         </activity>
         <activity android:name=".FirebaseUiAuthActivity">
         </activity>
+        <activity android:name=".SubmitBeanActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class FirebaseUiAuthActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
@@ -41,7 +43,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                 .setAvailableProviders(Arrays.asList(
                         new AuthUI.IdpConfig.EmailBuilder().build(),
                         new AuthUI.IdpConfig.GoogleBuilder().build()))
-                .setLogo(R.drawable.signin_icon)
+                .setLogo(R.drawable.grateful_bean_signin_logo_think_positive_msg)
                 .setTheme(R.style.SignInTheme)
 //                .setTosUrl("http://imharry.me/privacy.html")
                 .setPrivacyPolicyUrl("http://imharry.me/privacy.html")
@@ -71,6 +73,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.exists()) {
 
+                                Timber.i("This user does not exist and so creating a new user profile.");
                                 // On first sign up register the landlord object, and also isPremium is false for the user so they can only create 2 property objects
                                 Map<String, Object> newUser = new HashMap<>();
                                 newUser.put("all_usernames/" + firebaseUser.getUid(), addThisUser);
@@ -86,6 +89,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
 
                             } else {
 
+                                Timber.i("User already exists, leaving FirebaseUIAuthActivity now.");
                                 startActivity(new Intent(FirebaseUiAuthActivity.this, ListActivity.class));
                                 finish();
 
@@ -120,6 +124,9 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                     Toast.makeText(this, "An Error Occurred", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                return;
+
             }
 
         }

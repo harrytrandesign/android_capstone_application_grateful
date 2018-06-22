@@ -23,6 +23,7 @@ public class EmojiSelectUtil {
     public static int[] emojiIconCodePoint = new int[]{
             0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
     };
+    //      0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
 
     public static String[] emojiExpressionTextValue = new String[]{
             "On Fire",
@@ -55,6 +56,58 @@ public class EmojiSelectUtil {
             String.valueOf(Character.toChars(emojiIconCodePoint[11])) + " " + emojiExpressionTextValue[11],
             String.valueOf(Character.toChars(emojiIconCodePoint[12])) + " " + emojiExpressionTextValue[12],
             String.valueOf(Character.toChars(emojiIconCodePoint[13])) + " " + emojiExpressionTextValue[13]};
+
+    public static String expressionTextStringEmojiType(int value) {
+
+        String feeling = "";
+
+        switch (value) {
+            case 0:
+                feeling = "On Fire";
+                break;
+            case 1:
+                feeling = "Happy";
+                break;
+            case 2:
+                feeling = "In Love";
+                break;
+            case 3:
+                feeling = "Cool";
+                break;
+            case 4:
+                feeling = "Deep Thoughts";
+                break;
+            case 5:
+                feeling = "Agony";
+                break;
+            case 6:
+                feeling = "Exhausted";
+                break;
+            case 7:
+                feeling = "Nervous";
+                break;
+            case 8:
+                feeling = "Sad";
+                break;
+            case 9:
+                feeling = "Furious";
+                break;
+            case 10:
+                feeling = "Pooped";
+                break;
+            case 11:
+                feeling = "100%";
+                break;
+            case 12:
+                feeling = "Cha-Ching";
+                break;
+            case 13:
+                feeling = "Blessed";
+                break;
+        }
+
+        return feeling;
+    }
 
     public static int emojiIconPicker(int value) {
 

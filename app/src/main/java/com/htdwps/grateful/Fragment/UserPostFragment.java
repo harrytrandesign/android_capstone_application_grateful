@@ -29,6 +29,8 @@ import com.htdwps.grateful.Viewholder.BeanPostViewHolder;
 import com.htdwps.grateful.Viewholder.EntryViewHolder;
 import com.htdwps.grateful.Viewholder.GratePostViewHolder;
 
+import timber.log.Timber;
+
 public class UserPostFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -157,7 +159,13 @@ public class UserPostFragment extends Fragment {
             @Override
             protected void populateViewHolder(BeanPostViewHolder viewHolder, Beans model, int position) {
 
-                viewHolder.setBeanPostFields(model.getMoodType(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString(), model.getBeanText(), model.getTagList(), model.isPublic());
+                String year = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
+                String time = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
+                String dateTime = String.format("%s %s", year, time);
+
+                viewHolder.setBeanPostFields(model.getMoodValue(), dateTime, model.getBeanText(), model.getTagList(), model.isPublic());
+                Timber.i("This message's value is " + String.valueOf(model.getMoodValue()));
+                Timber.i("This message's message is " + model.getBeanText());
 
             }
         };
