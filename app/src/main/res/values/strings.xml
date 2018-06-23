@@ -10,6 +10,7 @@
     <string name="invite.title.label">Invite Your Friends</string>
     <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for. You know, like me.</string>
     <string name="menu_label_quote">Generate Quote</string>
+    <string name="menu_label_submit">Submit</string>
     <string name="menu_label_invites">Invite Friends</string>
     <string name="menu.label.terms">Terms &amp; Conditions</string>
     <string name="menu.label.privacy">Privacy Policy</string>

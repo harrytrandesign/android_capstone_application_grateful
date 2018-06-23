@@ -41,8 +41,8 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
 //        StringBuilder tagsLists = new StringBuilder();
         String tagsLists = TextUtils.join(", ", tags);
 
-//        tvFeeling.setText(EmojiSelectUtil.emojiExpressionTextValue[feelingValue]);
-        tvFeeling.setText(EmojiSelectUtil.expressionTextStringEmojiType(feelingValue));
+        tvFeeling.setText(EmojiSelectUtil.emojiExpressionTextValue[feelingValue]);
+//        tvFeeling.setText(EmojiSelectUtil.expressionTextStringEmojiType(feelingValue));
         tvEmojiIcon.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[feelingValue])));
         tvDatePost.setText(timestamp);
         tvMainMessage.setText(mainText);

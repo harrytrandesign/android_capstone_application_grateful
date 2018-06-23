@@ -60,7 +60,15 @@
         </activity>
         <activity android:name=".FirebaseUiAuthActivity">
         </activity>
-        <activity android:name=".SubmitBeanActivity">
+        <activity
+            android:name=".SubmitBeanActivity"
+            android:parentActivityName=".ListActivity"
+            android:windowSoftInputMode="adjustPan">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+
         </activity>
     </application>
 

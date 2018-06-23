@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/padding_medium">
-
-    <Spinner
-        android:id="@+id/spinner_emoji_expression_moods_dropdown"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/icon_xlarge"
-        android:layout_marginStart="@dimen/padding_xsmall"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_today_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_xsmall"
+        android:paddingEnd="@dimen/padding_zero"
+        android:paddingStart="@dimen/padding_xsmall"
+        android:paddingTop="@dimen/padding_xsmall"
         android:text="@string/tv_today_feeling"
         android:textSize="@dimen/font_standard"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/spinner_emoji_expression_moods_dropdown"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -30,47 +26,84 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_xsmall"
-        android:gravity=""
-        android:text="Excited"
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_zero"
+        android:paddingTop="@dimen/padding_xsmall"
         android:textAllCaps="true"
         android:textColor="@color/color_text_primary"
         android:textSize="@dimen/font_standard"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toEndOf="@id/tv_today_text"
-        app:layout_constraintTop_toTopOf="@id/tv_today_text"/>
+        app:layout_constraintTop_toTopOf="@id/tv_today_text"
+        tools:text="Excited"/>
+
+    <Spinner
+        android:id="@+id/spinner_emoji_expression_moods_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall"
+        android:textAlignment="textStart"
+        app:layout_constraintTop_toBottomOf="@id/tv_today_text"/>
 
     <EditText
         android:id="@+id/et_beans_message_textbox"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
+        android:background="@android:color/transparent"
+        android:elevation="@dimen/padding_tiny"
         android:gravity="top|start"
         android:hint="@string/et_what_to_say_text"
-        android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
+        android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
         android:lines="4"
-        android:minLines="4"
         android:padding="@dimen/padding_xsmall"
-        android:textSize="@dimen/font_standard"
-        app:layout_constraintStart_toEndOf="@id/spinner_emoji_expression_moods_dropdown"
-        app:layout_constraintTop_toBottomOf="@id/tv_today_text"/>
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall"
+        android:textSize="@dimen/font_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
+
+    <View
+        android:id="@+id/view_single_horizontal_linebreak"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/padding_xsmall"
+        android:layout_marginEnd="@dimen/padding_xsmall"
+        android:layout_marginStart="@dimen/padding_xsmall"
+        android:layout_marginTop="@dimen/padding_xsmall"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
 
     <TextView
         android:id="@+id/tv_tag_label_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_xsmall"
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall"
         android:text="@string/submit_tag_label"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
+        app:layout_constraintTop_toBottomOf="@id/view_single_horizontal_linebreak"/>
 
     <EditText
         android:id="@+id/et_beans_extra_taglist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
+        android:background="@android:color/transparent"
+        android:elevation="@dimen/padding_tiny"
         android:gravity="top|start"
         android:hint="@string/et_tag_list_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text|textAutoComplete|textAutoCorrect"
+        android:lines="1"
         android:padding="@dimen/padding_xsmall"
-        android:textSize="@dimen/font_standard"
+        android:paddingEnd="@dimen/padding_xsmall"
+        android:paddingStart="@dimen/padding_xsmall"
+        android:singleLine="true"
+        android:textSize="@dimen/font_small"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text"/>
 
     <CheckBox
@@ -80,7 +113,18 @@
         android:layout_marginTop="@dimen/padding_xsmall"
         android:text="@string/checkbox_share_public_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_today_text"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_test"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent">
+    </com.google.android.gms.ads.AdView>
 
 </android.support.constraint.ConstraintLayout>

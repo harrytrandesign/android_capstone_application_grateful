@@ -26,8 +26,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,7 +55,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private static final String ALL_POSTS_PARAM = "public_posts";
     private static final String USER_POSTS_PARAM = "user_posts";
 
-    private AdView mAdview;
+//    private AdView mAdview;
     private CircleImageView imageProfile;
     private DrawerLayout drawerLayout;
     private FloatingActionButton floatingActionButton;
@@ -150,9 +148,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 //        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black_transparent)));
 
         // Advertisements banner top smart_banner size
-        mAdview = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdview.loadAd(adRequest);
+//        mAdview = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdview.loadAd(adRequest);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.mainfeed_navigation_view_layout);
