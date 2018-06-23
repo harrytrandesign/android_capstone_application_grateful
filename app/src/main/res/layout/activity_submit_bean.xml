@@ -60,14 +60,14 @@
         android:padding="@dimen/padding_xsmall"
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/font_standard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
 
     <View
         android:id="@+id/view_single_horizontal_linebreak"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="@dimen/padding_xsmall"
         android:layout_marginEnd="@dimen/padding_xsmall"
@@ -84,8 +84,9 @@
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"
         android:text="@string/submit_tag_label"
+        android:textSize="@dimen/font_medium"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/view_single_horizontal_linebreak"/>
+        ads:layout_constraintTop_toBottomOf="@id/view_single_horizontal_linebreak"/>
 
     <EditText
         android:id="@+id/et_beans_extra_taglist"
@@ -103,7 +104,7 @@
         android:paddingEnd="@dimen/padding_xsmall"
         android:paddingStart="@dimen/padding_xsmall"
         android:singleLine="true"
-        android:textSize="@dimen/font_small"
+        android:textSize="@dimen/font_standard"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text"/>
 
     <CheckBox
