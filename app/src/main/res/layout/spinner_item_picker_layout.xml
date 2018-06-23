@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_xsmall">
+
+    <TextView
+        android:id="@+id/tv_mood_description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_xsmall"
+        android:textSize="@dimen/font_standard"
+        tools:text="On Fire"/>
+
+</android.support.constraint.ConstraintLayout>

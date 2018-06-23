@@ -54,6 +54,7 @@ public class UserPostFragment extends Fragment {
     FirebaseUser firebaseUser;
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
+    RecyclerView moodCounterRecyclerView;
     CustomUser user;
 
     public UserPostFragment() {

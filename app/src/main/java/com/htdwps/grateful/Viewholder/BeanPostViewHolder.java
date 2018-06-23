@@ -46,10 +46,19 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
         tvEmojiIcon.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[feelingValue])));
         tvDatePost.setText(timestamp);
         tvMainMessage.setText(mainText);
-        tvTagList.setText(tagsLists);
+        if (TextUtils.isEmpty(tagsLists)) {
+            tvTagList.setText(R.string.string_no_tags_found);
+        } else {
+            tvTagList.setText(tagsLists);
+        }
 
-        String postStatus = (publicStatus) ? "Public" : "Personal";
-        tvIsPublic.setText(postStatus);
+//        String postStatus = (publicStatus) ? "Public" : "Personal";
+        tvIsPublic.setText(R.string.string_public_status_text);
+        if (publicStatus) {
+            tvIsPublic.setVisibility(View.VISIBLE);
+        } else {
+            tvIsPublic.setVisibility(View.INVISIBLE);
+        }
 
     }
 

@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ServerValue;
+import com.htdwps.grateful.Adapter.CustomSpinnerArrayAdapter;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
@@ -48,8 +49,8 @@ public class SubmitBeanActivity extends AppCompatActivity {
     EditText tagText;
     CheckBox checkBox;
     TextView expressionTextLabel;
-    Spinner expressionDropdown;
     ArrayAdapter<String> emojiExpressionAdapter;
+    Spinner expressionDropdown;
     String[] emojiList;
     String[] emotionList;
     int expressionValue;
@@ -71,6 +72,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         emojiExpressionAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, EmojiSelectUtil.emojiForSpinnerDropdown);
+        CustomSpinnerArrayAdapter customSpinnerArrayAdapter = new CustomSpinnerArrayAdapter(this, R.layout.spinner_item_picker_layout, EmojiSelectUtil.emojiForSpinnerDropdown);
         emojiList = EmojiSelectUtil.emojiForSpinnerDropdown;
         emotionList = EmojiSelectUtil.emojiExpressionTextValue;
 
@@ -90,7 +92,9 @@ public class SubmitBeanActivity extends AppCompatActivity {
             }
         });
 
-        expressionDropdown.setAdapter(emojiExpressionAdapter);
+        // Testing a custom spinner adapter and layout
+//        expressionDropdown.setAdapter(emojiExpressionAdapter);
+        expressionDropdown.setAdapter(customSpinnerArrayAdapter);
         expressionDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -149,7 +153,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             Toast.makeText(SubmitBeanActivity.this, "Complete", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SubmitBeanActivity.this, ListActivity.class);
+                            Intent intent = new Intent(SubmitBeanActivity.this, MainWindowActivity.class);
                             startActivity(intent);
                             finish();
 

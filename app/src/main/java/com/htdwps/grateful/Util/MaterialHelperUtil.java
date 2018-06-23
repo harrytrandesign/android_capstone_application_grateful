@@ -24,6 +24,7 @@ import com.google.firebase.database.ServerValue;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Feedback;
+import com.htdwps.grateful.QuoteActivity;
 import com.htdwps.grateful.R;
 
 import java.util.ArrayList;
@@ -37,6 +38,20 @@ public class MaterialHelperUtil {
 
     //    Context mContext;
     private static final DatabaseReference feedbackDatabaseReference = FirebaseUtil.getFeedbackRef();
+
+    public static void generateInspirationalQuote(Context context) {
+        MaterialDialog dialog;
+
+        // TODO: Run an internet connection check here before calling out this Quote.
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                .title(R.string.tv_quote_inspire_daily)
+                .content(QuoteActivity.runQuoteRequest())
+                .positiveText(R.string.tv_close_quote);
+
+        dialog = builder.build();
+        dialog.show();
+        // Stop internet check here.
+    }
 
     // Submit a grateful bean to the fb database here
     public static void createMaterialDialogBeanCreator(final Context context, View view, ArrayAdapter<String> adapter, final String[] emojiList, final String[] emotionList, final CustomUser customUser) {
@@ -83,8 +98,8 @@ public class MaterialHelperUtil {
                         String tags = tagText.getText().toString();
 
                         if (TextUtils.isEmpty(text) || text.length() < 10) {
-                            editText.setError("Sorry, your message is too short");
-                            Toast.makeText(context, "Sorry, your message is too short", Toast.LENGTH_SHORT).show();
+                            editText.setError(context.getString(R.string.string_message_too_short_error_alert));
+                            Toast.makeText(context, context.getString(R.string.string_message_too_short_error_alert), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
                             int num;
@@ -136,7 +151,7 @@ public class MaterialHelperUtil {
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         if (TextUtils.isEmpty(input) || input.length() < 10) {
 
-                            Toast.makeText(context, "Your feedback is too short.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.string_feedback_length_too_short, Toast.LENGTH_SHORT).show();
 
                         } else {
 
@@ -146,7 +161,7 @@ public class MaterialHelperUtil {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
-                                    Toast.makeText(context, "Your feedback has been submitted. We thank you for your input to improve our app.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, R.string.string_feedback_response_received, Toast.LENGTH_SHORT).show();
 
                                 }
 

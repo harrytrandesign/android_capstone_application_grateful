@@ -64,11 +64,13 @@
             android:name=".SubmitBeanActivity"
             android:parentActivityName=".ListActivity"
             android:windowSoftInputMode="adjustPan">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
-
+        </activity>
+        <activity
+            android:name=".MainWindowActivity"
+            android:label="@string/title_activity_main_window">
         </activity>
     </application>
 

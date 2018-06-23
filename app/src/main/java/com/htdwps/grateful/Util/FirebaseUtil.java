@@ -55,6 +55,10 @@ public class FirebaseUtil {
         // post_tags_list --> user_id --> tag_word --> post_key : true;
     }
 
+    public static DatabaseReference getMoodBeanListReference() {
+        return getBaseRef().child("mood_bean_listed_posts");
+    }
+
     public static DatabaseReference getMoodCounterReference() {
         return getBaseRef().child("mood_type_counter_values");
         // mood_type_counter_values --> user_id --> mood : int 0, mood2 : int 0;
