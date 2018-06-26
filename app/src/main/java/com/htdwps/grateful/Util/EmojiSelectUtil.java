@@ -21,7 +21,10 @@ public class EmojiSelectUtil {
     private static final int EMOJI_BLESSED = 0x1F47C;
 
     public static int[] emojiIconCodePoint = new int[]{
-            0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
+            0x1F525, 0x1F603, 0x1F60D, 0x1F60E,
+            0x1F914, 0x1F623, 0x1F62A, 0x1F613,
+            0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF,
+            0x1F4B0, 0x1F47C, 0x1F625, 0x1F915
     };
     //      0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
 
@@ -39,23 +42,29 @@ public class EmojiSelectUtil {
             "Pooped",
             "100%",
             "Cha-Ching",
-            "Blessed"};
+            "Blessed",
+            "Stressed",
+            "Hurt"
+    };
 
     public static String[] emojiForSpinnerDropdown = new String[]{
-            String.valueOf(Character.toChars(emojiIconCodePoint[0])) + " " + emojiExpressionTextValue[0],
-            String.valueOf(Character.toChars(emojiIconCodePoint[1])) + " " + emojiExpressionTextValue[1],
-            String.valueOf(Character.toChars(emojiIconCodePoint[2])) + " " + emojiExpressionTextValue[2],
-            String.valueOf(Character.toChars(emojiIconCodePoint[3])) + " " + emojiExpressionTextValue[3],
-            String.valueOf(Character.toChars(emojiIconCodePoint[4])) + " " + emojiExpressionTextValue[4],
-            String.valueOf(Character.toChars(emojiIconCodePoint[5])) + " " + emojiExpressionTextValue[5],
-            String.valueOf(Character.toChars(emojiIconCodePoint[6])) + " " + emojiExpressionTextValue[6],
-            String.valueOf(Character.toChars(emojiIconCodePoint[7])) + " " + emojiExpressionTextValue[7],
-            String.valueOf(Character.toChars(emojiIconCodePoint[8])) + " " + emojiExpressionTextValue[8],
-            String.valueOf(Character.toChars(emojiIconCodePoint[9])) + " " + emojiExpressionTextValue[9],
-            String.valueOf(Character.toChars(emojiIconCodePoint[10])) + " " + emojiExpressionTextValue[10],
-            String.valueOf(Character.toChars(emojiIconCodePoint[11])) + " " + emojiExpressionTextValue[11],
-            String.valueOf(Character.toChars(emojiIconCodePoint[12])) + " " + emojiExpressionTextValue[12],
-            String.valueOf(Character.toChars(emojiIconCodePoint[13])) + " " + emojiExpressionTextValue[13]};
+            String.valueOf(Character.toChars(emojiIconCodePoint[0])) + " - " + emojiExpressionTextValue[0],
+            String.valueOf(Character.toChars(emojiIconCodePoint[1])) + " - " + emojiExpressionTextValue[1],
+            String.valueOf(Character.toChars(emojiIconCodePoint[2])) + " - " + emojiExpressionTextValue[2],
+            String.valueOf(Character.toChars(emojiIconCodePoint[3])) + " - " + emojiExpressionTextValue[3],
+            String.valueOf(Character.toChars(emojiIconCodePoint[4])) + " - " + emojiExpressionTextValue[4],
+            String.valueOf(Character.toChars(emojiIconCodePoint[5])) + " - " + emojiExpressionTextValue[5],
+            String.valueOf(Character.toChars(emojiIconCodePoint[6])) + " - " + emojiExpressionTextValue[6],
+            String.valueOf(Character.toChars(emojiIconCodePoint[7])) + " - " + emojiExpressionTextValue[7],
+            String.valueOf(Character.toChars(emojiIconCodePoint[8])) + " - " + emojiExpressionTextValue[8],
+            String.valueOf(Character.toChars(emojiIconCodePoint[9])) + " - " + emojiExpressionTextValue[9],
+            String.valueOf(Character.toChars(emojiIconCodePoint[10])) + " - " + emojiExpressionTextValue[10],
+            String.valueOf(Character.toChars(emojiIconCodePoint[11])) + " - " + emojiExpressionTextValue[11],
+            String.valueOf(Character.toChars(emojiIconCodePoint[12])) + " - " + emojiExpressionTextValue[12],
+            String.valueOf(Character.toChars(emojiIconCodePoint[13])) + " - " + emojiExpressionTextValue[13],
+            String.valueOf(Character.toChars(emojiIconCodePoint[14])) + " - " + emojiExpressionTextValue[14],
+            String.valueOf(Character.toChars(emojiIconCodePoint[15])) + " - " + emojiExpressionTextValue[15]
+    };
 
     public static String expressionTextStringEmojiType(int value) {
 
@@ -103,6 +112,12 @@ public class EmojiSelectUtil {
                 break;
             case 13:
                 feeling = "Blessed";
+                break;
+            case 14:
+                feeling = "Stressed";
+                break;
+            case 15:
+                feeling = "Hurt";
                 break;
         }
 

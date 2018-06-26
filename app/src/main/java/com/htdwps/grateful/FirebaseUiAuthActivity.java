@@ -81,7 +81,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                                        startActivity(new Intent(FirebaseUiAuthActivity.this, ListActivity.class));
+                                        startActivity(new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class));
                                         finish();
 
                                     }
@@ -90,7 +90,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                             } else {
 
                                 Timber.i("User already exists, leaving FirebaseUIAuthActivity now.");
-                                startActivity(new Intent(FirebaseUiAuthActivity.this, ListActivity.class));
+                                startActivity(new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class));
                                 finish();
 
                             }
@@ -107,7 +107,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                 if (response == null) {
                     // User pressed back button
                     Toast.makeText(this, "Sign In Cancelled", Toast.LENGTH_SHORT).show();
-                    Intent startIntent = new Intent(FirebaseUiAuthActivity.this, ListActivity.class);
+                    Intent startIntent = new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class);
                     startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(startIntent);
                     finish();

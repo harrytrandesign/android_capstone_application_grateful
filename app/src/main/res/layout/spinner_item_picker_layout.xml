@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_xsmall"
         android:textSize="@dimen/font_standard"
+        android:textStyle="bold"
         tools:text="On Fire"/>
 
 </android.support.constraint.ConstraintLayout>

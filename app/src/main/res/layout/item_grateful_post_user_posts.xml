@@ -86,16 +86,16 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/view_single_horizontal_linebreak"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/padding_xsmall"
-            android:layout_marginEnd="@dimen/padding_xsmall"
-            android:layout_marginStart="@dimen/padding_xsmall"
-            android:layout_marginTop="@dimen/padding_xsmall"
-            android:background="@color/colorPrimaryLight"/>
+        <!--<View-->
+            <!--android:id="@+id/view_single_horizontal_linebreak"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginBottom="@dimen/padding_xsmall"-->
+            <!--android:layout_marginEnd="@dimen/padding_xsmall"-->
+            <!--android:layout_marginStart="@dimen/padding_xsmall"-->
+            <!--android:layout_marginTop="@dimen/padding_xsmall"-->
+            <!--android:background="@color/colorPrimaryLight"/>-->
 
         <TextView
             android:id="@+id/tv_tag_list_for_post"

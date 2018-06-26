@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Grateful</string>
+    <string name="app_tag_line">Think Positive</string>
     <string name="tag_name">Keep track of your daily beans. Reflect daily.</string>
     <string name="tag_line">Share Something You\'re Grateful for Everyday</string>
     <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>

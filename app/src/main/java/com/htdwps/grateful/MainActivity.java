@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
             // If user ISN'T null, send them to the main feed page.
             progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
 
-            Intent mainIntent = new Intent(this, ListActivity.class);
-            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent mainIntent = new Intent(this, MainWindowActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(mainIntent);
             finish();
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
 
             Intent signInIntent = new Intent(this, FirebaseUiAuthActivity.class);
-            signInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            signInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(signInIntent);
             finish();
 

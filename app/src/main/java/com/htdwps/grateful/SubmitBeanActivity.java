@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,7 +45,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     EditText editText;
     EditText tagText;
-    CheckBox checkBox;
+//    CheckBox checkBox;
     TextView expressionTextLabel;
     ArrayAdapter<String> emojiExpressionAdapter;
     Spinner expressionDropdown;
@@ -81,16 +79,16 @@ public class SubmitBeanActivity extends AppCompatActivity {
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         tagText = findViewById(R.id.et_beans_extra_taglist);
-        checkBox = findViewById(R.id.checkbox_public_box);
-        expressionTextLabel = findViewById(R.id.tv_mood_expression_text);
+//        checkBox = findViewById(R.id.checkbox_public_box);
+//        expressionTextLabel = findViewById(R.id.tv_mood_expression_text);
         expressionDropdown = findViewById(R.id.spinner_emoji_expression_moods_dropdown);
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                boolean isPublic = b;
-            }
-        });
+//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                boolean isPublic = b;
+//            }
+//        });
 
         // Testing a custom spinner adapter and layout
 //        expressionDropdown.setAdapter(emojiExpressionAdapter);
@@ -101,7 +99,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                 expressionValue = i;
 
-                expressionTextLabel.setText(emotionList[i]);
+//                expressionTextLabel.setText(emotionList[i]);
                 Toast.makeText(SubmitBeanActivity.this, emojiList[i] + " " + expressionValue, Toast.LENGTH_SHORT).show();
             }
 
@@ -147,7 +145,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                     ArrayList<String> list = new ArrayList<>(items);
                     CustomUser user = FirebaseUtil.getCurrentUser();
 
-                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, checkBox.isChecked());
+                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, false);
                     FirebaseUtil.getUserPostRef().child(user.getUserid()).push().setValue(beans).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

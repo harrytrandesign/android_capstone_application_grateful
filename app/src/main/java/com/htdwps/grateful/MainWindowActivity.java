@@ -5,9 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +19,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Util.FirebaseHelper;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -24,12 +29,16 @@ import com.htdwps.grateful.Util.StringConstantsUtil;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-public class MainWindowActivity extends AppCompatActivity {
+public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_INVITE = 0;
+    private static final String ALL_POSTS_PARAM = "public_posts";
+
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     CustomUser user;
+
+    private FloatingActionButton floatingActionButton;
 
     private TextView mTextMessage;
 
@@ -40,14 +49,14 @@ public class MainWindowActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+//                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+//                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    visitMainActivity();
+//                    mTextMessage.setText(R.string.title_notifications);
+//                    visitMainActivity();
                     return true;
             }
             return false;
@@ -55,7 +64,7 @@ public class MainWindowActivity extends AppCompatActivity {
     };
 
     public void visitMainActivity() {
-        Intent intent = new Intent(this, ListActivity.class);
+        Intent intent = new Intent(this, MainWindowActivity.class);
         startActivity(intent);
     }
 
@@ -64,11 +73,25 @@ public class MainWindowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
+        setTitle(R.string.app_tag_line);
+
+        floatingActionButton = findViewById(R.id.btn_add_bean_floating_action);
+        floatingActionButton.setOnClickListener(this);
+
         runInitializer();
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+//        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        Fragment fragment = UserPostFragment.newInstance(ALL_POSTS_PARAM);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.main_frame_layout, fragment);
+        fragmentTransaction.commitAllowingStateLoss();
+
+        MaterialHelperUtil.generateInspirationalQuote(this);
+
     }
 
 
@@ -159,4 +182,26 @@ public class MainWindowActivity extends AppCompatActivity {
         // TODO: On completion of task or cancel of task send back to loadHomeFragment with navItemIndex of 0
     }
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.btn_add_bean_floating_action:
+
+                Intent submitBeanIntent = new Intent(MainWindowActivity.this, SubmitBeanActivity.class);
+                startActivity(submitBeanIntent);
+
+                break;
+
+            default:
+
+                Toast.makeText(this, "Error. Please Try Again.", Toast.LENGTH_SHORT).show();
+
+                break;
+
+
+        }
+
+    }
 }

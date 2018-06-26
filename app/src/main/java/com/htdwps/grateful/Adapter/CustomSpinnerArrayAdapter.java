@@ -32,6 +32,11 @@ public class CustomSpinnerArrayAdapter extends ArrayAdapter<String> {
     }
 
     @Override
+    public void setDropDownViewResource(int resource) {
+        super.setDropDownViewResource(resource);
+    }
+
+    @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
