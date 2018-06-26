@@ -114,8 +114,8 @@
     <string name="string_feedback_length_too_short">Your feedback is too short.</string>
     <string name="string_message_too_short_error_alert">Sorry, your message is too short</string>
     <string name="title_activity_main_window">MainWindowActivity</string>
-    <string name="title_home">Public</string>
-    <string name="title_dashboard">Private</string>
+    <string name="title_home">Grateful</string>
+    <string name="title_dashboard">Moods</string>
     <string name="title_notifications">Tags</string>
 
     <!--<integer-array name="emoji_spinner_dropdown_choices">-->

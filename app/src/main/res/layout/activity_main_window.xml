@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainWindowActivity">
 
     <FrameLayout
@@ -15,6 +15,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_app_loading_logo"-->
+            <!--android:layout_width="@dimen/icon_app_logo"-->
+            <!--android:layout_height="@dimen/icon_app_logo"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:src="@drawable/grateful_bean_signin_logo_think_positive_msg"/>-->
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_add_bean_floating_action"

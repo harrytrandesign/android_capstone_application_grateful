@@ -4,6 +4,7 @@
     <!-- Padding Sizes -->
     <dimen name="padding_zero">0dp</dimen>
     <dimen name="padding_tiny">2dp</dimen>
+    <dimen name="padding_three">3dp</dimen>
     <dimen name="padding_four">4dp</dimen>
     <dimen name="padding_xsmall">6dp</dimen>
     <dimen name="padding_small">8dp</dimen>
