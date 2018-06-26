@@ -19,6 +19,8 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.htdwps.grateful.Fragment.MoodCounterFragment;
+import com.htdwps.grateful.Fragment.TagsCounterFragment;
 import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Util.FirebaseHelper;
@@ -47,16 +49,30 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 //                    mTextMessage.setText(R.string.title_home);
+                    fragment = UserPostFragment.newInstance(ALL_POSTS_PARAM);
+                    fragmentTransaction.replace(R.id.main_frame_layout, fragment);
+                    fragmentTransaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_dashboard:
 //                    mTextMessage.setText(R.string.title_dashboard);
+                    fragment = MoodCounterFragment.newInstance("", "");
+                    fragmentTransaction.replace(R.id.main_frame_layout, fragment);
+                    fragmentTransaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_notifications:
 //                    mTextMessage.setText(R.string.title_notifications);
 //                    visitMainActivity();
+                    fragment = TagsCounterFragment.newInstance("", "");
+                    fragmentTransaction.replace(R.id.main_frame_layout, fragment);
+                    fragmentTransaction.commitAllowingStateLoss();
+
                     return true;
             }
             return false;
