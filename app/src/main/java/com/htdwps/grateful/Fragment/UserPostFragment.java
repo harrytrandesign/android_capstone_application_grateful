@@ -18,6 +18,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.FirebaseUiAuthActivity;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Entries;
@@ -113,17 +114,28 @@ public class UserPostFragment extends Fragment {
 
     public void runInitialize() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         user = FirebaseUtil.getCurrentUser();
-        mainAllPostsReference = FirebaseUtil.getUserPostRef();
-        userOnlyPostsReference = FirebaseUtil.getGratefulPersonalRef().child(user.getUserid());
 
-        if (queryTypeString.equals(ALL_POSTS_PARAM)) {
+        if (user != null) {
+            mainAllPostsReference = FirebaseUtil.getUserPostRef();
+            userOnlyPostsReference = FirebaseUtil.getGratefulPersonalRef().child(user.getUserid());
 
-            queryRefrence = mainAllPostsReference.child(user.getUserid());
+            if (queryTypeString.equals(ALL_POSTS_PARAM)) {
 
-        } else if (queryTypeString.equals(ALL_POSTS_PARAM)) {
+                queryRefrence = mainAllPostsReference.child(user.getUserid());
 
-            queryRefrence = mainAllPostsReference.child(user.getUserid());
+            } else if (queryTypeString.equals(ALL_POSTS_PARAM)) {
+
+                queryRefrence = mainAllPostsReference.child(user.getUserid());
+
+            }
+
+        } else {
+
+            Intent intent = new Intent(UserPostFragment.this.getContext(), FirebaseUiAuthActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
 
         }
     }

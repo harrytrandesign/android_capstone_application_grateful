@@ -21,11 +21,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".AuthActivity"
@@ -56,17 +52,22 @@
         </activity>
         <activity
             android:name=".PrivacyTermsActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainWindowActivity">
         </activity>
-        <activity android:name=".FirebaseUiAuthActivity">
+        <activity
+            android:name=".FirebaseUiAuthActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".SubmitBeanActivity"
-            android:parentActivityName=".ListActivity"
+            android:parentActivityName=".MainWindowActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainWindowActivity"/>
         </activity>
         <activity
             android:name=".MainWindowActivity"

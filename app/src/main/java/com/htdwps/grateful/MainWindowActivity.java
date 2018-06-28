@@ -20,8 +20,8 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.htdwps.grateful.Fragment.MoodCounterFragment;
+import com.htdwps.grateful.Fragment.PrivateBeansFragment;
 import com.htdwps.grateful.Fragment.TagsCounterFragment;
-import com.htdwps.grateful.Fragment.UserPostFragment;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Util.FirebaseHelper;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -44,8 +44,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     private TextView mTextMessage;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -56,7 +55,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 //                    mTextMessage.setText(R.string.title_home);
-                    fragment = UserPostFragment.newInstance(ALL_POSTS_PARAM);
+                    fragment = PrivateBeansFragment.newInstance(ALL_POSTS_PARAM, ALL_POSTS_PARAM);
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
                     return true;
@@ -100,7 +99,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Fragment fragment = UserPostFragment.newInstance(ALL_POSTS_PARAM);
+        Fragment fragment = PrivateBeansFragment.newInstance(ALL_POSTS_PARAM, ALL_POSTS_PARAM);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         fragmentTransaction.replace(R.id.main_frame_layout, fragment);
@@ -163,6 +162,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             case R.id.settings_menu_logout_link:
 
                 FirebaseHelper.signOffUser(MainWindowActivity.this);
+                finish();
 
                 break;
 

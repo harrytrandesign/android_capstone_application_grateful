@@ -107,10 +107,10 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                 if (response == null) {
                     // User pressed back button
                     Toast.makeText(this, "Sign In Cancelled", Toast.LENGTH_SHORT).show();
-                    Intent startIntent = new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class);
-                    startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(startIntent);
-                    finish();
+//                    Intent startIntent = new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class);
+//                    startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(startIntent);
+//                    finish();
 
                     return;
                 }
@@ -130,5 +130,16 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
     }
 }
