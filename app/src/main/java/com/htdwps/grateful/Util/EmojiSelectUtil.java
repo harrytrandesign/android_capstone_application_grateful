@@ -5,6 +5,23 @@ package com.htdwps.grateful.Util;
  */
 public class EmojiSelectUtil {
 
+    private static final String EMOJI_ON_FIRE_STRING = "On Fire";
+    private static final String EMOJI_HAPPY_STRING = "Happy";
+    private static final String EMOJI_IN_LOVE_STRING = "In Love";
+    private static final String EMOJI_COOL_STRING = "Cool";
+    private static final String EMOJI_DEEP_THOUGHTS_STRING = "Deep Thoughts";
+    private static final String EMOJI_AGONY_STRING = "Agony";
+    private static final String EMOJI_EXHAUSTED_STRING = "Exhausted";
+    private static final String EMOJI_NERVOUS_STRING = "Nervous";
+    private static final String EMOJI_SAD_STRING = "Sad";
+    private static final String EMOJI_FURIOUS_STRING = "Furious";
+    private static final String EMOJI_POOPED_STRING = "Pooped";
+    private static final String EMOJI_HUNDRED_STRING = "100%";
+    private static final String EMOJI_CHACHING_STRING = "Cha-Ching";
+    private static final String EMOJI_BLESSED_STRING = "Blessed";
+    private static final String EMOJI_STRESSED_STRING = "Stressed";
+    private static final String EMOJI_HURT_STRING = "Hurt";
+
     private static final int EMOJI_ON_FIRE = 0x1F525;
     private static final int EMOJI_HAPPY = 0x1F603;
     private static final int EMOJI_IN_LOVE = 0x1F60D;
@@ -29,22 +46,22 @@ public class EmojiSelectUtil {
     //      0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
 
     public static String[] emojiExpressionTextValue = new String[]{
-            "On Fire",
-            "Happy",
-            "In Love",
-            "Cool",
-            "Deep Thoughts",
-            "Agony",
-            "Exhausted",
-            "Nervous",
-            "Sad",
-            "Furious",
-            "Pooped",
-            "100%",
-            "Cha-Ching",
-            "Blessed",
-            "Stressed",
-            "Hurt"
+            EMOJI_ON_FIRE_STRING,
+            EMOJI_HAPPY_STRING,
+            EMOJI_IN_LOVE_STRING,
+            EMOJI_COOL_STRING,
+            EMOJI_DEEP_THOUGHTS_STRING,
+            EMOJI_AGONY_STRING,
+            EMOJI_EXHAUSTED_STRING,
+            EMOJI_NERVOUS_STRING,
+            EMOJI_SAD_STRING,
+            EMOJI_FURIOUS_STRING,
+            EMOJI_POOPED_STRING,
+            EMOJI_HUNDRED_STRING,
+            EMOJI_CHACHING_STRING,
+            EMOJI_BLESSED_STRING,
+            EMOJI_STRESSED_STRING,
+            EMOJI_HURT_STRING
     };
 
     public static String[] emojiForSpinnerDropdown = new String[]{
@@ -66,58 +83,98 @@ public class EmojiSelectUtil {
             String.valueOf(Character.toChars(emojiIconCodePoint[15])) + " - " + emojiExpressionTextValue[15]
     };
 
-    public static String expressionTextStringEmojiType(int value) {
+    public static int emojiStringConvertToInt(String name) {
+
+        switch (name) {
+            case EMOJI_ON_FIRE_STRING:
+                return 0;
+            case EMOJI_HAPPY_STRING:
+                return 1;
+            case EMOJI_IN_LOVE_STRING:
+                return 2;
+            case EMOJI_COOL_STRING:
+                return 3;
+            case EMOJI_DEEP_THOUGHTS_STRING:
+                return 4;
+            case EMOJI_AGONY_STRING:
+                return 5;
+            case EMOJI_EXHAUSTED_STRING:
+                return 6;
+            case EMOJI_NERVOUS_STRING:
+                return 7;
+            case EMOJI_SAD_STRING:
+                return 8;
+            case EMOJI_FURIOUS_STRING:
+                return 9;
+            case EMOJI_POOPED_STRING:
+                return 10;
+            case EMOJI_HUNDRED_STRING:
+                return 11;
+            case EMOJI_CHACHING_STRING:
+                return 12;
+            case EMOJI_BLESSED_STRING:
+                return 13;
+            case EMOJI_STRESSED_STRING:
+                return 14;
+            case EMOJI_HURT_STRING:
+                return 15;
+            default:
+                return 0;
+        }
+    }
+
+    public static String emojiIntConvertToString(int value) {
 
         String feeling = "";
 
         switch (value) {
             case 0:
-                feeling = "On Fire";
+                feeling = EMOJI_ON_FIRE_STRING;
                 break;
             case 1:
-                feeling = "Happy";
+                feeling = EMOJI_HAPPY_STRING;
                 break;
             case 2:
-                feeling = "In Love";
+                feeling = EMOJI_IN_LOVE_STRING;
                 break;
             case 3:
-                feeling = "Cool";
+                feeling = EMOJI_COOL_STRING;
                 break;
             case 4:
-                feeling = "Deep Thoughts";
+                feeling = EMOJI_DEEP_THOUGHTS_STRING;
                 break;
             case 5:
-                feeling = "Agony";
+                feeling = EMOJI_AGONY_STRING;
                 break;
             case 6:
-                feeling = "Exhausted";
+                feeling = EMOJI_EXHAUSTED_STRING;
                 break;
             case 7:
-                feeling = "Nervous";
+                feeling = EMOJI_NERVOUS_STRING;
                 break;
             case 8:
-                feeling = "Sad";
+                feeling = EMOJI_SAD_STRING;
                 break;
             case 9:
-                feeling = "Furious";
+                feeling = EMOJI_FURIOUS_STRING;
                 break;
             case 10:
-                feeling = "Pooped";
+                feeling = EMOJI_POOPED_STRING;
                 break;
             case 11:
-                feeling = "100%";
+                feeling = EMOJI_HUNDRED_STRING;
                 break;
             case 12:
-                feeling = "Cha-Ching";
+                feeling = EMOJI_CHACHING_STRING;
                 break;
             case 13:
-                feeling = "Blessed";
+                feeling = EMOJI_BLESSED_STRING;
                 break;
             case 14:
-                feeling = "Stressed";
+                feeling = EMOJI_STRESSED_STRING;
                 break;
             case 15:
-                feeling = "Hurt";
+                feeling = EMOJI_HURT_STRING;
                 break;
         }
 

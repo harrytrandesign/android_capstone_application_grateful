@@ -6,11 +6,6 @@
              android:layout_height="match_parent"
              tools:context=".Fragment.PrivateBeansFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Bean Fragment"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recyclerview_post"
         android:layout_width="match_parent"

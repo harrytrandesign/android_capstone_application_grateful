@@ -7,10 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.htdwps.grateful.Util.ProgressDialogUtil;
 
 import timber.log.Timber;
 
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     ProgressDialog progressDialog;
+    AuthUI authUI;
     FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
     FirebaseAnalytics mFirebaseAnalytics;
@@ -31,38 +32,65 @@ public class MainActivity extends AppCompatActivity {
 
         plantTimberTreeDebug();
 
+        authUI = AuthUI.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        Intent intent;
+//        Intent intent;
+//
+//        // If user is already logged on send them to the main feed page, else send them to the sign up page.
+//        if (mFirebaseUser != null) {
+//            // If user ISN'T null, send them to the main feed page.
+//            progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
+//
+//            intent = new Intent(this, MainWindowActivity.class);
+////            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+////            startActivity(mainIntent);
+////            finish();
+//
+//        } else {
+//            // If user IS null, send to sign in page to create a new account.
+//            progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
+//
+//            intent = new Intent(this, FirebaseUiAuthActivity.class);
+//
+//        }
+//
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+        initiateSwitchActivity(mFirebaseUser);
 
-        // If user is already logged on send them to the main feed page, else send them to the sign up page.
-        if (mFirebaseUser != null) {
-            // If user ISN'T null, send them to the main feed page.
-            progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
-
-            intent = new Intent(this, MainWindowActivity.class);
-//            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(mainIntent);
-//            finish();
-
-        } else {
-            // If user IS null, send to sign in page to create a new account.
-            progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
-
-            intent = new Intent(this, FirebaseUiAuthActivity.class);
-
-        }
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
 
     }
 
     public void plantTimberTreeDebug() {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
+        }
+    }
+
+    public void initiateSwitchActivity(FirebaseUser firebaseUser) {
+
+        Intent switchIntent = checkAlreadyAuth(firebaseUser);
+        switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(switchIntent);
+        finish();
+
+    }
+
+    public Intent checkAlreadyAuth(FirebaseUser firebaseUser) {
+        // If user is already logged on send them to the main feed page, else send them to the sign up page.
+        if (firebaseUser != null) {
+
+            // If user ISN'T null, send them to the main feed page.
+            return new Intent(this, MainWindowActivity.class);
+
+        } else {
+
+            // If user IS null, send to sign in page to create a new account.
+            return new Intent(this, FirebaseUiAuthActivity.class);
+
         }
     }
 

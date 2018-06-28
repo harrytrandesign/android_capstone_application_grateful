@@ -4,50 +4,38 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.R;
+import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Viewholder.TagListViewHolder;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TagsCounterFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TagsCounterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TagsCounterFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    DatabaseReference tagListReference;
+    RecyclerView tagListRecyclerView;
+    FirebaseRecyclerAdapter<String, TagListViewHolder> tagListAdapter;
 
     public TagsCounterFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TagsCounterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TagsCounterFragment newInstance(String param1, String param2) {
+    public static TagsCounterFragment newInstance() {
         TagsCounterFragment fragment = new TagsCounterFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,18 +44,86 @@ public class TagsCounterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
+    }
+
+    public LinearLayoutManager createLayoutManager() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setReverseLayout(true);
+
+        return linearLayoutManager;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tags_counter, container, false);
+        View view = inflater.inflate(R.layout.fragment_tags_counter, container, false);
+
+        tagListRecyclerView = view.findViewById(R.id.rv_tag_counter_list);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            tagListReference = FirebaseUtil.getTagsBeanReference().child(firebaseUser.getUid());
+
+            tagListAdapter = new FirebaseRecyclerAdapter<String, TagListViewHolder>(
+                    String.class,
+                    R.layout.item_tag_single_label,
+                    TagListViewHolder.class,
+                    tagListReference
+            ) {
+                @Override
+                protected void populateViewHolder(final TagListViewHolder viewHolder, String model, int position) {
+
+                    tagListReference.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            String tag;
+
+                            for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+                                tag = childSnapShot.getValue().toString();
+                                String tags = childSnapShot.getKey();
+                                viewHolder.setTagName(tag);
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                };
+            };
+
+            tagListRecyclerView.setLayoutManager(createLayoutManager());
+            tagListRecyclerView.setAdapter(tagListAdapter);
+
+        }
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -85,18 +141,7 @@ public class TagsCounterFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

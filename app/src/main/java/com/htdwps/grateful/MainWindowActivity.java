@@ -68,7 +68,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 case R.id.navigation_notifications:
 //                    mTextMessage.setText(R.string.title_notifications);
 //                    visitMainActivity();
-                    fragment = TagsCounterFragment.newInstance("", "");
+                    fragment = TagsCounterFragment.newInstance();
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
 
