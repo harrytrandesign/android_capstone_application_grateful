@@ -6,18 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Model.TagName;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.TagListViewHolder;
@@ -28,7 +26,7 @@ public class TagsCounterFragment extends Fragment {
 
     DatabaseReference tagListReference;
     RecyclerView tagListRecyclerView;
-    FirebaseRecyclerAdapter<String, TagListViewHolder> tagListAdapter;
+    FirebaseRecyclerAdapter<TagName, TagListViewHolder> tagListAdapter;
 
     public TagsCounterFragment() {
         // Required empty public constructor
@@ -71,14 +69,24 @@ public class TagsCounterFragment extends Fragment {
         if (firebaseUser != null) {
             tagListReference = FirebaseUtil.getTagsBeanReference().child(firebaseUser.getUid());
 
-            tagListAdapter = new FirebaseRecyclerAdapter<String, TagListViewHolder>(
-                    String.class,
+            tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagListViewHolder>(
+                    TagName.class,
                     R.layout.item_tag_single_label,
                     TagListViewHolder.class,
                     tagListReference
             ) {
                 @Override
-                protected void populateViewHolder(final TagListViewHolder viewHolder, String model, int position) {
+                protected void populateViewHolder(final TagListViewHolder viewHolder, final TagName model, int position) {
+
+                    viewHolder.setTagName(model.getTagName());
+
+                    // Delegate this over to the interface design, similar to movie db app.
+                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(getContext(), model.getTagName(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
 //                    tagListReference.addChildEventListener(new ChildEventListener() {
 //                        @Override
@@ -140,44 +148,44 @@ public class TagsCounterFragment extends Fragment {
 //                        }
 //                    });
 
-                    tagListReference.addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            String tag;
-
-                            for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                                tag = childSnapShot.getValue(String.class);
-                                String tags = childSnapShot.getKey();
-                                viewHolder.setTagName(tag);
-                                Log.i("data", tag);
-
-                            }
-
-                            tagListRecyclerView.setLayoutManager(createLayoutManager());
-                            tagListRecyclerView.setAdapter(tagListAdapter);
-
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+//                    tagListReference.addChildEventListener(new ChildEventListener() {
+//                        @Override
+//                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                            String tag;
+//
+//                            for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+//                                tag = childSnapShot.getValue(String.class);
+//                                String tags = childSnapShot.getKey();
+//                                viewHolder.setTagName(tag);
+//                                Log.i("data", tag);
+//
+//                            }
+//
+//                            tagListRecyclerView.setLayoutManager(createLayoutManager());
+//                            tagListRecyclerView.setAdapter(tagListAdapter);
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
                 }
 
                 ;
