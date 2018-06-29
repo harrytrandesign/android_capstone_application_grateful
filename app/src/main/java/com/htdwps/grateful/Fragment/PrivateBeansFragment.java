@@ -36,7 +36,6 @@ import timber.log.Timber;
  * create an instance of this fragment.
  */
 public class PrivateBeansFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -110,10 +109,9 @@ public class PrivateBeansFragment extends Fragment {
         runInitialize();
         createLayoutManager();
 //        createAdapter(userOnlyPostsReference);
-        createBeanRecyclerViewAdapter(queryRefrence);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(beanPostAdapter);
+        recyclerView.setAdapter(createBeanRecyclerViewAdapter(queryRefrence));
 
         return view;
 
@@ -179,6 +177,7 @@ public class PrivateBeansFragment extends Fragment {
                 Timber.i("This message's message is " + model.getBeanText());
 
             }
+
         };
 
         return beanPostAdapter;

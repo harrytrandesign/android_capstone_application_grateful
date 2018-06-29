@@ -55,6 +55,10 @@ public class FirebaseUtil {
         // post_tags_list --> user_id --> tag_word --> post_key : true;
     }
 
+    public static DatabaseReference getTagsPostsWithTagReference() {
+        return getBaseRef().child("posts_with_tag_name_list");
+    }
+
     public static DatabaseReference getMoodBeanListReference() {
         return getBaseRef().child("mood_bean_listed_posts");
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,17 +80,81 @@ public class TagsCounterFragment extends Fragment {
                 @Override
                 protected void populateViewHolder(final TagListViewHolder viewHolder, String model, int position) {
 
+//                    tagListReference.addChildEventListener(new ChildEventListener() {
+//                        @Override
+//                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//
+//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                String tag = snapshot.getValue(String.class);
+//                                Log.i("data", tag);
+//                                viewHolder.setTagName(tag);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                String tag = snapshot.getValue(String.class);
+//                                Log.i("data", tag);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+
+//                    tagListReference.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                            Log.i("data", String.valueOf(dataSnapshot.getChildrenCount()));
+//
+//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+//                                String tag = snapshot.getValue(String.class);
+//
+//                                Log.i("data", tag);
+//                            }
+////                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+////                                tag = dataSnapshot1.getValue().toString();
+////                                viewHolder.setTagName(tag);
+////                                Log.i("data", tag);
+////                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+
                     tagListReference.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             String tag;
 
                             for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                                tag = childSnapShot.getValue().toString();
+                                tag = childSnapShot.getValue(String.class);
                                 String tags = childSnapShot.getKey();
                                 viewHolder.setTagName(tag);
+                                Log.i("data", tag);
 
                             }
+
+                            tagListRecyclerView.setLayoutManager(createLayoutManager());
+                            tagListRecyclerView.setAdapter(tagListAdapter);
 
                         }
 
@@ -113,7 +178,9 @@ public class TagsCounterFragment extends Fragment {
 
                         }
                     });
-                };
+                }
+
+                ;
             };
 
             tagListRecyclerView.setLayoutManager(createLayoutManager());

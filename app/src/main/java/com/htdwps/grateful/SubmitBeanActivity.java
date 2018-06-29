@@ -30,6 +30,7 @@ import com.google.firebase.database.Transaction;
 import com.htdwps.grateful.Adapter.CustomSpinnerArrayAdapter;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.TagName;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
 
@@ -161,9 +162,14 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                     for (String tag : list) {
 
+                        TagName tagName = new TagName(tag);
+
+                        String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag  + "/" + postKeyGenerated;
+                        beanMap.put(taggedPosts, true);
+
 //                        String tagKeyGenerated = FirebaseUtil.getTagsBeanReference().push().getKey();
                         String tagPostPath = "post_tags_list/" + user.getUserid() + "/" + tag;
-                        beanMap.put(tagPostPath, tag);
+                        beanMap.put(tagPostPath, tagName);
 
                     }
 
