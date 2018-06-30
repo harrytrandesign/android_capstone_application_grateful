@@ -107,6 +107,7 @@
     <string name="emoji_type_thirteen_100percent">0x1F4AF</string>
     <string name="emoji_type_money">0x1F4B0</string>
     <string name="submit_tag_label">Tag</string>
+    <string name="tagged_post_list_label">Tags</string>
     <string name="public_text_label">Public</string>
     <string name="string_no_tags_found">No Tags</string>
     <string name="string_public_status_text">Public</string>

@@ -1,6 +1,7 @@
 package com.htdwps.grateful.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,14 +16,19 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.Adapter.ChipLayoutManager;
 import com.htdwps.grateful.Model.TagName;
 import com.htdwps.grateful.R;
+import com.htdwps.grateful.TagPostActivity;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.SpacingItemDecoration;
 import com.htdwps.grateful.Viewholder.TagListViewHolder;
 
 public class TagsCounterFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+
+    private static final int OFFSET = 16;
 
     DatabaseReference tagListReference;
     RecyclerView tagListRecyclerView;
@@ -85,113 +91,19 @@ public class TagsCounterFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(getContext(), model.getTagName(), Toast.LENGTH_SHORT).show();
+
+                            Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
+                            tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, model.getTagName());
+                            startActivity(tagPostActivityIntent);
                         }
                     });
 
-//                    tagListReference.addChildEventListener(new ChildEventListener() {
-//                        @Override
-//                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                                String tag = snapshot.getValue(String.class);
-//                                Log.i("data", tag);
-//                                viewHolder.setTagName(tag);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                                String tag = snapshot.getValue(String.class);
-//                                Log.i("data", tag);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-
-//                    tagListReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                            Log.i("data", String.valueOf(dataSnapshot.getChildrenCount()));
-//
-//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//
-//                                String tag = snapshot.getValue(String.class);
-//
-//                                Log.i("data", tag);
-//                            }
-////                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-////                                tag = dataSnapshot1.getValue().toString();
-////                                viewHolder.setTagName(tag);
-////                                Log.i("data", tag);
-////                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-
-//                    tagListReference.addChildEventListener(new ChildEventListener() {
-//                        @Override
-//                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                            String tag;
-//
-//                            for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-//                                tag = childSnapShot.getValue(String.class);
-//                                String tags = childSnapShot.getKey();
-//                                viewHolder.setTagName(tag);
-//                                Log.i("data", tag);
-//
-//                            }
-//
-//                            tagListRecyclerView.setLayoutManager(createLayoutManager());
-//                            tagListRecyclerView.setAdapter(tagListAdapter);
-//
-//                        }
-//
-//                        @Override
-//                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
                 }
-
-                ;
             };
 
-            tagListRecyclerView.setLayoutManager(createLayoutManager());
+//            tagListRecyclerView.setLayoutManager(createLayoutManager());
+            tagListRecyclerView.setLayoutManager(ChipLayoutManager.createLayoutManager(getActivity()));
+            tagListRecyclerView.addItemDecoration(new SpacingItemDecoration(OFFSET, OFFSET));
             tagListRecyclerView.setAdapter(tagListAdapter);
 
         }
