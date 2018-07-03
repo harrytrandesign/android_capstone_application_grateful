@@ -176,7 +176,7 @@ public class UserPostFragment extends Fragment {
                 String time = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
                 String dateTime = String.format("%s %s", year, time);
 
-                viewHolder.setBeanPostFields(model.getMoodValue(), dateTime, model.getBeanText(), model.getTagList(), model.isPublic());
+                viewHolder.setBeanPostFields(model.getMoodValue(), dateTime, model.getBeanText(), model.getTagList(), model.isPublic(), model.getCustomUser().getUserDisplayName(), model.isPublic());
                 Timber.i("This message's value is " + String.valueOf(model.getMoodValue()));
                 Timber.i("This message's message is " + model.getBeanText());
 

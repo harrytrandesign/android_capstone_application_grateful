@@ -94,15 +94,15 @@
         app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text"/>
 
     <!-- TODO Temporary remove checkbox -->
-    <!--<CheckBox-->
-    <!--android:id="@+id/checkbox_public_box"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="@dimen/padding_xsmall"-->
-    <!--android:text="@string/checkbox_share_public_text"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>-->
+    <CheckBox
+        android:id="@+id/checkbox_public_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_xsmall"
+        android:text="@string/checkbox_share_public_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

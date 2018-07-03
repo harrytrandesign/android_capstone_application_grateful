@@ -50,7 +50,7 @@ public class TagPostActivity extends AppCompatActivity {
 
             rvPostsWithTag.setAdapter(createTagPostRecyclerViewAdapter(tagListReference));
 
-            Toast.makeText(this, "This tag activity is for all the posts with the following tag: " + taggedListing, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "This tag activity is for all the posts with the following tag: " + taggedListing, Toast.LENGTH_SHORT).show();
 
         } else {
 
@@ -92,7 +92,7 @@ public class TagPostActivity extends AppCompatActivity {
                             String time = DateUtils.formatDateTime(TagPostActivity.this, (long) beanPost.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
                             String dateTime = String.format("%s %s", year, time);
 
-                            viewHolder.setBeanPostFields(beanPost.getMoodValue(), dateTime, beanPost.getBeanText(), beanPost.getTagList(), beanPost.isPublic());
+                            viewHolder.setBeanPostFields(beanPost.getMoodValue(), dateTime, beanPost.getBeanText(), beanPost.getTagList(), beanPost.isPublic(), beanPost.getCustomUser().getUserDisplayName(), false);
                             Timber.i("This message's value is " + String.valueOf(beanPost.getMoodValue()));
                             Timber.i("This message's message is " + beanPost.getBeanText());
 

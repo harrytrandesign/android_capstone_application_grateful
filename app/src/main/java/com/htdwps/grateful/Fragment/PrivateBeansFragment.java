@@ -11,6 +11,10 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,13 +62,14 @@ public class PrivateBeansFragment extends Fragment {
     DatabaseReference userOnlyPostsReference;
     FirebaseUser firebaseUser;
     LinearLayoutManager linearLayoutManager;
+
+    TextView tvTextTogglePublicPrivateFeed;
+    Switch switchToggleValue;
     RecyclerView recyclerView;
     RecyclerView moodCounterRecyclerView;
     CustomUser user;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    boolean isPublicFeedDisplayed = false;
 
     private OnFragmentInteractionListener mListener;
 
@@ -72,14 +77,6 @@ public class PrivateBeansFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PrivateBeansFragment.
-     */
     public static PrivateBeansFragment newInstance(String param1, String param2) {
         PrivateBeansFragment fragment = new PrivateBeansFragment();
         Bundle args = new Bundle();
@@ -118,7 +115,16 @@ public class PrivateBeansFragment extends Fragment {
     }
 
     public void runLayout(View view) {
+        tvTextTogglePublicPrivateFeed = view.findViewById(R.id.tv_public_private_display_text);
+        switchToggleValue = view.findViewById(R.id.switch_toggle_public_private_feed_display);
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
+
+        switchToggleValue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                toggleBetweenPublicPrivatePostFeed(b);
+            }
+        });
     }
 
     public void runInitialize() {
@@ -149,6 +155,21 @@ public class PrivateBeansFragment extends Fragment {
         }
     }
 
+    public void toggleBetweenPublicPrivatePostFeed(boolean feed) {
+
+        isPublicFeedDisplayed = feed;
+
+        if (feed) {
+            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_private_text_label));
+            queryRefrence = FirebaseUtil.getAllPostRef();
+        } else {
+            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_public_text_label));
+            queryRefrence = mainAllPostsReference.child(user.getUserid());
+        }
+
+        recyclerView.setAdapter(createBeanRecyclerViewAdapter(queryRefrence));
+    }
+
     public LinearLayoutManager createLayoutManager() {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setStackFromEnd(true);
@@ -172,12 +193,25 @@ public class PrivateBeansFragment extends Fragment {
                 String time = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
                 String dateTime = String.format("%s %s", year, time);
 
-                viewHolder.setBeanPostFields(model.getMoodValue(), dateTime, model.getBeanText(), model.getTagList(), model.isPublic());
-                Timber.i("This message's value is " + String.valueOf(model.getMoodValue()));
-                Timber.i("This message's message is " + model.getBeanText());
+                viewHolder.setBeanPostFields(model.getMoodValue(), dateTime, model.getBeanText(), model.getTagList(), model.isPublic(), model.getCustomUser().getUserDisplayName(), isPublicFeedDisplayed);
+                Timber.i("This message's value is %s", String.valueOf(model.getMoodValue()));
+                Timber.i("This message's message is %s", model.getBeanText());
 
             }
 
+            @Override
+            public BeanPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                BeanPostViewHolder beanPostViewHolder = super.onCreateViewHolder(parent, viewType);
+
+                beanPostViewHolder.setOnClickListener(new BeanPostViewHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Clicked at position " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                return beanPostViewHolder;
+            }
         };
 
         return beanPostAdapter;

@@ -11,6 +11,8 @@ import com.htdwps.grateful.R;
  */
 public class TagListViewHolder extends RecyclerView.ViewHolder {
 
+//    private TagListViewHolder.ClickListener mClickListener;
+
     TextView tvTagName;
 
     public TagListViewHolder(View itemView) {
@@ -23,5 +25,15 @@ public class TagListViewHolder extends RecyclerView.ViewHolder {
     public void setTagName(String text) {
         tvTagName.setText(text);
     }
+
+//    // Interface to send callbacks
+//    public interface ClickListener {
+//        void onItemClick(AdapterView<?> adapterView, View view, int position);
+////        void onTagClick(TagName tagName);
+//    }
+//
+//    public void setOnClickListener(TagListViewHolder.ClickListener clickListener) {
+//        mClickListener = clickListener;
+//    }
 
 }

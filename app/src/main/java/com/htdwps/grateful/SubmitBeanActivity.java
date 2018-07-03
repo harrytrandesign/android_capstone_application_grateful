@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,7 +52,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     EditText editText;
     EditText tagText;
-    //    CheckBox checkBox;
+    CheckBox checkBox;
     TextView expressionTextLabel;
     ArrayAdapter<String> emojiExpressionAdapter;
     Spinner expressionDropdown;
@@ -84,16 +86,16 @@ public class SubmitBeanActivity extends AppCompatActivity {
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         tagText = findViewById(R.id.et_beans_extra_taglist);
-//        checkBox = findViewById(R.id.checkbox_public_box);
+        checkBox = findViewById(R.id.checkbox_public_box);
 //        expressionTextLabel = findViewById(R.id.tv_mood_expression_text);
         expressionDropdown = findViewById(R.id.spinner_emoji_expression_moods_dropdown);
 
-//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                boolean isPublic = b;
-//            }
-//        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean isPublic = b;
+            }
+        });
 
         // Testing a custom spinner adapter and layout
 //        expressionDropdown.setAdapter(emojiExpressionAdapter);
@@ -144,6 +146,8 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                 } else {
 
+                    boolean postIsPublic = checkBox.isChecked();
+
                     Toast.makeText(this, beanMessage, Toast.LENGTH_SHORT).show();
 
                     final String postKeyGenerated = FirebaseUtil.getUserPostRef().push().getKey();
@@ -152,7 +156,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                     ArrayList<String> list = new ArrayList<>(items);
                     final CustomUser user = FirebaseUtil.getCurrentUser();
 
-                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, false);
+                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, postIsPublic);
 
                     Map<String, Object> beanMap = new HashMap<>();
 
@@ -164,13 +168,17 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                         TagName tagName = new TagName(tag);
 
-                        String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag  + "/" + postKeyGenerated;
+                        String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag + "/" + postKeyGenerated;
                         beanMap.put(taggedPosts, true);
 
 //                        String tagKeyGenerated = FirebaseUtil.getTagsBeanReference().push().getKey();
                         String tagPostPath = "post_tags_list/" + user.getUserid() + "/" + tag;
                         beanMap.put(tagPostPath, tagName);
 
+                    }
+
+                    if (postIsPublic) {
+                        beanMap.put("post_public_all/" + postKeyGenerated, beans);
                     }
 
                     FirebaseUtil.getBaseRef().updateChildren(beanMap, new DatabaseReference.CompletionListener() {

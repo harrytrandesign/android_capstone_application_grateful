@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -90,7 +89,7 @@ public class TagsCounterFragment extends Fragment {
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(getContext(), model.getTagName(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), model.getTagName(), Toast.LENGTH_SHORT).show();
 
                             Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
                             tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, model.getTagName());
@@ -99,6 +98,32 @@ public class TagsCounterFragment extends Fragment {
                     });
 
                 }
+
+//                @Override
+//                public TagListViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+//                    TagListViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
+//
+//                    tagListViewHolder.setOnClickListener(new TagListViewHolder.ClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int position) {
+//                            TagName tagName = (TagName) adapterView.getAdapter().getItem(position);
+//                            Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
+//                            tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, tagName.getTagName());
+//                            startActivity(tagPostActivityIntent);
+//
+//                        }
+//                    });
+//
+////                        @Override
+////                        public void onTagClick(TagName tagName) {
+////                            Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
+////                            tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, tagName.getTagName());
+////                            startActivity(tagPostActivityIntent);
+////                        }
+////                });
+//
+//                    return tagListViewHolder;
+//                }
             };
 
 //            tagListRecyclerView.setLayoutManager(createLayoutManager());

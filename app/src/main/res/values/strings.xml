@@ -119,6 +119,9 @@
     <string name="title_dashboard">Moods</string>
     <string name="title_notifications">Tags</string>
 
+    <string name="switch_public_text_label">View Public Feed?</string>
+    <string name="switch_private_text_label">View Personal Posts?</string>
+
     <!--<integer-array name="emoji_spinner_dropdown_choices">-->
     <!--<item>@string/emoji_type_one_onfire</item>-->
     <!--<item>@string/emoji_type_five_happy</item>-->
