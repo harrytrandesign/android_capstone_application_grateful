@@ -68,6 +68,11 @@ public class FirebaseUtil {
         // mood_type_counter_values --> user_id --> mood : int 0, mood2 : int 0;
     }
 
+    // all_public_comment_threads --> post_key --> comment_key;
+    public static DatabaseReference getCommentListRef() {
+        return getBaseRef().child("all_public_comment_threads");
+    }
+
     public static DatabaseReference getGratefulPostsRef() {
         return getBaseRef().child("grateful_posts_public");
     }
@@ -98,10 +103,6 @@ public class FirebaseUtil {
 
     public static DatabaseReference getJournalListRef() {
         return getBaseRef().child("journal_entries");
-    }
-
-    public static DatabaseReference getCommentListRef() {
-        return getBaseRef().child("all_comment");
     }
 
     public static DatabaseReference getFeedbackRef() {

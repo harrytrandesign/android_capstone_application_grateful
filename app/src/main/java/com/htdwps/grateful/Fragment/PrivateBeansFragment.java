@@ -44,6 +44,10 @@ public class PrivateBeansFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final int FIRST_POSITION = 0;
+    private static final int LAST_POSITION = 50;
+    private static final int INCREMENT_VALUE = 50;
+
     private static final String DATABASE_PARAM = "database_reference_param";
     private static final String ALL_POSTS_PARAM = "public_posts";
     private static final String USER_POSTS_PARAM = "user_posts";
@@ -206,7 +210,11 @@ public class PrivateBeansFragment extends Fragment {
                 beanPostViewHolder.setOnClickListener(new BeanPostViewHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(getActivity(), "Clicked at position " + position, Toast.LENGTH_SHORT).show();
+                        if (isPublicFeedDisplayed) {
+                            Toast.makeText(getActivity(), "Public Feed Showing Public Posts, Go to Comment's Section", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Nothing going to happen here. Clicked at position " + position, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

@@ -5,14 +5,11 @@
              android:layout_height="match_parent"
              tools:context=".Fragment.MoodCounterFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Mood Counter Fragment"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_mood_counter_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="3dp"/>
 
 </FrameLayout>

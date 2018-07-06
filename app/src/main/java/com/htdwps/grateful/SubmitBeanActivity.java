@@ -2,6 +2,7 @@ package com.htdwps.grateful;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,9 +32,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Adapter.CustomSpinnerArrayAdapter;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.MoodCount;
 import com.htdwps.grateful.Model.TagName;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -152,7 +157,8 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                     final String postKeyGenerated = FirebaseUtil.getUserPostRef().push().getKey();
 
-                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.split("\\s*,\\s*")));
+                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too
+//                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
                     ArrayList<String> list = new ArrayList<>(items);
                     final CustomUser user = FirebaseUtil.getCurrentUser();
 
@@ -166,15 +172,16 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                     for (String tag : list) {
 
-                        TagName tagName = new TagName(tag);
+                        if (tag.length() > 0) {
+                            TagName tagName = new TagName(tag);
 
-                        String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag + "/" + postKeyGenerated;
-                        beanMap.put(taggedPosts, true);
+                            String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag + "/" + postKeyGenerated;
+                            beanMap.put(taggedPosts, true);
 
 //                        String tagKeyGenerated = FirebaseUtil.getTagsBeanReference().push().getKey();
-                        String tagPostPath = "post_tags_list/" + user.getUserid() + "/" + tag;
-                        beanMap.put(tagPostPath, tagName);
-
+                            String tagPostPath = "post_tags_list/" + user.getUserid() + "/" + tag;
+                            beanMap.put(tagPostPath, tagName);
+                        }
                     }
 
                     if (postIsPublic) {
@@ -185,33 +192,82 @@ public class SubmitBeanActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             if (databaseError == null) {
-                                // Increment comment count up by one using a runTransaction
-                                final DatabaseReference moodReference = FirebaseUtil.getBaseRef().child("mood_type_counter_values").child(user.getUserid()).child(EmojiSelectUtil.emojiExpressionTextValue[expressionDropdown.getSelectedItemPosition()]);
-                                moodReference.runTransaction(new Transaction.Handler() {
+
+                                final DatabaseReference moodRef = FirebaseUtil.getMoodCounterReference().child(user.getUserid());
+                                moodRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
-                                    public Transaction.Result doTransaction(MutableData mutableData) {
-                                        if (mutableData.getValue() == null) {
-                                            mutableData.setValue(1);
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.hasChild(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition()))) {
+                                            moodRef.child(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition())).child("valueCount").runTransaction(new Transaction.Handler() {
+                                                @Override
+                                                public Transaction.Result doTransaction(MutableData mutableData) {
+                                                    if (mutableData.getValue() == null) {
+                                                        mutableData.setValue(1);
+                                                    } else {
+                                                        mutableData.setValue((Long) mutableData.getValue() + 1);
+                                                    }
+                                                    return Transaction.success(mutableData);
+                                                }
+
+                                                @Override
+                                                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                                                    if (databaseError != null) {
+                                                        Timber.i("Firebase counter increment failed.");
+                                                    } else {
+                                                        Timber.i("Firebase counter increment succeeded.");
+                                                    }
+                                                }
+                                            });
+
+                                            Intent intent = new Intent(SubmitBeanActivity.this, MainWindowActivity.class);
+                                            startActivity(intent);
+                                            finish();
+
                                         } else {
-                                            mutableData.setValue((Long) mutableData.getValue() + 1);
+                                            MoodCount moodCount = new MoodCount(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition()));
+                                            moodRef.child(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition())).setValue(moodCount).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Toast.makeText(SubmitBeanActivity.this, "Complete", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(SubmitBeanActivity.this, MainWindowActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+
+                                                }
+                                            });
                                         }
-                                        return Transaction.success(mutableData);
                                     }
 
                                     @Override
-                                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                                        if (databaseError != null) {
-                                            Timber.i("Firebase counter increment failed.");
-                                        } else {
-                                            Timber.i("Firebase counter increment succeeded.");
-                                        }
+                                    public void onCancelled(DatabaseError databaseError) {
+
                                     }
                                 });
 
-                                Toast.makeText(SubmitBeanActivity.this, "Complete", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SubmitBeanActivity.this, MainWindowActivity.class);
-                                startActivity(intent);
-                                finish();
+
+                                // Increment comment count up by one using a runTransaction
+//
+//                                final DatabaseReference moodReference = FirebaseUtil.getBaseRef().child("mood_type_counter_values").child(user.getUserid()).child(EmojiSelectUtil.emojiExpressionTextValue[expressionDropdown.getSelectedItemPosition()]);
+//                                moodReference.runTransaction(new Transaction.Handler() {
+//                                    @Override
+//                                    public Transaction.Result doTransaction(MutableData mutableData) {
+//                                        if (mutableData.getValue() == null) {
+//                                            mutableData.setValue(1);
+//                                        } else {
+//                                            mutableData.setValue((Long) mutableData.getValue() + 1);
+//                                        }
+//                                        return Transaction.success(mutableData);
+//                                    }
+//
+//                                    @Override
+//                                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+//                                        if (databaseError != null) {
+//                                            Timber.i("Firebase counter increment failed.");
+//                                        } else {
+//                                            Timber.i("Firebase counter increment succeeded.");
+//                                        }
+//                                    }
+//                                });
                             }
                         }
                     });

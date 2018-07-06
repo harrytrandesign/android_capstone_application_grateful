@@ -17,6 +17,11 @@ public class MoodCount {
         this.valueCount = 1;
     }
 
+    public MoodCount(String moodName, int valueCount) {
+        this.moodName = moodName;
+        this.valueCount = valueCount;
+    }
+
     public String getMoodName() {
         return moodName;
     }

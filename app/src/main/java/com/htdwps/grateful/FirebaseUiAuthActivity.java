@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.MoodCount;
+import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
 
 import java.util.Arrays;
@@ -77,6 +79,12 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                                 // On first sign up register the landlord object, and also isPremium is false for the user so they can only create 2 property objects
                                 Map<String, Object> newUser = new HashMap<>();
                                 newUser.put("all_usernames/" + firebaseUser.getUid(), addThisUser);
+
+                                for (String mood : EmojiSelectUtil.emojiExpressionTextValue) {
+                                    MoodCount moodCount = new MoodCount(mood, 0);
+                                    newUser.put("mood_type_counter_values/" + firebaseUser.getUid() + "/" + mood, moodCount);
+                                }
+
                                 FirebaseUtil.getBaseRef().updateChildren(newUser, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {

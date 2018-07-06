@@ -1,11 +1,14 @@
 package com.htdwps.grateful.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by HTDWPS on 5/11/18.
  */
-public class Beans {
+public class Beans implements Parcelable {
 
     private CustomUser customUser;
     private int moodValue;
@@ -25,6 +28,25 @@ public class Beans {
         this.tagList = tagList;
         this.isPublic = isPublic;
     }
+
+    protected Beans(Parcel in) {
+        moodValue = in.readInt();
+        beanText = in.readString();
+        tagList = in.createStringArrayList();
+        isPublic = in.readByte() != 0;
+    }
+
+    public static final Creator<Beans> CREATOR = new Creator<Beans>() {
+        @Override
+        public Beans createFromParcel(Parcel in) {
+            return new Beans(in);
+        }
+
+        @Override
+        public Beans[] newArray(int size) {
+            return new Beans[size];
+        }
+    };
 
     public void setCustomUser(CustomUser customUser) {
         this.customUser = customUser;
@@ -72,5 +94,18 @@ public class Beans {
 
     public boolean isPublic() {
         return isPublic;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(moodValue);
+        parcel.writeString(beanText);
+        parcel.writeStringList(tagList);
+        parcel.writeByte((byte) (isPublic ? 1 : 0));
     }
 }

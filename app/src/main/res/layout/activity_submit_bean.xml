@@ -84,6 +84,7 @@
         android:background="@drawable/border"
         android:elevation="@dimen/padding_tiny"
         android:gravity="top|start"
+        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,1234567890"
         android:hint="@string/et_tag_list_hint"
         android:imeOptions="actionDone"
         android:inputType="text|textAutoComplete|textAutoCorrect"

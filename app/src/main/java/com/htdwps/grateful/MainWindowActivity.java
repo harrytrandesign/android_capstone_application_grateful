@@ -61,7 +61,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                     return true;
                 case R.id.navigation_dashboard:
 //                    mTextMessage.setText(R.string.title_dashboard);
-                    fragment = MoodCounterFragment.newInstance("", "");
+                    fragment = MoodCounterFragment.newInstance();
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
                     return true;
