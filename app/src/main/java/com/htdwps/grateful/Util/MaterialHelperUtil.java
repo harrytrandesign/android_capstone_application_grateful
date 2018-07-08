@@ -125,7 +125,7 @@ public class MaterialHelperUtil {
 //                                list.add(tag);
 //                            }
 
-                            Beans beans = new Beans(customUser, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, checkBox.isChecked());
+                            Beans beans = new Beans(customUser, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, checkBox.isChecked(), "");
                             FirebaseUtil.getUserPostRef().child(customUser.getUserid()).push().setValue(beans).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

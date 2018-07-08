@@ -20,6 +20,7 @@ import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.MoodCount;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.ProgressDialogUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -64,6 +65,9 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
             // Successfully signed in
             if (resultCode == RESULT_OK) {
 
+                final ProgressDialogUtil progressDialogUtil = new ProgressDialogUtil();
+                progressDialogUtil.showProgressDialog(this, getResources().getString(R.string.progress_dialog_creating_new_account));
+
                 final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 if (firebaseUser != null) {
@@ -89,6 +93,9 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
+                                        if (progressDialogUtil != null) {
+                                            ProgressDialogUtil.dismissProgressDialog(progressDialogUtil);
+                                        }
                                         startActivity(new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class));
                                         finish();
 
@@ -98,6 +105,10 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                             } else {
 
                                 Timber.i("User already exists, leaving FirebaseUIAuthActivity now.");
+                                if (progressDialogUtil != null) {
+                                    ProgressDialogUtil.dismissProgressDialog(progressDialogUtil);
+                                }
+
                                 startActivity(new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class));
                                 finish();
 

@@ -162,7 +162,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                     ArrayList<String> list = new ArrayList<>(items);
                     final CustomUser user = FirebaseUtil.getCurrentUser();
 
-                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, postIsPublic);
+                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, postIsPublic, postKeyGenerated);
 
                     Map<String, Object> beanMap = new HashMap<>();
 

@@ -72,8 +72,11 @@
             android:name=".MainWindowActivity"
             android:label="@string/title_activity_main_window">
         </activity>
-        <activity android:name=".TagPostActivity"
+        <activity
+            android:name=".TagPostActivity"
             android:parentActivityName=".MainWindowActivity">
+        </activity>
+        <activity android:name=".BeanCommentActivity">
         </activity>
     </application>
 

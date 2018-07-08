@@ -9,10 +9,12 @@ import android.content.Context;
 
 public class ProgressDialogUtil {
 
+    private static ProgressDialog progressDialog;
+
     // To show the class and to dismiss it when no longer needed via https://stackoverflow.com/questions/37428840/how-to-put-progress-dialog-in-seperate-class-and-call-in-every-activity-in-andro
     public static ProgressDialog showProgressDialog(Context context, String message) {
 
-        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
 
         progressDialog.setMessage(message);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -22,6 +24,12 @@ public class ProgressDialogUtil {
         progressDialog.show();
 
         return progressDialog;
+    }
+
+    public static void dismissProgressDialog(ProgressDialogUtil progressDialogUtil) {
+        if (progressDialogUtil != null) {
+            progressDialog.dismiss();
+        }
     }
 
 }

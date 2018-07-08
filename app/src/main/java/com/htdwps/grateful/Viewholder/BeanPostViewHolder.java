@@ -76,9 +76,9 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
             tvIsPublic.setVisibility(View.VISIBLE);
             llPublicStats.setVisibility(View.VISIBLE);
             tvPostOwner.setText(String.format("By %s", postOwner));
-        } else {
-            tvIsPublic.setVisibility(View.INVISIBLE);
-            llPublicStats.setVisibility(View.INVISIBLE);
+        } else if (!onPublicFeed) {
+            tvIsPublic.setVisibility(View.GONE);
+            llPublicStats.setVisibility(View.GONE);
         }
 
     }

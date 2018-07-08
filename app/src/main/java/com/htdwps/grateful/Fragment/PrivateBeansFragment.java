@@ -20,6 +20,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.htdwps.grateful.BeanCommentActivity;
 import com.htdwps.grateful.FirebaseUiAuthActivity;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
@@ -56,12 +57,15 @@ public class PrivateBeansFragment extends Fragment {
     private static final String USER_DISPLAY_NAME = "user_displayname";
     private static final String USER_PICTURE = "user_photo_url";
 
+    public static final String BEAN_POST_PARAM = "public_posting_key";
+    public static final String CUSTOM_USER_PARAM = "custom_user_key";
+
     private DatabaseReference queryRefrence;
     String queryTypeString;
 
     RecyclerView.Adapter<EntryViewHolder> listAdapter;
     RecyclerView.Adapter<GratePostViewHolder> gratefulAdapter;
-    RecyclerView.Adapter<BeanPostViewHolder> beanPostAdapter;
+    FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> beanPostAdapter;
     DatabaseReference mainAllPostsReference;
     DatabaseReference userOnlyPostsReference;
     FirebaseUser firebaseUser;
@@ -113,6 +117,22 @@ public class PrivateBeansFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(createBeanRecyclerViewAdapter(queryRefrence));
+
+//        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getActivity(), new RecyclerViewItemClickListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                if (isPublicFeedDisplayed) {
+//                    Beans beans = beanPostAdapter.getItem(position);
+//
+//                    Bundle bundle = new Bundle();
+//                    bundle.putParcelable(BEAN_POST_PARAM, beans);
+//
+//                    Intent intent = new Intent(getActivity(), BeanCommentActivity.class);
+//                    intent.putExtra(BEAN_POST_PARAM, beans);
+//                    startActivity(intent);
+//                }
+//            }
+//        }));
 
         return view;
 
@@ -172,6 +192,7 @@ public class PrivateBeansFragment extends Fragment {
         }
 
         recyclerView.setAdapter(createBeanRecyclerViewAdapter(queryRefrence));
+
     }
 
     public LinearLayoutManager createLayoutManager() {
@@ -183,7 +204,14 @@ public class PrivateBeansFragment extends Fragment {
         return linearLayoutManager;
     }
 
-    public RecyclerView.Adapter<BeanPostViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
+//    FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> beanAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostViewHolder>() {
+//        @Override
+//        protected void populateViewHolder(BeanPostViewHolder viewHolder, Beans model, int position) {
+//
+//        }
+//    }
+
+    public FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
         beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostViewHolder>(
                 Beans.class,
                 R.layout.item_grateful_post_user_posts,
@@ -212,6 +240,16 @@ public class PrivateBeansFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         if (isPublicFeedDisplayed) {
                             Toast.makeText(getActivity(), "Public Feed Showing Public Posts, Go to Comment's Section", Toast.LENGTH_SHORT).show();
+                            Beans beans = beanPostAdapter.getItem(position);
+                            CustomUser customUser = beans.getCustomUser();
+//
+//                    Bundle bundle = new Bundle();
+//                    bundle.putParcelable(BEAN_POST_PARAM, beans);
+//
+                            Intent intent = new Intent(getActivity(), BeanCommentActivity.class);
+                            intent.putExtra(BEAN_POST_PARAM, beans);
+                            intent.putExtra(CUSTOM_USER_PARAM, customUser);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(getActivity(), "Nothing going to happen here. Clicked at position " + position, Toast.LENGTH_SHORT).show();
                         }

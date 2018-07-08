@@ -50,7 +50,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+//            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
