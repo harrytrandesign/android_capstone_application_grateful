@@ -24,6 +24,7 @@ import com.google.firebase.database.ServerValue;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.Feedback;
+import com.htdwps.grateful.Model.GratefulComment;
 import com.htdwps.grateful.QuoteActivity;
 import com.htdwps.grateful.R;
 
@@ -38,6 +39,7 @@ public class MaterialHelperUtil {
 
     //    Context mContext;
     private static final DatabaseReference feedbackDatabaseReference = FirebaseUtil.getFeedbackRef();
+    private static final DatabaseReference commentDatabaseReference = FirebaseUtil.getCommentListRef();
 
     public static void generateInspirationalQuote(Context context) {
         MaterialDialog dialog;
@@ -142,6 +144,8 @@ public class MaterialHelperUtil {
     // Submit feedback to developer, feedback goes to the fb database
     public static void submitFeedbackToDeveloper(final Context context, final CustomUser customUser) {
 
+        MaterialDialog dialog;
+
         final MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(R.string.material_dialog_submit_feedback)
                 .content(R.string.material_dialog_feedback_content)
@@ -152,6 +156,8 @@ public class MaterialHelperUtil {
                         if (TextUtils.isEmpty(input) || input.length() < 10) {
 
                             Toast.makeText(context, R.string.string_feedback_length_too_short, Toast.LENGTH_SHORT).show();
+                            // Recall the feedback box
+                            submitFeedbackToDeveloper(context, customUser);
 
                         } else {
 
@@ -171,8 +177,49 @@ public class MaterialHelperUtil {
                     }
                 });
 
-        MaterialDialog dialog = builder.build();
+        dialog = builder.build();
         dialog.show();
 
     }
+
+    public static void populateCommentBoxForPost(final Context context, final CustomUser customUser, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
+
+        MaterialDialog materialDialog;
+
+        final MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                .title("Add a comment")
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                .input("Must be at least 10 characters long.", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+
+                        if (TextUtils.isEmpty(input) || input.length() < 10) {
+
+                            Toast.makeText(context, "Your comment was too short", Toast.LENGTH_SHORT).show();
+                            populateCommentBoxForPost(context, customUser, postKeyPushId, commentDirectoryRef);
+
+                        } else {
+
+                            // Submit to database
+                            String commentPushKey = commentDirectoryRef.push().getKey();
+                            GratefulComment gratefulComment = new GratefulComment(customUser, input.toString(), ServerValue.TIMESTAMP, commentPushKey, postKeyPushId);
+
+                            commentDirectoryRef.child(commentPushKey).setValue(gratefulComment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    Toast.makeText(context, "Comment Posted", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+                        }
+                    }
+                });
+
+        materialDialog = builder.build();
+        materialDialog.show();
+
+    }
+
 }

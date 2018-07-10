@@ -1,40 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/app_coordinator_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".BeanCommentActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_hold_original_post_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_text_white"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapse_bar_original_post"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding_three"
+            android:background="@color/color_text_white"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- Create a more custom layout for post -->
+            <include
+                layout="@layout/item_grateful_post_user_posts"
+                android:background="@color/color_text_white"
+                app:layout_collapseMode="parallax"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_anchor="@id/appbar_hold_original_post_details"-->
+    <!--app:layout_anchorGravity="bottom"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--app:layout_collapseMode="pin">-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_comments_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_three"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_post_text"-->
-            <!--tools:text="This is the message"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_post_text"-->
+    <!--tools:text="This is the message"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_post_pushkey"-->
-            <!--android:layout_width="match_parent"-->
-            <!--tools:text="Random NUMBERS"-->
-            <!--android:layout_height="wrap_content"/>-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_post_pushkey"-->
+    <!--android:layout_width="match_parent"-->
+    <!--tools:text="Random NUMBERS"-->
+    <!--android:layout_height="wrap_content"/>-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_post_username"-->
-            <!--android:layout_width="match_parent"-->
-            <!--tools:text="HTDWPS"-->
-            <!--android:layout_height="wrap_content"/>-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_post_username"-->
+    <!--android:layout_width="match_parent"-->
+    <!--tools:text="HTDWPS"-->
+    <!--android:layout_height="wrap_content"/>-->
 
     <!--</LinearLayout>-->
 
-</android.support.constraint.ConstraintLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linearlayout_holds_edittext"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center|bottom"-->
+    <!--android:layout_margin="@dimen/padding_medium"-->
+    <!--android:background="@drawable/circle_shape_blue_occupation_box"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:padding="@dimen/padding_xsmall"-->
+    <!--app:layout_collapseMode="pin">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/fragment_et_comment_typebox"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:hint="@string/submit_text_hint_comment"-->
+    <!--android:inputType="textLongMessage|textCapSentences|textAutoCorrect|textAutoComplete"-->
+    <!--android:maxLength="200"-->
+    <!--android:paddingEnd="@dimen/padding_xsmall"-->
+    <!--android:paddingStart="@dimen/padding_xsmall"/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/fragment_iv_comment_submit_btn"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_marginEnd="@dimen/padding_xsmall"-->
+    <!--android:contentDescription="@string/imageview_comment_description"-->
+    <!--android:src="@drawable/ic_send"/>-->
+
+    <!--</LinearLayout>-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_submit_comment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/padding_small"
+        android:background="@color/colorPrimary"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimary"/>
+
+    <!--</LinearLayout>-->
+
+</android.support.design.widget.CoordinatorLayout>

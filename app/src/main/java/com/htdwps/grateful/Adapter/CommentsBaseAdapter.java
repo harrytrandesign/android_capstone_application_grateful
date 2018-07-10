@@ -1,5 +1,6 @@
 package com.htdwps.grateful.Adapter;
 
+import android.content.Context;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
+import com.htdwps.grateful.Model.Beans;
+import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.GratefulComment;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Viewholder.CommentsViewHolder;
@@ -16,8 +19,15 @@ import com.htdwps.grateful.Viewholder.CommentsViewHolder;
  */
 public class CommentsBaseAdapter extends FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder> {
 
-    public CommentsBaseAdapter(Class<GratefulComment> modelClass, int modelLayout, Class<CommentsViewHolder> viewHolderClass, Query ref) {
+    Context mContext;
+    Beans beans;
+    CustomUser customUser;
+
+    public CommentsBaseAdapter(Class<GratefulComment> modelClass, int modelLayout, Class<CommentsViewHolder> viewHolderClass, Query ref, Context context, Beans bean, CustomUser customUser) {
         super(modelClass, modelLayout, viewHolderClass, ref);
+        this.mContext = context;
+        this.beans = bean;
+        this.customUser = customUser;
     }
 
     @Override
@@ -41,38 +51,50 @@ public class CommentsBaseAdapter extends FirebaseRecyclerAdapter<GratefulComment
     @Override
     protected void populateViewHolder(CommentsViewHolder viewHolder, GratefulComment model, int position) {
 
-        int viewType = getItemViewType(position);
+        if (position == 0) {
+            // Retrieve whether owner wanted to remain anonymous
+            viewHolder.setTopPostTextFields(beans.getBeanText(), customUser.getUserDisplayName());
 
-        switch (viewType) {
+        } else {
 
-            case CommentsViewHolder.POST_HEADER_LAYOUT_TYPE:
-
-
-
-                break;
-
-            case CommentsViewHolder.COMMENT_VIEW_LAYOUT_TYPE:
-
-                viewHolder.setCommentTextFields(model.getCommentText(), model.getCustomUser().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
-
-                break;
-
-            default:
-
-                throw new IllegalArgumentException("Invalid view type");
+            viewHolder.setCommentTextFields(model.getCommentText(), model.getCustomUser().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
 
         }
 
     }
 
-    @Override
-    public void onBindViewHolder(CommentsViewHolder viewHolder, int position) {
-        super.onBindViewHolder(viewHolder, position);
-    }
+//    @Override
+//    public void onBindViewHolder(CommentsViewHolder viewHolder, int position) {
+//        super.onBindViewHolder(viewHolder, position);
+
+//        int viewType = getItemViewType(position);
+//
+//        switch (viewType) {
+//
+//            case CommentsViewHolder.POST_HEADER_LAYOUT_TYPE:
+//
+//                viewHolder.setTopPostTextFields(beans.getBeanText(), customUser.getUserDisplayName());
+//
+//                break;
+//
+//            case CommentsViewHolder.COMMENT_VIEW_LAYOUT_TYPE:
+//
+//                viewHolder.setCommentTextFields(model.getCommentText(), model.getCustomUser().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
+//
+//                break;
+//
+//            default:
+//
+//                throw new IllegalArgumentException("Invalid view type");
+//
+//        }
+
+
+//    }
 
     @Override
     public int getItemCount() {
-        return super.getItemCount();
+        return super.getItemCount() + 1;
     }
 
     @Override

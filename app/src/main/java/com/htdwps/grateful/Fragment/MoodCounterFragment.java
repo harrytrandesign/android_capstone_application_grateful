@@ -1,6 +1,7 @@
 package com.htdwps.grateful.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Model.MoodCount;
+import com.htdwps.grateful.MoodCountActivity;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.MoodCountViewHolder;
@@ -81,9 +83,20 @@ public class MoodCounterFragment extends Fragment {
                     moodCountListReference
             ) {
                 @Override
-                protected void populateViewHolder(MoodCountViewHolder viewHolder, MoodCount model, int position) {
+                protected void populateViewHolder(MoodCountViewHolder viewHolder, final MoodCount model, int position) {
 
                     viewHolder.setMoodValue(model.getMoodName(), model.getValueCount());
+
+                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            Intent moodCountActivityIntent = new Intent(getActivity(), MoodCountActivity.class);
+                            moodCountActivityIntent.putExtra(MoodCountActivity.MOOD_TYPE_KEY_PARAM, model.getMoodName());
+                            startActivity(moodCountActivityIntent);
+
+                        }
+                    });
 
                 }
             };

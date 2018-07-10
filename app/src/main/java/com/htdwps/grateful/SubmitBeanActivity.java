@@ -170,6 +170,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                     beanMap.put(beanPostPath, beans);
 
+                    // Keep track of the tags the user is using
                     for (String tag : list) {
 
                         if (tag.length() > 0) {
@@ -183,6 +184,10 @@ public class SubmitBeanActivity extends AppCompatActivity {
                             beanMap.put(tagPostPath, tagName);
                         }
                     }
+
+                    // Keep track of mood based posts, moodname -> pushkey:true;
+                    String moodPostPath = "mood_bean_listed_posts/" + user.getUserid() + "/" + expressionDropdown.getSelectedItemPosition() + "/" + postKeyGenerated;
+                    beanMap.put(moodPostPath, true);
 
                     if (postIsPublic) {
                         beanMap.put("post_public_all/" + postKeyGenerated, beans);

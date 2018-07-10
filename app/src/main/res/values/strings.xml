@@ -123,6 +123,8 @@
     <string name="switch_private_text_label">View Personal Posts?</string>
 
     <string name="progress_dialog_creating_new_account">Please wait while we create a brand new account for you</string>
+    <string name="submit_text_hint_comment">Add a comment</string>
+    <string name="imageview_comment_description">Button to submit a comment message.</string>
 
     <!--<integer-array name="emoji_spinner_dropdown_choices">-->
     <!--<item>@string/emoji_type_one_onfire</item>-->

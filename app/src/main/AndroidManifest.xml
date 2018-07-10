@@ -78,6 +78,8 @@
         </activity>
         <activity android:name=".BeanCommentActivity">
         </activity>
+        <activity android:name=".MoodCountActivity">
+        </activity>
     </application>
 
 </manifest>

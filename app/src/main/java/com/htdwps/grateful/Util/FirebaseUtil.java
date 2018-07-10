@@ -40,19 +40,19 @@ public class FirebaseUtil {
         return new CustomUser(user.getUid(), user.getDisplayName(), user.getEmail());
     }
 
+    // public_beans_posts --> post_key;
     public static DatabaseReference getBeanPublicReference() {
         return getBaseRef().child("public_bean_posts");
-        // public_beans_posts --> post_key;
     }
 
+    // private_bean_posts --> user_id --> post_key;
     public static DatabaseReference getBeanPrivateReference() {
         return getBaseRef().child("private_bean_posts");
-        // private_bean_posts --> user_id --> post_key;
     }
 
+    // post_tags_list --> user_id --> tag_word --> post_key : true;
     public static DatabaseReference getTagsBeanReference() {
         return getBaseRef().child("post_tags_list");
-        // post_tags_list --> user_id --> tag_word --> post_key : true;
     }
 
     public static DatabaseReference getTagsPostsWithTagReference() {
@@ -63,12 +63,12 @@ public class FirebaseUtil {
         return getBaseRef().child("mood_bean_listed_posts");
     }
 
+    // mood_type_counter_values --> user_id --> mood : int 0, mood2 : int 0;
     public static DatabaseReference getMoodCounterReference() {
         return getBaseRef().child("mood_type_counter_values");
-        // mood_type_counter_values --> user_id --> mood : int 0, mood2 : int 0;
     }
 
-    // all_public_comment_threads --> post_key --> comment_key;
+    // all_public_comment_threads --> post_key --> comment_key --> comment.class;
     public static DatabaseReference getCommentListRef() {
         return getBaseRef().child("all_public_comment_threads");
     }

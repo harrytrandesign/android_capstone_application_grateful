@@ -49,6 +49,7 @@
 
     <!-- Extras -->
     <dimen name="edittext_box_corner_radius">5dp</dimen>
+    <dimen name="position_box_corner_radius">15dp</dimen>
     <dimen name="edittext_height">280dp</dimen>
     <dimen name="edittext_onboarding">36dp</dimen>
     <dimen name="featured_post_dimen">220dp</dimen>
