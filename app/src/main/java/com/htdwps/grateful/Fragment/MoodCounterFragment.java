@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,7 @@ public class MoodCounterFragment extends Fragment {
     DatabaseReference moodCountListReference;
     RecyclerView moodListRecyclerView;
     FirebaseRecyclerAdapter<MoodCount, MoodCountViewHolder> moodCountAdapter;
+    TextView tvRemindAddNewPosts;
 
     GridLayoutManager gridLayoutManager;
 
@@ -73,6 +75,7 @@ public class MoodCounterFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         moodListRecyclerView = view.findViewById(R.id.rv_mood_counter_list);
         moodListRecyclerView.setLayoutManager(gridLayoutManager);
+//        tvRemindAddNewPosts = view.findViewById(R.id.tv_load_some_posts_text);
 
         if (firebaseUser != null) {
             moodCountListReference = FirebaseUtil.getMoodCounterReference().child(firebaseUser.getUid());
@@ -99,6 +102,19 @@ public class MoodCounterFragment extends Fragment {
                     });
 
                 }
+
+//                @Override
+//                public int getItemCount() {
+//                    int count = super.getItemCount();
+//
+//                    if (count == 0) {
+//                        tvRemindAddNewPosts.setVisibility(View.VISIBLE);
+//                    } else {
+//                        tvRemindAddNewPosts.setVisibility(View.GONE);
+//                    }
+//
+//                    return count;
+//                }
             };
         }
 

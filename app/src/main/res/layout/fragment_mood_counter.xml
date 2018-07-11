@@ -5,6 +5,14 @@
              android:layout_height="match_parent"
              tools:context=".Fragment.MoodCounterFragment">
 
+    <!--<TextView-->
+        <!--android:id="@+id/tv_load_some_posts_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Write a new post today"-->
+        <!--android:visibility="gone"/>-->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_mood_counter_list"
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.htdwps.grateful;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
@@ -22,7 +27,6 @@ import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.GratefulComment;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.MaterialHelperUtil;
 import com.htdwps.grateful.Viewholder.CommentsViewHolder;
 
 import java.util.HashMap;
@@ -35,6 +39,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     RecyclerView commentRecyclerView;
     //    CommentsBaseAdapter commentsBaseAdapter;
     DatabaseReference commentRef;
+    FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder> commentsAdapter;
 
     EditText commentEditText;
 
@@ -43,15 +48,28 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     TextView tvPostPushKey;
     TextView tvPostUserDisplayName;
 
-    FloatingActionButton commentFabBtn;
+    FloatingActionButton commentOpenDialogBtn;
+    FloatingActionButton commentSubmitBtn;
+    Animation fabRotateOpen, fabRotateClose, fabReveal, fabHidden, editTextReveal, editTextHidden;
+    boolean isEditTextOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bean_comment);
 
-        commentFabBtn = findViewById(R.id.fab_submit_comment_btn);
-        commentFabBtn.setOnClickListener(this);
+        fabRotateOpen = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open);
+        fabRotateClose = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_close);
+        fabHidden = AnimationUtils.loadAnimation(this, R.anim.fab_hidden);
+        fabReveal = AnimationUtils.loadAnimation(this, R.anim.fab_reveal);
+        editTextHidden = AnimationUtils.loadAnimation(this, R.anim.edittext_hidden);
+        editTextReveal = AnimationUtils.loadAnimation(this, R.anim.edittext_reveal);
+
+        commentOpenDialogBtn = findViewById(R.id.fab_submit_comment_btn);
+        commentOpenDialogBtn.setOnClickListener(this);
+        commentSubmitBtn = findViewById(R.id.fab_submit_new_comment_post);
+        commentSubmitBtn.setOnClickListener(this);
+        commentEditText = findViewById(R.id.fragment_et_comment_typebox);
 
         tvEmojiIcon = findViewById(R.id.tv_emoji_icon_image);
         tvPostText = findViewById(R.id.tv_current_feeling);
@@ -62,6 +80,10 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         user = getIntent().getParcelableExtra(PrivateBeansFragment.CUSTOM_USER_PARAM);
 
         setTitle("Post: " + bean.getBeanText());
+
+//        LinearLayoutManager llm = new LinearLayoutManager();
+//        llm.setReverseLayout(true);
+//        llm.setStackFromEnd(true);
 
 //        String year = DateUtils.formatDateTime(this, (long) bean.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
 //        String time = DateUtils.formatDateTime(this, (long) bean.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
@@ -80,9 +102,9 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 //        commentsBaseAdapter = new CommentsBaseAdapter(
 //                GratefulComment.class, R.layout.item_comment_layout, CommentsViewHolder.class, commentRef, this, bean, user);
 
-        commentRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        commentRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 //        commentRecyclerView.setAdapter(commentsBaseAdapter);
-        FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder> commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder>(
+        commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder>(
                 GratefulComment.class,
                 R.layout.item_comment_layout,
                 CommentsViewHolder.class,
@@ -94,9 +116,12 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
                 viewHolder.setCommentTextFields(model.getCommentText(), model.getCustomUser().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
 
             }
+
         };
 
         commentRecyclerView.setAdapter(commentsAdapter);
+//        commentsAdapter.notifyDataSetChanged();
+//        commentRecyclerView.smoothScrollToPosition(commentsAdapter.getItemCount());
 
 //        String displayName = user.getUserDisplayName();
 //        tvPostText.setText(bean.getBeanText());
@@ -111,6 +136,23 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    private void animateFabViews() {
+        if (isEditTextOpen) {
+            commentOpenDialogBtn.startAnimation(fabRotateClose);
+            commentEditText.startAnimation(editTextHidden);
+            commentSubmitBtn.startAnimation(fabHidden);
+            commentSubmitBtn.setClickable(false);
+            isEditTextOpen = false;
+        } else {
+            commentOpenDialogBtn.startAnimation(fabRotateOpen);
+            commentEditText.startAnimation(editTextReveal);
+            commentEditText.setVisibility(View.VISIBLE);
+            commentSubmitBtn.startAnimation(fabReveal);
+            commentSubmitBtn.setClickable(true);
+            isEditTextOpen = true;
+        }
+    }
+
     public void submitNewComment(String comment) {
 
         if (TextUtils.isEmpty(comment)) {
@@ -122,6 +164,32 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
             // Submit to database
             Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         }
+
+        if (TextUtils.isEmpty(comment) || comment.length() < 10) {
+
+            Toast.makeText(this, "Your comment was too short", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            // Submit to database
+            String commentPushKey = commentRef.push().getKey();
+            GratefulComment gratefulComment = new GratefulComment(FirebaseUtil.getCurrentUser(), comment, ServerValue.TIMESTAMP, commentPushKey, bean.getBeanPostKey());
+
+            commentRef.child(commentPushKey).setValue(gratefulComment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    Toast.makeText(BeanCommentActivity.this, "Comment Posted", Toast.LENGTH_SHORT).show();
+                    commentEditText.setText("");
+                    commentEditText.getText().clear();
+
+                    commentRecyclerView.smoothScrollToPosition(commentsAdapter.getItemCount());
+
+                }
+            });
+
+        }
+
 
     }
 
@@ -157,7 +225,18 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         switch (id) {
             case R.id.fab_submit_comment_btn:
 
-                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentRef);
+                Toast.makeText(this, "Open Edittext Flipper Button", Toast.LENGTH_SHORT).show();
+
+                animateFabViews();
+//                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentRef);
+
+                break;
+
+            case R.id.fab_submit_new_comment_post:
+
+                submitNewComment(commentEditText.getText().toString());
+
+                Toast.makeText(this, "Submit a new comment button", Toast.LENGTH_SHORT).show();
 
                 break;
 

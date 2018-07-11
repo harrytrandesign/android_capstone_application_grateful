@@ -72,6 +72,7 @@ public class PrivateBeansFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
 
     TextView tvTextTogglePublicPrivateFeed;
+    TextView tvRemindAddText;
     Switch switchToggleValue;
     RecyclerView recyclerView;
     RecyclerView moodCounterRecyclerView;
@@ -139,6 +140,7 @@ public class PrivateBeansFragment extends Fragment {
     }
 
     public void runLayout(View view) {
+        tvRemindAddText = view.findViewById(R.id.tv_load_some_posts_text);
         tvTextTogglePublicPrivateFeed = view.findViewById(R.id.tv_public_private_display_text);
         switchToggleValue = view.findViewById(R.id.switch_toggle_public_private_feed_display);
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
@@ -258,6 +260,19 @@ public class PrivateBeansFragment extends Fragment {
 
                 return beanPostViewHolder;
             }
+
+//            @Override
+//            public int getItemCount() {
+//                int count = super.getItemCount();
+//
+//                if (count == 0) {
+//                    tvRemindAddText.setVisibility(View.VISIBLE);
+//                } else {
+//                    tvRemindAddText.setVisibility(View.GONE);
+//                }
+//
+//                return count;
+//            }
         };
 
         return beanPostAdapter;

@@ -49,7 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/padding_three"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:reverseLayout="true"
+        app:stackFromEnd="true"/>
 
     <!--<LinearLayout-->
     <!--android:layout_width="match_parent"-->
@@ -76,53 +78,66 @@
 
     <!--</LinearLayout>-->
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/linearlayout_holds_edittext"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center|bottom"-->
-    <!--android:layout_margin="@dimen/padding_medium"-->
-    <!--android:background="@drawable/circle_shape_blue_occupation_box"-->
-    <!--android:fitsSystemWindows="true"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="@dimen/padding_xsmall"-->
-    <!--app:layout_collapseMode="pin">-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/fragment_et_comment_typebox"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--android:hint="@string/submit_text_hint_comment"-->
-    <!--android:inputType="textLongMessage|textCapSentences|textAutoCorrect|textAutoComplete"-->
-    <!--android:maxLength="200"-->
-    <!--android:paddingEnd="@dimen/padding_xsmall"-->
-    <!--android:paddingStart="@dimen/padding_xsmall"/>-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/fragment_iv_comment_submit_btn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:layout_marginEnd="@dimen/padding_xsmall"-->
-    <!--android:contentDescription="@string/imageview_comment_description"-->
-    <!--android:src="@drawable/ic_send"/>-->
-
-    <!--</LinearLayout>-->
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_submit_comment_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/padding_small"
-        android:background="@color/colorPrimary"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary"/>
+        android:layout_gravity="center|bottom"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_submit_new_comment_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="@dimen/padding_xsmall"
+            android:layout_marginEnd="@dimen/padding_xsmall"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ic_comment"
+            android:tint="@android:color/white"
+            android:visibility="invisible"
+            app:backgroundTint="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/linearlayout_holds_edittext"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_xsmall"
+            android:fitsSystemWindows="true"
+            android:orientation="horizontal"
+            app:layout_collapseMode="pin">
+
+            <EditText
+                android:id="@+id/fragment_et_comment_typebox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/circle_shape_blue_occupation_box"
+                android:hint="@string/submit_text_hint_comment"
+                android:inputType="textLongMessage|textCapSentences|textAutoCorrect|textAutoComplete"
+                android:maxLength="200"
+                android:paddingBottom="@dimen/padding_xsmall"
+                android:paddingEnd="@dimen/padding_medium"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingTop="@dimen/padding_xsmall"
+                android:visibility="invisible"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_submit_comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/padding_xsmall"
+                android:background="@color/colorPrimary"
+                android:src="@android:drawable/ic_input_add"
+                android:tint="@android:color/white"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
     <!--</LinearLayout>-->
 
 </android.support.design.widget.CoordinatorLayout>

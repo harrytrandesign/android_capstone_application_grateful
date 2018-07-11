@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class TagsCounterFragment extends Fragment {
     DatabaseReference tagListReference;
     RecyclerView tagListRecyclerView;
     FirebaseRecyclerAdapter<TagName, TagListViewHolder> tagListAdapter;
+    TextView tvRemindToAddPosts;
 
     public TagsCounterFragment() {
         // Required empty public constructor
@@ -67,6 +69,7 @@ public class TagsCounterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tags_counter, container, false);
 
         tagListRecyclerView = view.findViewById(R.id.rv_tag_counter_list);
+//        tvRemindToAddPosts = view.findViewById(R.id.tv_load_some_posts_text);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -100,6 +103,21 @@ public class TagsCounterFragment extends Fragment {
                 }
 
 //                @Override
+//                public int getItemCount() {
+//                    int count = super.getItemCount();
+//
+//                    if (count == 0) {
+//                        tvRemindToAddPosts.setVisibility(View.VISIBLE);
+//                        tagListRecyclerView.setVisibility(View.GONE);
+//                    } else {
+//                        tvRemindToAddPosts.setVisibility(View.GONE);
+//                        tagListRecyclerView.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    return count;
+//                }
+
+                //                @Override
 //                public TagListViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
 //                    TagListViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
 //
