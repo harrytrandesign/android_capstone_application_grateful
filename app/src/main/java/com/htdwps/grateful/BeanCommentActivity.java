@@ -43,10 +43,11 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
     EditText commentEditText;
 
-    TextView tvEmojiIcon;
-    TextView tvPostText;
-    TextView tvPostPushKey;
-    TextView tvPostUserDisplayName;
+    TextView tvEmojiIconField;
+    TextView tvPostTitleMoodText;
+    TextView tvPostTagListText;
+    TextView tvPostMainMessageText;
+    LinearLayoutManager linearLayoutManager;
 
     FloatingActionButton commentOpenDialogBtn;
     FloatingActionButton commentSubmitBtn;
@@ -57,6 +58,8 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bean_comment);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fabRotateOpen = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open);
         fabRotateClose = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_close);
@@ -71,10 +74,10 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         commentSubmitBtn.setOnClickListener(this);
         commentEditText = findViewById(R.id.fragment_et_comment_typebox);
 
-        tvEmojiIcon = findViewById(R.id.tv_emoji_icon_image);
-        tvPostText = findViewById(R.id.tv_current_feeling);
-        tvPostPushKey = findViewById(R.id.tv_tag_list_for_post);
-        tvPostUserDisplayName = findViewById(R.id.tv_main_message_field);
+        tvEmojiIconField = findViewById(R.id.tv_emoji_icon_image_condensed);
+        tvPostTitleMoodText = findViewById(R.id.tv_current_feeling_condensed);
+        tvPostTagListText = findViewById(R.id.tv_tag_list_for_post_condensed);
+        tvPostMainMessageText = findViewById(R.id.tv_main_message_field_condensed);
 
         bean = getIntent().getParcelableExtra(PrivateBeansFragment.BEAN_POST_PARAM);
         user = getIntent().getParcelableExtra(PrivateBeansFragment.CUSTOM_USER_PARAM);
@@ -91,10 +94,10 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
         String tagsLists = TextUtils.join(", ", bean.getTagList());
 
-        tvEmojiIcon.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[bean.getMoodValue()])));
-        tvPostText.setText(EmojiSelectUtil.emojiIntConvertToString(bean.getMoodValue()));
-        tvPostUserDisplayName.setText(bean.getBeanText());
-        tvPostPushKey.setText(tagsLists);
+        tvEmojiIconField.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[bean.getMoodValue()])));
+        tvPostTitleMoodText.setText(EmojiSelectUtil.emojiIntConvertToString(bean.getMoodValue()));
+        tvPostMainMessageText.setText(bean.getBeanText());
+        tvPostTagListText.setText(tagsLists);
 
 //        commentEditText = findViewById(R.id.fragment_et_comment_typebox);
         commentRecyclerView = findViewById(R.id.rv_comments_list);
@@ -102,7 +105,12 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 //        commentsBaseAdapter = new CommentsBaseAdapter(
 //                GratefulComment.class, R.layout.item_comment_layout, CommentsViewHolder.class, commentRef, this, bean, user);
 
-        commentRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        commentRecyclerView.setLayoutManager(linearLayoutManager);
 //        commentRecyclerView.setAdapter(commentsBaseAdapter);
         commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder>(
                 GratefulComment.class,
@@ -124,11 +132,11 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 //        commentRecyclerView.smoothScrollToPosition(commentsAdapter.getItemCount());
 
 //        String displayName = user.getUserDisplayName();
-//        tvPostText.setText(bean.getBeanText());
-//        tvPostPushKey.setText(bean.getBeanPostKey());
+//        tvPostTitleMoodText.setText(bean.getBeanText());
+//        tvPostTagListText.setText(bean.getBeanPostKey());
 //        if (user != null && displayName != null) {
 //
-//            tvPostUserDisplayName.setText(displayName);
+//            tvPostMainMessageText.setText(displayName);
 //
 //        }
 

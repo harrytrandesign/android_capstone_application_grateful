@@ -72,14 +72,23 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
 
 //        String postStatus = (publicStatus) ? "Public" : "Personal";
         tvIsPublic.setText(R.string.string_public_status_text);
-        if (publicStatus && onPublicFeed) {
-            tvIsPublic.setVisibility(View.VISIBLE);
+        if (!onPublicFeed) {
+            if (!publicStatus) {
+                tvIsPublic.setVisibility(View.GONE);
+            }
+            llPublicStats.setVisibility(View.GONE);
+        } else {
             llPublicStats.setVisibility(View.VISIBLE);
             tvPostOwner.setText(String.format("By %s", postOwner));
-        } else if (!onPublicFeed) {
-            tvIsPublic.setVisibility(View.GONE);
-            llPublicStats.setVisibility(View.GONE);
         }
+//        if (publicStatus && onPublicFeed) {
+//            tvIsPublic.setVisibility(View.VISIBLE);
+//            llPublicStats.setVisibility(View.VISIBLE);
+//            tvPostOwner.setText(String.format("By %s", postOwner));
+//        } else if (!onPublicFeed) {
+//            tvIsPublic.setVisibility(View.GONE);
+//            llPublicStats.setVisibility(View.GONE);
+//        }
 
     }
 
