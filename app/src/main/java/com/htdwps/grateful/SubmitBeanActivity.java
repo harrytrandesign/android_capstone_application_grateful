@@ -1,7 +1,9 @@
 package com.htdwps.grateful;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +67,9 @@ public class SubmitBeanActivity extends AppCompatActivity {
     String[] emotionList;
     int expressionValue;
 
+    SharedPreferences sharedPreferences;
+    Boolean postPublicSettingDefault;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,8 @@ public class SubmitBeanActivity extends AppCompatActivity {
         mAdview = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview.loadAd(adRequest);
+
+        searchUserDefaults();
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -95,10 +102,18 @@ public class SubmitBeanActivity extends AppCompatActivity {
 //        expressionTextLabel = findViewById(R.id.tv_mood_expression_text);
         expressionDropdown = findViewById(R.id.spinner_emoji_expression_moods_dropdown);
 
+        checkBox.setChecked(postPublicSettingDefault);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 boolean isPublic = b;
+                if (b) {
+                    postPublicSettingDefault = getResources().getBoolean(R.bool.publish_public_setting_true);
+                    isPublic = b;
+                } else {
+                    postPublicSettingDefault = getResources().getBoolean(R.bool.publish_private_default_setting_false);
+                    isPublic = b;
+                }
             }
         });
 
@@ -121,6 +136,12 @@ public class SubmitBeanActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void searchUserDefaults() {
+        // Get any settings from PreferenceFragment first such as anonymous posting by default
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        postPublicSettingDefault = sharedPreferences.getBoolean(getResources().getString(R.string.setting_option_publishing_settings_key), getResources().getBoolean(R.bool.publish_private_default_setting_false));
     }
 
     @Override

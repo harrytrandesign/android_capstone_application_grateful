@@ -1,8 +1,10 @@
 package com.htdwps.grateful;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,14 +39,23 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     private static final int REQUEST_INVITE = 0;
     private static final String ALL_POSTS_PARAM = "public_posts";
+    public static final String PUBLIC_PARAM = "public_feed";
+    public static final String PRIVATE_PARAM = "private_feed";
+    private static final String SAVE_INSTANCE_PARAM = "public_feed_status";
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     CustomUser user;
 
     private FloatingActionButton floatingActionButton;
+    Switch toggleSwitchFeedValue;
 
     private TextView mTextMessage;
+    TextView tvTogglePublicPrivateFeed;
+
+    boolean showPublicFeed = false;
+    SharedPreferences sharedPreferences;
+    Boolean quoteShowingPreference;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -53,19 +66,27 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 //            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_grateful:
+                    enableToggleSwitch(true);
 //                    mTextMessage.setText(R.string.title_home);
-                    fragment = PrivateBeansFragment.newInstance(ALL_POSTS_PARAM, ALL_POSTS_PARAM);
+//                    fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+                    if (showPublicFeed) {
+                        fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM, PUBLIC_PARAM);
+                    } else {
+                        fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+                    }
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_mood_count:
+                    enableToggleSwitch(false);
 //                    mTextMessage.setText(R.string.title_dashboard);
                     fragment = MoodCounterFragment.newInstance();
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_tag_list:
+                    enableToggleSwitch(false);
 //                    mTextMessage.setText(R.string.title_notifications);
 //                    visitMainActivity();
                     fragment = TagsCounterFragment.newInstance();
@@ -77,6 +98,16 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             return false;
         }
     };
+
+    public void enableToggleSwitch(boolean toggle) {
+        if (toggle) {
+            toggleSwitchFeedValue.setEnabled(true);
+            toggleSwitchFeedValue.setClickable(true);
+        } else {
+            toggleSwitchFeedValue.setEnabled(false);
+            toggleSwitchFeedValue.setClickable(false);
+        }
+    }
 
     public void visitMainActivity() {
         Intent intent = new Intent(this, MainWindowActivity.class);
@@ -90,8 +121,19 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         setTitle(R.string.app_tag_line);
 
+        displayingQuotesSetting();
+
+        tvTogglePublicPrivateFeed = findViewById(R.id.tv_public_private_display_text);
         floatingActionButton = findViewById(R.id.btn_add_bean_floating_action);
         floatingActionButton.setOnClickListener(this);
+        toggleSwitchFeedValue = findViewById(R.id.switch_toggle_public_private_feed);
+        toggleSwitchFeedValue.setChecked(showPublicFeed);
+        toggleSwitchFeedValue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                togglePublicPrivatePosts(b);
+            }
+        });
 
         runInitializer();
 
@@ -99,16 +141,75 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Fragment fragment = PrivateBeansFragment.newInstance(ALL_POSTS_PARAM, ALL_POSTS_PARAM);
+        Fragment fragment;
+        if (showPublicFeed) {
+            fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM, PUBLIC_PARAM);
+        } else {
+            fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+        }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         fragmentTransaction.replace(R.id.main_frame_layout, fragment);
         fragmentTransaction.commitAllowingStateLoss();
 
-        MaterialHelperUtil.generateInspirationalQuote(this);
+        if (quoteShowingPreference) MaterialHelperUtil.generateInspirationalQuote(this);
 
     }
 
+    public void refreshFeedFragment(boolean value) {
+
+        Fragment fragment;
+
+        if (value) {
+            fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM, PUBLIC_PARAM);
+        } else {
+            fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+        }
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.main_frame_layout, fragment);
+        fragmentTransaction.commitAllowingStateLoss();
+
+    }
+
+    public void togglePublicPrivatePosts(boolean feed) {
+
+        boolean isPublicFeedDisplayed = feed;
+        showPublicFeed = feed;
+
+        if (feed) {
+            tvTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_private_text_label));
+
+//            queryRefrence = FirebaseUtil.getAllPostRef();
+        } else {
+
+            tvTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_public_text_label));
+
+//            queryRefrence = mainAllPostsReference.child(user.getUserid());
+        }
+
+        refreshFeedFragment(isPublicFeedDisplayed);
+//        recyclerView.setAdapter(createBeanRecyclerViewAdapter(queryRefrence));
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(SAVE_INSTANCE_PARAM, showPublicFeed);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        boolean restoreState = savedInstanceState.getBoolean(SAVE_INSTANCE_PARAM);
+        toggleSwitchFeedValue.setChecked(restoreState);
+        togglePublicPrivatePosts(restoreState);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,6 +226,13 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             case R.id.settings_menu_new_quote:
 
                 MaterialHelperUtil.generateInspirationalQuote(this);
+
+                break;
+
+            case R.id.settings_menu_setting_link:
+
+                Intent settingIntent = new Intent(MainWindowActivity.this, SettingsActivity.class);
+                startActivity(settingIntent);
 
                 break;
 
@@ -187,6 +295,12 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         Fabric.with(fabric);
         user = FirebaseUtil.getCurrentUser();
         Timber.i("Firebase is being initialized, firebase is complete.");
+    }
+
+    public void displayingQuotesSetting() {
+        // Get any settings from PreferenceFragment first such as anonymous posting by default
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        quoteShowingPreference = sharedPreferences.getBoolean(getResources().getString(R.string.setting_quotes_settings_key), getResources().getBoolean(R.bool.quote_enable_default_setting_true));
     }
 
     public void sendInvitationWindow() {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="publish_private_default_setting_false">false</bool>
+    <bool name="publish_public_setting_true">true</bool>
+    <bool name="quote_enable_default_setting_true">true</bool>
+    <bool name="quote_disable_setting_false">false</bool>
+</resources>

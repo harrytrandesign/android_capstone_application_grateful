@@ -1,9 +1,10 @@
 <resources>
+    <!-- TODO: do the translatable = false for certain keys-->
     <string name="app_name">Grateful</string>
     <string name="app_tag_line">Think Positive</string>
     <string name="tag_name">Keep track of your daily beans. Reflect daily.</string>
     <string name="tag_line">Share Something You\'re Grateful for Everyday</string>
-    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- Menu Item -->
     <string name="logon_button_text">Sign In</string>
@@ -119,12 +120,23 @@
     <string name="title_dashboard">Moods</string>
     <string name="title_notifications">Tags</string>
 
-    <string name="switch_public_text_label">View Public Feed?</string>
-    <string name="switch_private_text_label">View Personal Posts?</string>
+    <string name="switch_public_text_label">Viewing Private Feed</string>
+    <string name="switch_private_text_label">Viewing Public Feed</string>
 
     <string name="progress_dialog_creating_new_account">Please wait while we create a brand new account for you</string>
     <string name="submit_text_hint_comment">Add a comment</string>
     <string name="imageview_comment_description">Button to submit a comment message.</string>
+    <string name="menu_label_options">Options</string>
+
+    <string name="setting_quotes_show_quote_on_load">Show new quote?</string>
+    <string name="setting_quotes_settings_key">quote_request_status</string>
+    <string name="setting_quote_display_true">Show Quotes</string>
+    <string name="setting_quote_display_false">Hide Quotes</string>
+
+    <string name="setting_publishing_title">Default post status (Can be changed for individual posts)</string>
+    <string name="setting_option_publishing_settings_key">post_publish_status</string>
+    <string name="setting_publishing_summary_off">Set Post Private</string>
+    <string name="setting_publishing_summary_on">Set Post Public</string>
 
     <!--<integer-array name="emoji_spinner_dropdown_choices">-->
     <!--<item>@string/emoji_type_one_onfire</item>-->

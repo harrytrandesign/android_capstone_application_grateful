@@ -5,8 +5,14 @@
 
     <item
         android:id="@+id/settings_menu_new_quote"
-        android:orderInCategory="89"
+        android:orderInCategory="80"
         android:title="@string/menu_label_quote"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/settings_menu_setting_link"
+        android:orderInCategory="85"
+        android:title="@string/menu_label_options"
         app:showAsAction="never"/>
 
     <item

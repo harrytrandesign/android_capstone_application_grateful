@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/quote_enable_default_setting_true"
+        android:key="@string/setting_quotes_settings_key"
+        android:summaryOff="@string/setting_quote_display_false"
+        android:summaryOn="@string/setting_quote_display_true"
+        android:title="@string/setting_quotes_show_quote_on_load"/>
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/publish_private_default_setting_false"
+        android:key="@string/setting_option_publishing_settings_key"
+        android:summaryOff="@string/setting_publishing_summary_off"
+        android:summaryOn="@string/setting_publishing_summary_on"
+        android:title="@string/setting_publishing_title"/>
+
+</PreferenceScreen>

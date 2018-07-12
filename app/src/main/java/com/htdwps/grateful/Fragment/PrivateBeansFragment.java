@@ -11,7 +11,6 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.BeanCommentActivity;
 import com.htdwps.grateful.FirebaseUiAuthActivity;
+import com.htdwps.grateful.MainWindowActivity;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.R;
@@ -90,7 +90,7 @@ public class PrivateBeansFragment extends Fragment {
         PrivateBeansFragment fragment = new PrivateBeansFragment();
         Bundle args = new Bundle();
         args.putString(DATABASE_PARAM, param1);
-        args.putString(ARG_PARAM1, param1);
+        args.putString(ALL_POSTS_PARAM, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -100,7 +100,7 @@ public class PrivateBeansFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            queryTypeString = getArguments().getString(DATABASE_PARAM);
+            queryTypeString = getArguments().getString(ALL_POSTS_PARAM);
         } else {
             throw new RuntimeException("You must specify a property reference.");
         }
@@ -141,16 +141,16 @@ public class PrivateBeansFragment extends Fragment {
 
     public void runLayout(View view) {
         tvRemindAddText = view.findViewById(R.id.tv_load_some_posts_text);
-        tvTextTogglePublicPrivateFeed = view.findViewById(R.id.tv_public_private_display_text);
-        switchToggleValue = view.findViewById(R.id.switch_toggle_public_private_feed_display);
+//        tvTextTogglePublicPrivateFeed = view.findViewById(R.id.tv_public_private_display_text);
+//        switchToggleValue = view.findViewById(R.id.switch_toggle_public_private_feed_display);
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
 
-        switchToggleValue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                toggleBetweenPublicPrivatePostFeed(b);
-            }
-        });
+//        switchToggleValue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                toggleBetweenPublicPrivatePostFeed(b);
+//            }
+//        });
     }
 
     public void runInitialize() {
@@ -162,11 +162,13 @@ public class PrivateBeansFragment extends Fragment {
             mainAllPostsReference = FirebaseUtil.getUserPostRef();
             userOnlyPostsReference = FirebaseUtil.getGratefulPersonalRef().child(user.getUserid());
 
-            if (queryTypeString.equals(ALL_POSTS_PARAM)) {
+            Timber.i(queryTypeString);
 
-                queryRefrence = mainAllPostsReference.child(user.getUserid());
+            if (queryTypeString.equals(MainWindowActivity.PUBLIC_PARAM)) {
 
-            } else if (queryTypeString.equals(ALL_POSTS_PARAM)) {
+                queryRefrence = FirebaseUtil.getAllPostRef();
+
+            } else if (queryTypeString.equals(MainWindowActivity.PRIVATE_PARAM)) {
 
                 queryRefrence = mainAllPostsReference.child(user.getUserid());
 
@@ -181,15 +183,39 @@ public class PrivateBeansFragment extends Fragment {
         }
     }
 
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        // Save UI state changes to the savedInstanceState.
+//        // This bundle will be passed to onCreate if the process is
+//        // killed and restarted.
+//
+//        outState.putBoolean("PublicFeedStatus", isPublicFeedDisplayed);
+//
+//        super.onSaveInstanceState(outState);
+//    }
+//
+//
+//
+//    @Override
+//    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+//
+//        super.onViewStateRestored(savedInstanceState);
+//
+//        boolean publicFeedDisplayState = savedInstanceState.getBoolean("PublicFeedStatus");
+//        switchToggleValue.setChecked(publicFeedDisplayState);
+//        toggleBetweenPublicPrivatePostFeed(publicFeedDisplayState);
+//
+//    }
+
     public void toggleBetweenPublicPrivatePostFeed(boolean feed) {
 
         isPublicFeedDisplayed = feed;
 
         if (feed) {
-            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_private_text_label));
+//            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_private_text_label));
             queryRefrence = FirebaseUtil.getAllPostRef();
         } else {
-            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_public_text_label));
+//            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_public_text_label));
             queryRefrence = mainAllPostsReference.child(user.getUserid());
         }
 
