@@ -25,9 +25,7 @@ import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.BeanPostViewHolder;
-import com.htdwps.grateful.Viewholder.EntryViewHolder;
-import com.htdwps.grateful.Viewholder.GratePostViewHolder;
+import com.htdwps.grateful.Viewholder.BeanPostsViewHolder;
 
 import timber.log.Timber;
 
@@ -55,9 +53,7 @@ public class PrivateBeansFragment extends Fragment {
     private DatabaseReference queryRefrence;
     String queryTypeString;
 
-    RecyclerView.Adapter<EntryViewHolder> listAdapter;
-    RecyclerView.Adapter<GratePostViewHolder> gratefulAdapter;
-    FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> beanPostAdapter;
+    FirebaseRecyclerAdapter<Beans, BeanPostsViewHolder> beanPostAdapter;
     DatabaseReference mainAllPostsReference;
     DatabaseReference userOnlyPostsReference;
     FirebaseUser firebaseUser;
@@ -199,15 +195,15 @@ public class PrivateBeansFragment extends Fragment {
         return linearLayoutManager;
     }
 
-    public FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
-        beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostViewHolder>(
+    public FirebaseRecyclerAdapter<Beans, BeanPostsViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
+        beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostsViewHolder>(
                 Beans.class,
                 R.layout.item_grateful_post_user_posts,
-                BeanPostViewHolder.class,
+                BeanPostsViewHolder.class,
                 databaseReference
         ) {
             @Override
-            protected void populateViewHolder(BeanPostViewHolder viewHolder, Beans model, int position) {
+            protected void populateViewHolder(BeanPostsViewHolder viewHolder, Beans model, int position) {
 
                 String year = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
                 String time = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
@@ -220,10 +216,10 @@ public class PrivateBeansFragment extends Fragment {
             }
 
             @Override
-            public BeanPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                BeanPostViewHolder beanPostViewHolder = super.onCreateViewHolder(parent, viewType);
+            public BeanPostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                BeanPostsViewHolder beanPostsViewHolder = super.onCreateViewHolder(parent, viewType);
 
-                beanPostViewHolder.setOnClickListener(new BeanPostViewHolder.ClickListener() {
+                beanPostsViewHolder.setOnClickListener(new BeanPostsViewHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (isPublicFeedDisplayed) {
@@ -245,7 +241,7 @@ public class PrivateBeansFragment extends Fragment {
                     }
                 });
 
-                return beanPostViewHolder;
+                return beanPostsViewHolder;
             }
 
         };

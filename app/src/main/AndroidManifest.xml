@@ -46,10 +46,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".PersonalPostsGridActivity"
-            android:parentActivityName=".ListActivity">
-        </activity>
-        <activity
             android:name=".PrivacyTermsActivity"
             android:parentActivityName=".MainWindowActivity">
         </activity>

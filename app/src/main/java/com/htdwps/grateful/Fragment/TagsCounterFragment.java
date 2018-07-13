@@ -22,7 +22,7 @@ import com.htdwps.grateful.R;
 import com.htdwps.grateful.TagPostActivity;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.SpacingItemDecoration;
-import com.htdwps.grateful.Viewholder.TagListViewHolder;
+import com.htdwps.grateful.Viewholder.TagNamesViewHolder;
 
 public class TagsCounterFragment extends Fragment {
 
@@ -32,7 +32,7 @@ public class TagsCounterFragment extends Fragment {
 
     DatabaseReference tagListReference;
     RecyclerView tagListRecyclerView;
-    FirebaseRecyclerAdapter<TagName, TagListViewHolder> tagListAdapter;
+    FirebaseRecyclerAdapter<TagName, TagNamesViewHolder> tagListAdapter;
     TextView tvRemindToAddPosts;
 
     public TagsCounterFragment() {
@@ -77,14 +77,14 @@ public class TagsCounterFragment extends Fragment {
         if (firebaseUser != null) {
             tagListReference = FirebaseUtil.getTagsBeanReference().child(firebaseUser.getUid());
 
-            tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagListViewHolder>(
+            tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagNamesViewHolder>(
                     TagName.class,
                     R.layout.item_tag_single_label,
-                    TagListViewHolder.class,
+                    TagNamesViewHolder.class,
                     tagListReference
             ) {
                 @Override
-                protected void populateViewHolder(final TagListViewHolder viewHolder, final TagName model, int position) {
+                protected void populateViewHolder(final TagNamesViewHolder viewHolder, final TagName model, int position) {
 
                     viewHolder.setTagName(model.getTagName());
 
@@ -118,10 +118,10 @@ public class TagsCounterFragment extends Fragment {
 //                }
 
                 //                @Override
-//                public TagListViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-//                    TagListViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
+//                public TagNamesViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+//                    TagNamesViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
 //
-//                    tagListViewHolder.setOnClickListener(new TagListViewHolder.ClickListener() {
+//                    tagListViewHolder.setOnClickListener(new TagNamesViewHolder.ClickListener() {
 //                        @Override
 //                        public void onItemClick(AdapterView<?> adapterView, View view, int position) {
 //                            TagName tagName = (TagName) adapterView.getAdapter().getItem(position);

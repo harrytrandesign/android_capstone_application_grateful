@@ -10,12 +10,12 @@ import com.htdwps.grateful.Util.EmojiSelectUtil;
 /**
  * Created by HTDWPS on 7/5/18.
  */
-public class MoodCountViewHolder extends RecyclerView.ViewHolder {
+public class MoodValueCounterViewHolder extends RecyclerView.ViewHolder {
 
-    TextView tvMoodEmojiIcon;
-    TextView tvMoodValueCount;
+    private TextView tvMoodEmojiIcon;
+    private TextView tvMoodValueCount;
 
-    public MoodCountViewHolder(View itemView) {
+    public MoodValueCounterViewHolder(View itemView) {
         super(itemView);
 
         tvMoodEmojiIcon = itemView.findViewById(R.id.tv_emoji_type_icon_placeholder);

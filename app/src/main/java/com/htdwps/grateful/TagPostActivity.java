@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.BeanPostViewHolder;
+import com.htdwps.grateful.Viewholder.BeanPostsViewHolder;
 
 import timber.log.Timber;
 
@@ -25,7 +25,7 @@ public class TagPostActivity extends AppCompatActivity {
     public static final String TAG_WORD_KEY_PARAM = "tag_param";
 
     FirebaseUser firebaseUser;
-    RecyclerView.Adapter<BeanPostViewHolder> tagPostAdapter;
+    RecyclerView.Adapter<BeanPostsViewHolder> tagPostAdapter;
     RecyclerView rvPostsWithTag;
     LinearLayoutManager linearLayoutManager;
     DatabaseReference mainPostsReference;
@@ -70,15 +70,15 @@ public class TagPostActivity extends AppCompatActivity {
         return linearLayoutManager;
     }
 
-    public RecyclerView.Adapter<BeanPostViewHolder> createTagPostRecyclerViewAdapter(DatabaseReference databaseReference) {
-        tagPostAdapter = new FirebaseRecyclerAdapter<Boolean, BeanPostViewHolder>(
+    public RecyclerView.Adapter<BeanPostsViewHolder> createTagPostRecyclerViewAdapter(DatabaseReference databaseReference) {
+        tagPostAdapter = new FirebaseRecyclerAdapter<Boolean, BeanPostsViewHolder>(
                 Boolean.class,
                 R.layout.item_grateful_post_user_posts,
-                BeanPostViewHolder.class,
+                BeanPostsViewHolder.class,
                 databaseReference
         ) {
             @Override
-            protected void populateViewHolder(final BeanPostViewHolder viewHolder, Boolean model, int position) {
+            protected void populateViewHolder(final BeanPostsViewHolder viewHolder, Boolean model, int position) {
 
                 final String postKey = this.getRef(position).getKey();
 

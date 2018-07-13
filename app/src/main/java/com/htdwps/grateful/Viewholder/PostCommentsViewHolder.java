@@ -9,22 +9,13 @@ import com.htdwps.grateful.R;
 /**
  * Created by HTDWPS on 7/7/18.
  */
-public class CommentsViewHolder extends RecyclerView.ViewHolder {
-    
+public class PostCommentsViewHolder extends RecyclerView.ViewHolder {
+
     private TextView tvCommentText;
     private TextView tvCommentUserName;
     private TextView tvCommentTimestamp;
 
-    public CommentsViewHolder(View itemView) {
-        super(itemView);
-
-        tvCommentText = itemView.findViewById(R.id.tv_comment_main_text);
-        tvCommentUserName = itemView.findViewById(R.id.tv_comment_creator_username);
-        tvCommentTimestamp = itemView.findViewById(R.id.tv_comment_date_posted);
-
-    }
-
-    public CommentsViewHolder(View itemView, int itemType) {
+    public PostCommentsViewHolder(View itemView) {
         super(itemView);
 
         tvCommentText = itemView.findViewById(R.id.tv_comment_main_text);

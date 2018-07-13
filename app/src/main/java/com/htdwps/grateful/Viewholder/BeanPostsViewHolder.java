@@ -14,25 +14,25 @@ import java.util.ArrayList;
 /**
  * Created by HTDWPS on 6/8/18.
  */
-public class BeanPostViewHolder extends RecyclerView.ViewHolder {
+public class BeanPostsViewHolder extends RecyclerView.ViewHolder {
 
-    private BeanPostViewHolder.ClickListener mClickListener;
+    private BeanPostsViewHolder.ClickListener mClickListener;
 
-    LinearLayout llPublicStats;
-    TextView tvFeeling;
-    TextView tvDatePost;
-    TextView tvEmojiIcon;
-    TextView tvMainMessage;
-    TextView tvTagList;
-    TextView tvIsPublic;
-    TextView tvPostOwner;
-    TextView tvCommentLink;
+    private LinearLayout llPublicStats;
+    private TextView tvFeeling;
+    private TextView tvDatePost;
+    private TextView tvEmojiIcon;
+    private TextView tvMainMessage;
+    private TextView tvTagList;
+    private TextView tvIsPublic;
+    private TextView tvPostOwner;
 
-    public BeanPostViewHolder(View itemView) {
+    public BeanPostsViewHolder(View itemView) {
         super(itemView);
 
         llPublicStats = itemView.findViewById(R.id.linear_layout_only_show_public_posts);
         llPublicStats.setVisibility(View.INVISIBLE);
+
         tvFeeling = itemView.findViewById(R.id.tv_current_feeling);
         tvDatePost = itemView.findViewById(R.id.tv_date_posted);
         tvEmojiIcon = itemView.findViewById(R.id.tv_emoji_icon_image);
@@ -40,7 +40,7 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
         tvTagList = itemView.findViewById(R.id.tv_tag_list_for_post);
         tvIsPublic = itemView.findViewById(R.id.tv_public_post_indicator);
         tvPostOwner = itemView.findViewById(R.id.tv_post_submitted_by);
-        tvCommentLink = itemView.findViewById(R.id.tv_comment_on_post_link);
+        TextView tvCommentLink = itemView.findViewById(R.id.tv_comment_on_post_link);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +55,9 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
 
         String value = String.valueOf(feelingValue);
 
-//        StringBuilder tagsLists = new StringBuilder();
         String tagsLists = TextUtils.join(", ", tags);
 
         tvFeeling.setText(EmojiSelectUtil.emojiExpressionTextValue[feelingValue]);
-//        tvFeeling.setText(EmojiSelectUtil.expressionTextStringEmojiType(feelingValue));
         tvEmojiIcon.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[feelingValue])));
         tvDatePost.setText(timestamp);
         tvMainMessage.setText(mainText);
@@ -70,7 +68,6 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
             tvTagList.setText(tagsLists);
         }
 
-//        String postStatus = (publicStatus) ? "Public" : "Personal";
         tvIsPublic.setText(R.string.string_public_status_text);
         if (!onPublicFeed) {
             if (!publicStatus) {
@@ -81,14 +78,6 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
             llPublicStats.setVisibility(View.VISIBLE);
             tvPostOwner.setText(String.format("By %s", postOwner));
         }
-//        if (publicStatus && onPublicFeed) {
-//            tvIsPublic.setVisibility(View.VISIBLE);
-//            llPublicStats.setVisibility(View.VISIBLE);
-//            tvPostOwner.setText(String.format("By %s", postOwner));
-//        } else if (!onPublicFeed) {
-//            tvIsPublic.setVisibility(View.GONE);
-//            llPublicStats.setVisibility(View.GONE);
-//        }
 
     }
 
@@ -97,7 +86,7 @@ public class BeanPostViewHolder extends RecyclerView.ViewHolder {
         void onItemClick(View view, int position);
     }
 
-    public void setOnClickListener(BeanPostViewHolder.ClickListener clickListener) {
+    public void setOnClickListener(BeanPostsViewHolder.ClickListener clickListener) {
         mClickListener = clickListener;
     }
 

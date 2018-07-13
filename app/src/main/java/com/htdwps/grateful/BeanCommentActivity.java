@@ -27,7 +27,7 @@ import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Model.GratefulComment;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.CommentsViewHolder;
+import com.htdwps.grateful.Viewholder.PostCommentsViewHolder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     CustomUser user;
     RecyclerView commentRecyclerView;
     DatabaseReference commentRef;
-    FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder> commentsAdapter;
+    FirebaseRecyclerAdapter<GratefulComment, PostCommentsViewHolder> commentsAdapter;
 
     EditText commentEditText;
 
@@ -108,14 +108,14 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         commentRecyclerView.setLayoutManager(linearLayoutManager);
         commentRef = FirebaseUtil.getCommentListRef().child(bean.getBeanPostKey());
 
-        commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder>(
+        commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, PostCommentsViewHolder>(
                 GratefulComment.class,
                 R.layout.item_comment_layout,
-                CommentsViewHolder.class,
+                PostCommentsViewHolder.class,
                 commentRef
         ) {
             @Override
-            protected void populateViewHolder(CommentsViewHolder viewHolder, GratefulComment model, int position) {
+            protected void populateViewHolder(PostCommentsViewHolder viewHolder, GratefulComment model, int position) {
 
                 viewHolder.setCommentTextFields(model.getCommentText(), model.getCustomUser().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
 

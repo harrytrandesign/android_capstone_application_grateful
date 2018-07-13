@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.BeanPostViewHolder;
+import com.htdwps.grateful.Viewholder.BeanPostsViewHolder;
 
 import timber.log.Timber;
 
@@ -28,7 +28,7 @@ public class MoodCountActivity extends AppCompatActivity {
     private DatabaseReference moodsListedPostReference;
     private DatabaseReference moodListDirectoryReference;
 
-    private RecyclerView.Adapter<BeanPostViewHolder> moodListAdapter;
+    private RecyclerView.Adapter<BeanPostsViewHolder> moodListAdapter;
 
     private FirebaseUser firebaseUser;
     private LinearLayoutManager linearLayoutManager;
@@ -79,17 +79,17 @@ public class MoodCountActivity extends AppCompatActivity {
         return linearLayoutManager;
     }
 
-    public RecyclerView.Adapter<BeanPostViewHolder> createMoodListRecyclerViewAdapter(DatabaseReference databaseReference) {
+    public RecyclerView.Adapter<BeanPostsViewHolder> createMoodListRecyclerViewAdapter(DatabaseReference databaseReference) {
 
-        moodListAdapter = new FirebaseRecyclerAdapter<Boolean, BeanPostViewHolder>(
+        moodListAdapter = new FirebaseRecyclerAdapter<Boolean, BeanPostsViewHolder>(
                 Boolean.class,
                 R.layout.item_grateful_post_user_posts,
-                BeanPostViewHolder.class,
+                BeanPostsViewHolder.class,
                 databaseReference
         ) {
 
             @Override
-            protected void populateViewHolder(final BeanPostViewHolder viewHolder, Boolean model, int position) {
+            protected void populateViewHolder(final BeanPostsViewHolder viewHolder, Boolean model, int position) {
 
                 final String postKey = this.getRef(position).getKey();
 

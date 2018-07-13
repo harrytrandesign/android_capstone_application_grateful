@@ -20,7 +20,7 @@ import com.htdwps.grateful.Model.MoodCount;
 import com.htdwps.grateful.MoodCountActivity;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.MoodCountViewHolder;
+import com.htdwps.grateful.Viewholder.MoodValueCounterViewHolder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +34,7 @@ public class MoodCounterFragment extends Fragment {
 
     DatabaseReference moodCountListReference;
     RecyclerView moodListRecyclerView;
-    FirebaseRecyclerAdapter<MoodCount, MoodCountViewHolder> moodCountAdapter;
+    FirebaseRecyclerAdapter<MoodCount, MoodValueCounterViewHolder> moodCountAdapter;
     TextView tvRemindAddNewPosts;
 
     GridLayoutManager gridLayoutManager;
@@ -70,14 +70,14 @@ public class MoodCounterFragment extends Fragment {
 
         if (firebaseUser != null) {
             moodCountListReference = FirebaseUtil.getMoodCounterReference().child(firebaseUser.getUid());
-            moodCountAdapter = new FirebaseRecyclerAdapter<MoodCount, MoodCountViewHolder>(
+            moodCountAdapter = new FirebaseRecyclerAdapter<MoodCount, MoodValueCounterViewHolder>(
                     MoodCount.class,
                     R.layout.item_mood_count_single_value,
-                    MoodCountViewHolder.class,
+                    MoodValueCounterViewHolder.class,
                     moodCountListReference
             ) {
                 @Override
-                protected void populateViewHolder(MoodCountViewHolder viewHolder, final MoodCount model, int position) {
+                protected void populateViewHolder(MoodValueCounterViewHolder viewHolder, final MoodCount model, int position) {
 
                     viewHolder.setMoodValue(model.getMoodName(), model.getValueCount());
 

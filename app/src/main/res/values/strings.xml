@@ -90,7 +90,7 @@
     <string name="submit_tag_label">Tag</string>
     <string name="tagged_post_list_label">Tags</string>
     <string name="public_text_label">Public</string>
-    <string name="string_no_tags_found">No Tags</string>
+    <string name="string_no_tags_found">No Tags Used</string>
     <string name="string_public_status_text">Public</string>
     <string name="string_feedback_response_received">Your feedback has been submitted. We thank you for your input to improve our app. You can also email us directly at htdwps@gmail.com</string>
     <string name="string_feedback_length_too_short">Your feedback is too short.</string>
