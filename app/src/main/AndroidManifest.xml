@@ -37,11 +37,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".SubmitActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-        <activity
             android:name=".SubmitActivityV2"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
@@ -58,7 +53,8 @@
             android:name=".PrivacyTermsActivity"
             android:parentActivityName=".MainWindowActivity">
         </activity>
-        <activity android:name=".FirebaseUiAuthActivity">
+        <activity
+            android:name=".FirebaseUiAuthActivity">
         </activity>
         <activity
             android:name=".SubmitBeanActivity"
@@ -81,7 +77,8 @@
             android:parentActivityName=".MainWindowActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".MoodCountActivity">
+        <activity android:name=".MoodCountActivity"
+            android:parentActivityName=".MainWindowActivity">
         </activity>
         <activity
             android:name=".SettingsActivity"

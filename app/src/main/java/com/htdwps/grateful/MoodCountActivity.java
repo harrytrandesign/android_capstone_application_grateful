@@ -25,20 +25,22 @@ public class MoodCountActivity extends AppCompatActivity {
 
     public static final String MOOD_TYPE_KEY_PARAM = "mood_param";
 
-    RecyclerView.Adapter<BeanPostViewHolder> moodListAdapter;
+    private DatabaseReference moodsListedPostReference;
+    private DatabaseReference moodListDirectoryReference;
 
-    FirebaseUser firebaseUser;
-    RecyclerView rvMoodList;
-    LinearLayoutManager linearLayoutManager;
+    private RecyclerView.Adapter<BeanPostViewHolder> moodListAdapter;
 
-    DatabaseReference moodsListedPostReference;
-    DatabaseReference moodListDirectoryReference;
+    private FirebaseUser firebaseUser;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView rvMoodList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_count);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rvMoodList = findViewById(R.id.rv_mood_all_posts_by_user);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -48,13 +50,13 @@ public class MoodCountActivity extends AppCompatActivity {
             String moodValue = getIntent().getExtras().getString(MOOD_TYPE_KEY_PARAM);
             int moodIntValue = EmojiSelectUtil.emojiStringConvertToInt(moodValue);
 
-            setTitle("Posts labeled \"" + EmojiSelectUtil.emojiIntConvertToString(moodIntValue) + "\"");
+            setTitle("All \"" + EmojiSelectUtil.emojiIntConvertToString(moodIntValue) + "\" Posts");
 
             moodsListedPostReference = FirebaseUtil.getMoodBeanListReference().child(firebaseUser.getUid()).child(String.valueOf(moodIntValue));
 
             moodListDirectoryReference = FirebaseUtil.getUserPostRef().child(firebaseUser.getUid());
 
-            Toast.makeText(this, String.valueOf(moodIntValue), Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, String.valueOf(moodIntValue), Toast.LENGTH_LONG).show();
 
             rvMoodList.setLayoutManager(createLayoutManager());
 
@@ -62,7 +64,7 @@ public class MoodCountActivity extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(this, "Couldn't get a message", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error connecting to server", Toast.LENGTH_SHORT).show();
 
             finish();
         }
@@ -102,8 +104,8 @@ public class MoodCountActivity extends AppCompatActivity {
                             String dateTime = String.format("%s %s", year, time);
 
                             viewHolder.setBeanPostFields(beanPost.getMoodValue(), dateTime, beanPost.getBeanText(), beanPost.getTagList(), beanPost.isPublic(), beanPost.getCustomUser().getUserDisplayName(), false);
-                            Timber.i("This message's value is " + String.valueOf(beanPost.getMoodValue()));
-                            Timber.i("This message's message is " + beanPost.getBeanText());
+                            Timber.d("This message's value is " + String.valueOf(beanPost.getMoodValue()));
+                            Timber.d("This message's message is " + beanPost.getBeanText());
 
                         }
 

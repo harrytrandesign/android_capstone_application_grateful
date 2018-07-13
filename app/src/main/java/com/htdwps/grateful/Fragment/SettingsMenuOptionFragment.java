@@ -8,7 +8,7 @@ import com.htdwps.grateful.R;
 /**
  * Created by HTDWPS on 7/11/18.
  */
-public class SettingsMenuFragment extends PreferenceFragmentCompat {
+public class SettingsMenuOptionFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 

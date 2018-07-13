@@ -25,6 +25,7 @@ import com.htdwps.grateful.Util.FirebaseUtil;
  * Created by HTDWPS on 12/31/17.
  */
 
+// Class file no longer used, in lieu of Material Dialog library
 public class FeedbackSubmitDialogBox extends LayoutInflater implements View.OnTouchListener {
 
     private AlertDialog alertDialog;

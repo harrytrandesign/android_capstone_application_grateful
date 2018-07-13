@@ -31,7 +31,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.htdwps.grateful.Fragment.UserPostFragment;
+import com.htdwps.grateful.Fragment.PrivateBeansFragment;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
@@ -126,7 +126,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    // Load the navigation menu header, such as header background image, profile name, etc
+    // Load the bottom_navigation_view menu header, such as header background image, profile name, etc
     private void loadNavHeader() {
         textName.setText(String.format("%s %s", String.valueOf(getBaseContext().getResources().getString(R.string.navi_tv_welcome_user)), firebaseUser.getDisplayName()));
 //        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
@@ -171,10 +171,10 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             imageProfile = viewNavHeader.findViewById(R.id.navigation_iv_user_photo);
         }
 
-        // Load the navigation menu header
+        // Load the bottom_navigation_view menu header
         loadNavHeader();
 
-        // Initializing navigation menu
+        // Initializing bottom_navigation_view menu
         setUpNavigationView();
 
         generateInspirationalQuote();
@@ -207,15 +207,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
-            case 0:
-                // Pass param of DatabaseReference to use the same Fragment but swap the database each time
-                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
-            case 1:
-                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
-//            case 2:
-//                return JournalFragment.newInstance(FirebaseUtil.getAllJournalRef());
+//            case 0:
+//                // Pass param of DatabaseReference to use the same Fragment but swap the database each time
+//                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
+//            case 1:
+//                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
+////            case 2:
+////                return JournalFragment.newInstance(FirebaseUtil.getAllJournalRef());
             default:
-                return UserPostFragment.newInstance(ALL_POSTS_PARAM);
+                return PrivateBeansFragment.newInstance(ALL_POSTS_PARAM);
         }
     }
 
@@ -251,7 +251,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         toggleContentButton();
 
-        // Close the navigation drawer when item is pressed.
+        // Close the bottom_navigation_view drawer when item is pressed.
         drawerLayout.closeDrawers();
 
         // Refresh the toolbar menu
@@ -276,11 +276,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
-    }
-
-    private void createTopic() {
-        Intent discussionIntent = new Intent(ListActivity.this, SubmitActivityV2.class);
-        startActivity(discussionIntent);
     }
 
     public void sendInvitationWindow() {

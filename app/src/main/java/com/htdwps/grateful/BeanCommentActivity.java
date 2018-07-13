@@ -37,7 +37,6 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     Beans bean;
     CustomUser user;
     RecyclerView commentRecyclerView;
-    //    CommentsBaseAdapter commentsBaseAdapter;
     DatabaseReference commentRef;
     FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder> commentsAdapter;
 
@@ -99,19 +98,16 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         tvPostMainMessageText.setText(bean.getBeanText());
         tvPostTagListText.setText(tagsLists);
 
-//        commentEditText = findViewById(R.id.fragment_et_comment_typebox);
-        commentRecyclerView = findViewById(R.id.rv_comments_list);
-        commentRef = FirebaseUtil.getCommentListRef().child(bean.getBeanPostKey());
-//        commentsBaseAdapter = new CommentsBaseAdapter(
-//                GratefulComment.class, R.layout.item_comment_layout, CommentsViewHolder.class, commentRef, this, bean, user);
-
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+//        commentEditText = findViewById(R.id.fragment_et_comment_typebox);
+        commentRecyclerView = findViewById(R.id.rv_comments_list);
         commentRecyclerView.setLayoutManager(linearLayoutManager);
-//        commentRecyclerView.setAdapter(commentsBaseAdapter);
+        commentRef = FirebaseUtil.getCommentListRef().child(bean.getBeanPostKey());
+
         commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, CommentsViewHolder>(
                 GratefulComment.class,
                 R.layout.item_comment_layout,

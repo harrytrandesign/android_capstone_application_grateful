@@ -37,13 +37,6 @@
         android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!--<ImageView-->
-            <!--android:id="@+id/iv_app_loading_logo"-->
-            <!--android:layout_width="@dimen/icon_app_logo"-->
-            <!--android:layout_height="@dimen/icon_app_logo"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:src="@drawable/grateful_bean_signin_logo_think_positive_msg"/>-->
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_add_bean_floating_action"
             android:layout_width="wrap_content"
@@ -58,15 +51,12 @@
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation"/>
+        app:menu="@menu/bottom_navigation_view"/>
 
 </LinearLayout>

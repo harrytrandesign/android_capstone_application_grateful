@@ -19,14 +19,6 @@ import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.GratePostViewHolder;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PersonProfileFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PersonProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PersonProfileFragment extends Fragment {
 
     RecyclerView.Adapter<GratePostViewHolder> gratefulAdapter;

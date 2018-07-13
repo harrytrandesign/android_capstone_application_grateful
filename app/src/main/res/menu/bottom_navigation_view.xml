@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_grateful"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_home"/>
+        android:title="@string/bottom_navigation_grateful_label"/>
 
     <item
         android:id="@+id/navigation_mood_count"
         android:icon="@drawable/baseline_face_24"
-        android:title="@string/title_dashboard"/>
+        android:title="@string/bottom_navigation_mood_label"/>
 
     <item
         android:id="@+id/navigation_tag_list"
         android:icon="@drawable/icons8_tags_96"
-        android:title="@string/title_notifications"/>
+        android:title="@string/bottom_navigation_tags_label"/>
 
 </menu>

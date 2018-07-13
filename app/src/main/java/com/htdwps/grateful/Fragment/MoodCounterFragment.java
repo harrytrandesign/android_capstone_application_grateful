@@ -31,9 +31,6 @@ import com.htdwps.grateful.Viewholder.MoodCountViewHolder;
  * create an instance of this fragment.
  */
 public class MoodCounterFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     DatabaseReference moodCountListReference;
     RecyclerView moodListRecyclerView;
@@ -49,12 +46,7 @@ public class MoodCounterFragment extends Fragment {
     }
 
     public static MoodCounterFragment newInstance() {
-        MoodCounterFragment fragment = new MoodCounterFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-        return fragment;
+        return new MoodCounterFragment();
     }
 
     @Override
@@ -75,7 +67,6 @@ public class MoodCounterFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         moodListRecyclerView = view.findViewById(R.id.rv_mood_counter_list);
         moodListRecyclerView.setLayoutManager(gridLayoutManager);
-//        tvRemindAddNewPosts = view.findViewById(R.id.tv_load_some_posts_text);
 
         if (firebaseUser != null) {
             moodCountListReference = FirebaseUtil.getMoodCounterReference().child(firebaseUser.getUid());
@@ -103,18 +94,6 @@ public class MoodCounterFragment extends Fragment {
 
                 }
 
-//                @Override
-//                public int getItemCount() {
-//                    int count = super.getItemCount();
-//
-//                    if (count == 0) {
-//                        tvRemindAddNewPosts.setVisibility(View.VISIBLE);
-//                    } else {
-//                        tvRemindAddNewPosts.setVisibility(View.GONE);
-//                    }
-//
-//                    return count;
-//                }
             };
         }
 

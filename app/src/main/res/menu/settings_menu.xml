@@ -22,30 +22,28 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/settings_menu_feedback_link"
+        android:orderInCategory="92"
+        android:title="@string/menu_label_feedback"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/settings_menu_terms_rules_link"
-        android:icon="@drawable/ic_content_paste_black_48dp"
         android:orderInCategory="97"
-        android:title="@string/menu.label.terms"
+        android:title="@string/menu_label_terms"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/settings_menu_privacy_policy_link"
-        android:icon="@drawable/ic_local_parking_black_48dp"
         android:orderInCategory="98"
-        android:title="@string/menu.label.privacy"
+        android:title="@string/menu_label_privacy"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/settings_menu_feedback_link"
-        android:icon="@drawable/ic_mail_outline_black_48dp"
-        android:orderInCategory="99"
-        android:title="@string/menu.label.feedback"
-        app:showAsAction="never"/>
 
     <item
         android:id="@+id/settings_menu_logout_link"
-        android:icon="@drawable/ic_exit_to_app_black_48dp"
         android:orderInCategory="100"
-        android:title="@string/menu.label.logoff"
+        android:title="@string/menu_label_logoff"
         app:showAsAction="never"/>
+    
 </menu>

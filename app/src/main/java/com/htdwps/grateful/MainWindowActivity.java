@@ -38,62 +38,67 @@ import timber.log.Timber;
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_INVITE = 0;
-    private static final String ALL_POSTS_PARAM = "public_posts";
+    private static final String SAVE_INSTANCE_PARAM = "public_feed_status";
     public static final String PUBLIC_PARAM = "public_feed";
     public static final String PRIVATE_PARAM = "private_feed";
-    private static final String SAVE_INSTANCE_PARAM = "public_feed_status";
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     CustomUser user;
 
     private FloatingActionButton floatingActionButton;
-    Switch toggleSwitchFeedValue;
+    private Switch toggleSwitchFeedValue;
 
-    private TextView mTextMessage;
-    TextView tvTogglePublicPrivateFeed;
+    private TextView tvTogglePublicPrivateFeed;
 
     boolean showPublicFeed = false;
     SharedPreferences sharedPreferences;
     Boolean quoteShowingPreference;
 
+    // TODO Redo the fragment to condense into a single method
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             Fragment fragment;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 
             switch (item.getItemId()) {
                 case R.id.navigation_grateful:
+
                     enableToggleSwitch(true);
-//                    mTextMessage.setText(R.string.title_home);
-//                    fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+
                     if (showPublicFeed) {
-                        fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM, PUBLIC_PARAM);
+                        fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM);
                     } else {
-                        fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+                        fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM);
                     }
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
+
                     return true;
+
                 case R.id.navigation_mood_count:
+
                     enableToggleSwitch(false);
-//                    mTextMessage.setText(R.string.title_dashboard);
+
                     fragment = MoodCounterFragment.newInstance();
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
+
                     return true;
+
                 case R.id.navigation_tag_list:
+
                     enableToggleSwitch(false);
-//                    mTextMessage.setText(R.string.title_notifications);
-//                    visitMainActivity();
+
                     fragment = TagsCounterFragment.newInstance();
                     fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                     fragmentTransaction.commitAllowingStateLoss();
 
                     return true;
+
             }
             return false;
         }
@@ -138,14 +143,14 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         runInitializer();
 
 //        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Fragment fragment;
         if (showPublicFeed) {
-            fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM, PUBLIC_PARAM);
+            fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM);
         } else {
-            fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+            fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM);
         }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -161,9 +166,9 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         Fragment fragment;
 
         if (value) {
-            fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM, PUBLIC_PARAM);
+            fragment = PrivateBeansFragment.newInstance(PUBLIC_PARAM);
         } else {
-            fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM, PRIVATE_PARAM);
+            fragment = PrivateBeansFragment.newInstance(PRIVATE_PARAM);
         }
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -175,22 +180,19 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     public void togglePublicPrivatePosts(boolean feed) {
 
-        boolean isPublicFeedDisplayed = feed;
         showPublicFeed = feed;
 
         if (feed) {
+
             tvTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_private_text_label));
 
-//            queryRefrence = FirebaseUtil.getAllPostRef();
         } else {
 
             tvTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_public_text_label));
 
-//            queryRefrence = mainAllPostsReference.child(user.getUserid());
         }
 
-        refreshFeedFragment(isPublicFeedDisplayed);
-//        recyclerView.setAdapter(createBeanRecyclerViewAdapter(queryRefrence));
+        refreshFeedFragment(showPublicFeed);
 
     }
 
@@ -246,9 +248,6 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
                 MaterialHelperUtil.submitFeedbackToDeveloper(this, user);
 
-//                FeedbackSubmitDialogBox feedbackSubmitDialogBox = new FeedbackSubmitDialogBox(this);
-//                feedbackSubmitDialogBox.cloneInContext(this);
-
                 break;
 
             case R.id.settings_menu_terms_rules_link:
@@ -276,7 +275,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
             default:
 
-                Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
+                Timber.d("Nothing pressed");
 
                 break;
 
@@ -294,7 +293,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 .build();
         Fabric.with(fabric);
         user = FirebaseUtil.getCurrentUser();
-        Timber.i("Firebase is being initialized, firebase is complete.");
+        Timber.d("Firebase is being initialized, firebase is complete.");
     }
 
     public void displayingQuotesSetting() {

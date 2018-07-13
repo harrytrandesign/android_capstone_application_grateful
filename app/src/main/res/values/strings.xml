@@ -1,62 +1,56 @@
 <resources>
-    <!-- TODO: do the translatable = false for certain keys-->
-    <string name="app_name">Grateful</string>
-    <string name="app_tag_line">Think Positive</string>
+    <string name="app_name" translatable="false">Grateful</string>
+    <string name="app_tag_line" translatable="false">Think Positive</string>
     <string name="tag_name">Keep track of your daily beans. Reflect daily.</string>
     <string name="tag_line">Share Something You\'re Grateful for Everyday</string>
-    <string name="banner_ad_unit_id_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- Menu Item -->
     <string name="logon_button_text">Sign In</string>
-    <string name="dialog.message.loading">Loading…</string>
-    <string name="invite.title.label">Invite Your Friends</string>
-    <string name="invite.message.label">Join me on Grateful. Share the things you\'re grateful for. You know, like me.</string>
-    <string name="menu_label_quote">Generate Quote</string>
-    <string name="menu_label_submit">Submit</string>
-    <string name="menu_label_invites">Invite Friends</string>
-    <string name="menu.label.terms">Terms &amp; Conditions</string>
-    <string name="menu.label.privacy">Privacy Policy</string>
-    <string name="menu.label.feedback">Provide Feedback</string>
-    <string name="menu.label.logoff">Log Off</string>
-    <string name="drawer.open">Open Drawer</string>
-    <string name="drawer.close">Close Drawer</string>
+    <string name="dialog_message_loading">Loading…</string>
+    <string name="invite_title_label">Invite Your Friends</string>
+    <string name="invite_message_label">Join me on Grateful. Share the things you\'re grateful for. You know, like me.</string>
 
-    <!-- Navigation Drawer menu labels -->
-    <string name="navigation_menu_personal_submits">My Posts</string>
-    <string name="navigation_menu_all_submits">Public Posts</string>
-    <!--<string name="navigation_menu_public">Public Posts</string>-->
-    <string name="navigation_menu_journal_public">Public Journal</string>
-    <string name="navigation_menu_invite">Invite Friends</string>
-    <string name="navigation_menu_signout">Log Off</string>
+    <!-- Bottom Navigation Items -->
+    <string name="bottom_navigation_grateful_label">Beans</string>
+    <string name="bottom_navigation_mood_label">Moods</string>
+    <string name="bottom_navigation_tags_label">Tags</string>
 
-    <string name="navigation_menu_user_posts">My Posts</string>
-    <string name="navigation_menu_public_post">All Posts</string>
-    <string name="navigation_menu_tag_list">Tag List</string>
-    <string name="navigation_menu_user_journal">Your Entries</string>
-    <string name="navigation_menu_public_journal_feed">Public Journal Feed</string>
+    <!-- Preference Settings Labels -->
+        <!-- Quote Display Setting -->
+    <string name="setting_quotes_show_quote_on_load">Show new quote?</string>
+    <string name="setting_quotes_settings_key">quote_request_status</string>
+    <string name="setting_quote_display_true">Show Quotes</string>
+    <string name="setting_quote_display_false">Hide Quotes</string>
+        <!-- Post Privacy Default Setting -->
+    <string name="setting_publishing_title">Default post status (Can be changed for individual posts)</string>
+    <string name="setting_option_publishing_settings_key">post_publish_status</string>
+    <string name="setting_publishing_summary_off">Set Post Private</string>
+    <string name="setting_publishing_summary_on">Set Post Public</string>
 
-    <!-- Labels for the menu items -->
-    <string-array name="navigation_labels">
-        <item>@string/navigation_menu_public_post</item>
-        <item>@string/navigation_menu_user_posts</item>
-        <!--<item>@string/navigation_menu_public</item>-->
-        <!--<item>@string/navigation_menu_public_journal_feed</item>-->
-        <item>@string/navigation_menu_invite</item>
-        <item>@string/navigation_menu_signout</item>
-    </string-array>
+    <!-- Settings Menu Items -->
+    <string name="menu_label_submit_post">Submit</string>
+    <string name="menu_label_quote">Generate New Quote</string>
+    <string name="menu_label_options">Options Menu</string>
+    <string name="menu_label_invites">Share App</string>
+    <string name="menu_label_feedback">Provide Feedback</string>
+    <string name="menu_label_terms">Terms &amp; Conditions</string>
+    <string name="menu_label_privacy">Privacy Policy</string>
+    <string name="menu_label_logoff">Sign Off</string>
 
-    <!-- Submit Activity -->
-    <string name="radio_label_post">Post</string>
-    <string name="radio_label_journal">Journal</string>
-    <string name="switch_label_public">Entry Will Be Public</string>
-    <string name="switch_label_private">Entry Will Be Private</string>
-    <string name="submit.grateful.title">Remember to stay Grateful</string>
-    <string name="submit.privacy.text">Keep this private? (Only for posts)</string>
-    <string name="submit.hint.post">What are you grateful for? (300 char limit)</string>
-    <string name="submit.hint.journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
-    <string name="submit.button">Submit</string>
-    <string name="submit_error_post_title_text">Enter a Title</string>
-    <string name="submit_error_journal_text">Enter a journal entry</string>
+    <!--&lt;!&ndash; Grab the Character unicode numbers and put it into a string-array&ndash;&gt;-->
+    <string name="emoji_type_one_onfire" translatable="false">0x1F525</string>
+    <string name="emoji_type_five_happy" translatable="false">0x1F603</string>
+    <string name="emoji_type_three_inlove" translatable="false">0x1F60D</string>
+    <string name="emoji_type_four_cool" translatable="false">0x1F60E</string>
+    <string name="emoji_type_six_deepthought" translatable="false">0x1F914</string>
+    <string name="emoji_type_seven_terrible" translatable="false">0x1F623</string>
+    <string name="emoji_type_eight_exhausted" translatable="false">0x1F62A</string>
+    <string name="emoji_type_nine_nervous" translatable="false">0x1F613</string>
+    <string name="emoji_type_ten_sad" translatable="false">0x2639</string>
+    <string name="emoji_type_eleven_furious" translatable="false">0x1F620</string>
+    <string name="emoji_type_twelve_poop" translatable="false">0x1F4A9</string>
+    <string name="emoji_type_thirteen_100percent" translatable="false">0x1F4AF</string>
+    <string name="emoji_type_money" translatable="false">0x1F4B0</string>
 
     <!-- Placeholder Text -->
     <string name="item_post_displayname">Member shared…</string>
@@ -93,20 +87,6 @@
     <string name="et_tag_list_hint">Separate each tag with a comma</string>
     <string name="checkbox_share_public_text">Share with public</string>
 
-    <!--&lt;!&ndash; Grab the Character unicode numbers and put it into a string-array&ndash;&gt;-->
-    <string name="emoji_type_one_onfire">0x1F525</string>
-    <string name="emoji_type_five_happy">0x1F603</string>
-    <string name="emoji_type_three_inlove">0x1F60D</string>
-    <string name="emoji_type_four_cool">0x1F60E</string>
-    <string name="emoji_type_six_deepthought">0x1F914</string>
-    <string name="emoji_type_seven_terrible">0x1F623</string>
-    <string name="emoji_type_eight_exhausted">0x1F62A</string>
-    <string name="emoji_type_nine_nervous">0x1F613</string>
-    <string name="emoji_type_ten_sad">0x2639</string>
-    <string name="emoji_type_eleven_furious">0x1F620</string>
-    <string name="emoji_type_twelve_poop">0x1F4A9</string>
-    <string name="emoji_type_thirteen_100percent">0x1F4AF</string>
-    <string name="emoji_type_money">0x1F4B0</string>
     <string name="submit_tag_label">Tag</string>
     <string name="tagged_post_list_label">Tags</string>
     <string name="public_text_label">Public</string>
@@ -116,9 +96,6 @@
     <string name="string_feedback_length_too_short">Your feedback is too short.</string>
     <string name="string_message_too_short_error_alert">Sorry, your message is too short</string>
     <string name="title_activity_main_window">MainWindowActivity</string>
-    <string name="title_home">Grateful</string>
-    <string name="title_dashboard">Moods</string>
-    <string name="title_notifications">Tags</string>
 
     <string name="switch_public_text_label">Viewing Private Feed</string>
     <string name="switch_private_text_label">Viewing Public Feed</string>
@@ -126,32 +103,44 @@
     <string name="progress_dialog_creating_new_account">Please wait while we create a brand new account for you</string>
     <string name="submit_text_hint_comment">Add a comment</string>
     <string name="imageview_comment_description">Button to submit a comment message.</string>
-    <string name="menu_label_options">Options</string>
 
-    <string name="setting_quotes_show_quote_on_load">Show new quote?</string>
-    <string name="setting_quotes_settings_key">quote_request_status</string>
-    <string name="setting_quote_display_true">Show Quotes</string>
-    <string name="setting_quote_display_false">Hide Quotes</string>
+    <!-- *. Original Submit Activity unused -->
+    <string name="radio_label_post">Post</string>
+    <string name="radio_label_journal">Journal</string>
+    <string name="switch_label_public">Entry Will Be Public</string>
+    <string name="switch_label_private">Entry Will Be Private</string>
+    <string name="submit_grateful_title">Remember to stay Grateful</string>
+    <string name="submit_privacy_text">Keep this private? (Only for posts)</string>
+    <string name="submit_hint_post">What are you grateful for? (300 char limit)</string>
+    <string name="submit_hint_journal">Describe what you\'re grateful for in detail (2000 char limit)</string>
+    <string name="submit_button">Submit</string>
+    <string name="submit_error_post_title_text">Enter a Title</string>
+    <string name="submit_error_journal_text">Enter a journal entry</string>
 
-    <string name="setting_publishing_title">Default post status (Can be changed for individual posts)</string>
-    <string name="setting_option_publishing_settings_key">post_publish_status</string>
-    <string name="setting_publishing_summary_off">Set Post Private</string>
-    <string name="setting_publishing_summary_on">Set Post Public</string>
+    <!-- *. Navigation View related strings, currently unused -->
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
 
-    <!--<integer-array name="emoji_spinner_dropdown_choices">-->
-    <!--<item>@string/emoji_type_one_onfire</item>-->
-    <!--<item>@string/emoji_type_five_happy</item>-->
-    <!--<item>@string/emoji_type_three_inlove</item>-->
-    <!--<item>@string/emoji_type_four_cool</item>-->
-    <!--<item>@string/emoji_type_six_deepthought</item>-->
-    <!--<item>@string/emoji_type_seven_terrible</item>-->
-    <!--<item>@string/emoji_type_eight_exhausted</item>-->
-    <!--<item>@string/emoji_type_nine_nervous</item>-->
-    <!--<item>@string/emoji_type_ten_sad</item>-->
-    <!--<item>@string/emoji_type_eleven_furious</item>-->
-    <!--<item>@string/emoji_type_twelve_poop</item>-->
-    <!--<item>@string/emoji_type_thirteen_100percent</item>-->
-    <!--<item>@string/emoji_type_money</item>-->
-    <!--</integer-array>-->
+    <!-- Navigation Drawer menu labels -->
+    <string name="navigation_menu_personal_submits">My Posts</string>
+    <string name="navigation_menu_all_submits">Public Posts</string>
+    <!--<string name="navigation_menu_public">Public Posts</string>-->
+    <string name="navigation_menu_journal_public">Public Journal</string>
+    <string name="navigation_menu_invite">Invite Friends</string>
+    <string name="navigation_menu_signout">Log Off</string>
+    <string name="navigation_menu_user_posts">My Posts</string>
+    <string name="navigation_menu_public_post">All Posts</string>
+    <string name="navigation_menu_tag_list">Tag List</string>
+    <string name="navigation_menu_user_journal">Your Entries</string>
+    <string name="navigation_menu_public_journal_feed">Public Journal Feed</string>
 
+    <!-- Labels for the menu items -->
+    <string-array name="navigation_labels">
+        <item>@string/navigation_menu_public_post</item>
+        <item>@string/navigation_menu_user_posts</item>
+        <!--<item>@string/navigation_menu_public</item>-->
+        <!--<item>@string/navigation_menu_public_journal_feed</item>-->
+        <item>@string/navigation_menu_invite</item>
+        <item>@string/navigation_menu_signout</item>
+    </string-array>
 </resources>

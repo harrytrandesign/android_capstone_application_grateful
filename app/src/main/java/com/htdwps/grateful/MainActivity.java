@@ -37,30 +37,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-//        Intent intent;
-//
-//        // If user is already logged on send them to the main feed page, else send them to the sign up page.
-//        if (mFirebaseUser != null) {
-//            // If user ISN'T null, send them to the main feed page.
-//            progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
-//
-//            intent = new Intent(this, MainWindowActivity.class);
-////            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-////            startActivity(mainIntent);
-////            finish();
-//
-//        } else {
-//            // If user IS null, send to sign in page to create a new account.
-//            progressDialog = ProgressDialogUtil.showProgressDialog(this, getResources().getString(R.string.dialog_message_loading));
-//
-//            intent = new Intent(this, FirebaseUiAuthActivity.class);
-//
-//        }
-//
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
         initiateSwitchActivity(mFirebaseUser);
-
 
     }
 

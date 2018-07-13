@@ -17,18 +17,6 @@
             android:icon="@drawable/ic_library_books_black_48dp"
             android:title="@string/navigation_menu_tag_list"/>
 
-        <!--&lt;!&ndash;<item&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/navigation_menu_public_posts"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:icon="@drawable/ic_line_weight_black_48dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:title="@string/navigation_menu_public"/>&ndash;&gt;-->
-        <!--<item-->
-            <!--android:id="@+id/navigation_menu_public_journal"-->
-            <!--android:icon="@drawable/ic_view_agenda_black_48dp"-->
-            <!--android:title="@string/navigation_menu_journal_public"/>-->
-        <!--<item-->
-            <!--android:id="@+id/navigation_menu_invite_friends"-->
-            <!--android:icon="@drawable/ic_person_add_black_48dp"-->
-            <!--android:title="@string/navigation_menu_invite"/>-->
         <item
             android:id="@+id/navigation_menu_log_off"
             android:icon="@drawable/ic_exit_to_app_black_48dp"

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,14 +31,6 @@ import com.htdwps.grateful.Viewholder.GratePostViewHolder;
 
 import timber.log.Timber;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PrivateBeansFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PrivateBeansFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PrivateBeansFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,6 +48,7 @@ public class PrivateBeansFragment extends Fragment {
     private static final String USER_DISPLAY_NAME = "user_displayname";
     private static final String USER_PICTURE = "user_photo_url";
 
+    // Key Params for wrapping Parcelable Objects
     public static final String BEAN_POST_PARAM = "public_posting_key";
     public static final String CUSTOM_USER_PARAM = "custom_user_key";
 
@@ -86,12 +78,11 @@ public class PrivateBeansFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static PrivateBeansFragment newInstance(String param1, String param2) {
+    public static PrivateBeansFragment newInstance(String param1) {
         PrivateBeansFragment fragment = new PrivateBeansFragment();
         Bundle args = new Bundle();
         args.putString(DATABASE_PARAM, param1);
         args.putString(ALL_POSTS_PARAM, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -183,30 +174,6 @@ public class PrivateBeansFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        // Save UI state changes to the savedInstanceState.
-//        // This bundle will be passed to onCreate if the process is
-//        // killed and restarted.
-//
-//        outState.putBoolean("PublicFeedStatus", isPublicFeedDisplayed);
-//
-//        super.onSaveInstanceState(outState);
-//    }
-//
-//
-//
-//    @Override
-//    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-//
-//        super.onViewStateRestored(savedInstanceState);
-//
-//        boolean publicFeedDisplayState = savedInstanceState.getBoolean("PublicFeedStatus");
-//        switchToggleValue.setChecked(publicFeedDisplayState);
-//        toggleBetweenPublicPrivatePostFeed(publicFeedDisplayState);
-//
-//    }
-
     public void toggleBetweenPublicPrivatePostFeed(boolean feed) {
 
         isPublicFeedDisplayed = feed;
@@ -231,13 +198,6 @@ public class PrivateBeansFragment extends Fragment {
 
         return linearLayoutManager;
     }
-
-//    FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> beanAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostViewHolder>() {
-//        @Override
-//        protected void populateViewHolder(BeanPostViewHolder viewHolder, Beans model, int position) {
-//
-//        }
-//    }
 
     public FirebaseRecyclerAdapter<Beans, BeanPostViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
         beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostViewHolder>(
@@ -267,19 +227,20 @@ public class PrivateBeansFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (isPublicFeedDisplayed) {
-                            Toast.makeText(getActivity(), "Public Feed Showing Public Posts, Go to Comment's Section", Toast.LENGTH_SHORT).show();
+                            String debugMsg = "Public Feed Showing Public Posts, Go to Comment's Section";
+                            Timber.d(debugMsg);
+//                            Toast.makeText(getActivity(), debugMsg, Toast.LENGTH_SHORT).show();
+
+                            // Create Parcelable objects to send to Comment Activity
                             Beans beans = beanPostAdapter.getItem(position);
                             CustomUser customUser = beans.getCustomUser();
-//
-//                    Bundle bundle = new Bundle();
-//                    bundle.putParcelable(BEAN_POST_PARAM, beans);
-//
+
                             Intent intent = new Intent(getActivity(), BeanCommentActivity.class);
                             intent.putExtra(BEAN_POST_PARAM, beans);
                             intent.putExtra(CUSTOM_USER_PARAM, customUser);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getActivity(), "Nothing going to happen here. Clicked at position " + position, Toast.LENGTH_SHORT).show();
+                            Timber.d("Nothing going to happen here. Clicked at position " + position);
                         }
                     }
                 });
@@ -287,18 +248,6 @@ public class PrivateBeansFragment extends Fragment {
                 return beanPostViewHolder;
             }
 
-//            @Override
-//            public int getItemCount() {
-//                int count = super.getItemCount();
-//
-//                if (count == 0) {
-//                    tvRemindAddText.setVisibility(View.VISIBLE);
-//                } else {
-//                    tvRemindAddText.setVisibility(View.GONE);
-//                }
-//
-//                return count;
-//            }
         };
 
         return beanPostAdapter;
@@ -322,7 +271,6 @@ public class PrivateBeansFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -55,7 +55,7 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
         // Place what we return into this string
         String result;
 
-        // Create new instnce of the AsyncTask
+        // Create new instance of the AsyncTask
         HttpApiGetRequest getRequest = new HttpApiGetRequest();
 
         // Perform doInBackground method from AsyncTask getting the results for result string passing in our url
@@ -63,7 +63,6 @@ public class QuoteActivity extends AppCompatActivity implements View.OnClickList
             result = getRequest.execute(quoteUrl).get();
 
             return result;
-//            quoteText.setText(result);
 
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
