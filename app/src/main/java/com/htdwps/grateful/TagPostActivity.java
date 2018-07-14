@@ -14,7 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.htdwps.grateful.Model.Beans;
+import com.htdwps.grateful.Model.BeanPosts;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Viewholder.BeanLayoutViewHolder;
 
@@ -41,7 +41,7 @@ public class TagPostActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null) {
             taggedListing = getIntent().getExtras().getString(TAG_WORD_KEY_PARAM);
-            mainPostsReference = FirebaseUtil.getUserPostRef().child(firebaseUser.getUid());
+            mainPostsReference = FirebaseUtil.getPrivateUserBeanPostReference().child(firebaseUser.getUid());
             tagListReference = FirebaseUtil.getTagsPostsWithTagReference().child(firebaseUser.getUid()).child(taggedListing);
 
             rvPostsWithTag = findViewById(R.id.rv_posts_with_tag);
@@ -85,14 +85,14 @@ public class TagPostActivity extends AppCompatActivity {
                 mainPostsReference.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Beans beanPost = dataSnapshot.getValue(Beans.class);
+                        BeanPosts beanPost = dataSnapshot.getValue(BeanPosts.class);
 
                         if (beanPost != null) {
                             String year = DateUtils.formatDateTime(TagPostActivity.this, (long) beanPost.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
                             String time = DateUtils.formatDateTime(TagPostActivity.this, (long) beanPost.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
                             String dateTime = String.format("%s %s", year, time);
 
-                            viewHolder.setBeanPostFields(beanPost.getMoodValue(), dateTime, beanPost.getBeanText(), beanPost.getTagList(), beanPost.isPublic(), beanPost.getCustomUser().getUserDisplayName(), false);
+                            viewHolder.setBeanPostFields(beanPost.getMoodValue(), dateTime, beanPost.getBeanText(), beanPost.getTagList(), beanPost.isPublic(), beanPost.getUserProfile().getUserDisplayName(), false);
                             Timber.i("This message's value is " + String.valueOf(beanPost.getMoodValue()));
                             Timber.i("This message's message is " + beanPost.getBeanText());
 

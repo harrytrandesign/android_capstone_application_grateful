@@ -42,10 +42,6 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name=".QuoteActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".PrivacyTermsActivity"
             android:parentActivityName=".MainWindowActivity">
         </activity>

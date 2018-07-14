@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.UserProfile;
 
 /**
  * Created by HTDWPS on 12/8/17.
@@ -24,103 +24,55 @@ public class FirebaseUtil {
         return null;
     }
 
-    public static DatabaseReference getCurrentUserRef() {
-        String uid = getCurrentUserId();
-        if (uid != null) {
-            return getBaseRef().child("usernames_list").child(getCurrentUserId());
-        }
-        return null;
-    }
-
-    public static CustomUser getCurrentUser() {
+    public static UserProfile getCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) return null;
 
-        return new CustomUser(user.getUid(), user.getDisplayName(), user.getEmail());
+        return new UserProfile(user.getUid(), user.getDisplayName(), user.getEmail());
+    }
+
+    // all_usernames --> user_id --> user pojo;
+    public static DatabaseReference getUserProfileDetailsDirectoryReference() {
+        return getBaseRef().child(StringConstantsUtil.USER_PROFILE_DETAILS_PATH);
     }
 
     // public_beans_posts --> post_key;
     public static DatabaseReference getBeanPublicReference() {
-        return getBaseRef().child("public_bean_posts");
+        return getBaseRef().child(StringConstantsUtil.PUBLICLY_SHARED_BEANS_PATH);
     }
 
     // private_bean_posts --> user_id --> post_key;
-    public static DatabaseReference getBeanPrivateReference() {
-        return getBaseRef().child("private_bean_posts");
-    }
-
-    // post_tags_list --> user_id --> tag_word --> post_key : true;
-    public static DatabaseReference getTagsBeanReference() {
-        return getBaseRef().child("post_tags_list");
-    }
-
-    public static DatabaseReference getTagsPostsWithTagReference() {
-        return getBaseRef().child("posts_with_tag_name_list");
+    public static DatabaseReference getPrivateUserBeanPostReference() {
+        return getBaseRef().child(StringConstantsUtil.PERSONAL_BEANS_LIST_PATH);
     }
 
     public static DatabaseReference getMoodBeanListReference() {
-        return getBaseRef().child("mood_bean_listed_posts");
+        return getBaseRef().child(StringConstantsUtil.POSTBY_MOOD_TYPE_PATH);
     }
 
     // mood_type_counter_values --> user_id --> mood : int 0, mood2 : int 0;
     public static DatabaseReference getMoodCounterReference() {
-        return getBaseRef().child("mood_type_counter_values");
+        return getBaseRef().child(StringConstantsUtil.MOOD_TYPE_NAME_COUNTER_PATH);
+    }
+
+    // post_tags_list --> user_id --> tag_word --> post_key : true;
+    public static DatabaseReference getTagsBeanReference() {
+        return getBaseRef().child(StringConstantsUtil.POSTBY_TAG_NAME_PATH);
+    }
+
+    // ref --> user_id --> tag_word --> tag pojo
+    public static DatabaseReference getTagsPostsWithTagReference() {
+        return getBaseRef().child(StringConstantsUtil.TAG_NAME_USED_PATH);
     }
 
     // all_public_comment_threads --> post_key --> comment_key --> comment.class;
     public static DatabaseReference getCommentListRef() {
-        return getBaseRef().child("all_public_comment_threads");
-    }
-
-    public static DatabaseReference getGratefulPostsRef() {
-        return getBaseRef().child("grateful_posts_public");
-    }
-
-    public static DatabaseReference getGratefulPersonalRef() {
-        return getBaseRef().child("grateful_personal_posts");
-    }
-
-    public static DatabaseReference getUsernamesRef() {
-        return getBaseRef().child("all_usernames");
-    }
-
-    public static DatabaseReference getUserPostRef() {
-        return getBaseRef().child("post_private_user");
-    }
-
-    public static DatabaseReference getAllPostRef() {
-        return getBaseRef().child("post_public_all");
-    }
-
-    public static DatabaseReference getUserJournalRef() {
-        return getBaseRef().child("journal_private_user");
-    }
-
-    public static DatabaseReference getAllJournalRef() {
-        return getBaseRef().child("journal_public_all");
-    }
-
-    public static DatabaseReference getJournalListRef() {
-        return getBaseRef().child("journal_entries");
+        return getBaseRef().child(StringConstantsUtil.COMMENT_FOR_BEANS_PATH);
     }
 
     public static DatabaseReference getFeedbackRef() {
-        return getBaseRef().child("feedback");
-    }
-
-    public static DatabaseReference getReportRef() {
-        return getBaseRef().child("report");
-    }
-
-    public static DatabaseReference getTagListRef() {
-        // TagsUsed >> Food:true, College:true
-        return getBaseRef().child("tagsUsedList");
-    }
-
-    public static DatabaseReference getTagPostsListRef() {
-        // TagPosts >> Food >> key:true, key:true, College >> key:true
-        return getBaseRef().child("tagPostsList");
+        return getBaseRef().child(StringConstantsUtil.FEEDBACK_FOR_DEVELOPER_PATH);
     }
 
 }

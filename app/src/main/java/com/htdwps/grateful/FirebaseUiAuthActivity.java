@@ -16,11 +16,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Model.MoodCount;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.ProgressDialogUtil;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,7 +32,8 @@ import timber.log.Timber;
 public class FirebaseUiAuthActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
-    private static final DatabaseReference usernameReference = FirebaseUtil.getUsernamesRef();
+
+    private static final DatabaseReference userProfileDetailsDirectoryReference = FirebaseUtil.getUserProfileDetailsDirectoryReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +74,9 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
 
                 if (firebaseUser != null) {
 
-                    final CustomUser addThisUser = new CustomUser(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                    final UserProfile createThisNewUserInDatabase = new UserProfile(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
 
-                    usernameReference.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    userProfileDetailsDirectoryReference.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.exists()) {
@@ -82,11 +84,11 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                                 Timber.i("This user does not exist and so creating a new user profile.");
                                 // On first sign up register the landlord object, and also isPremium is false for the user so they can only create 2 property objects
                                 Map<String, Object> newUser = new HashMap<>();
-                                newUser.put("all_usernames/" + firebaseUser.getUid(), addThisUser);
+                                newUser.put(StringConstantsUtil.USER_PROFILE_DETAILS_PATH + "/" + firebaseUser.getUid(), createThisNewUserInDatabase);
 
                                 for (String mood : EmojiSelectUtil.emojiExpressionTextValue) {
                                     MoodCount moodCount = new MoodCount(mood, 0);
-                                    newUser.put("mood_type_counter_values/" + firebaseUser.getUid() + "/" + mood, moodCount);
+                                    newUser.put(StringConstantsUtil.MOOD_TYPE_NAME_COUNTER_PATH + "/" + firebaseUser.getUid() + "/" + mood, moodCount);
                                 }
 
                                 FirebaseUtil.getBaseRef().updateChildren(newUser, new DatabaseReference.CompletionListener() {

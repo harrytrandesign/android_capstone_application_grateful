@@ -22,11 +22,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
 import com.htdwps.grateful.Fragment.PrivateBeansFragment;
-import com.htdwps.grateful.Model.Beans;
-import com.htdwps.grateful.Model.CustomUser;
-import com.htdwps.grateful.Model.GratefulComment;
+import com.htdwps.grateful.Model.BeanPosts;
+import com.htdwps.grateful.Model.UserProfile;
+import com.htdwps.grateful.Model.CommentBean;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 import com.htdwps.grateful.Viewholder.CommentLayoutViewHolder;
 
 import java.util.HashMap;
@@ -34,24 +35,25 @@ import java.util.Map;
 
 public class BeanCommentActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Beans bean;
-    CustomUser user;
+    boolean isEditTextOpen = false;
+
+    DatabaseReference commentForBeansDirectoryReference;
+    FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder> commentsAdapter;
+    BeanPosts bean;
+    UserProfile user;
+
+    Animation fabRotateOpen, fabRotateClose, fabReveal, fabHidden, editTextReveal, editTextHidden;
+    LinearLayoutManager linearLayoutManager;
     RecyclerView commentRecyclerView;
-    DatabaseReference commentRef;
-    FirebaseRecyclerAdapter<GratefulComment, CommentLayoutViewHolder> commentsAdapter;
 
     EditText commentEditText;
+    FloatingActionButton commentOpenDialogBtn;
+    FloatingActionButton commentSubmitBtn;
 
     TextView tvEmojiIconField;
     TextView tvPostTitleMoodText;
     TextView tvPostTagListText;
     TextView tvPostMainMessageText;
-    LinearLayoutManager linearLayoutManager;
-
-    FloatingActionButton commentOpenDialogBtn;
-    FloatingActionButton commentSubmitBtn;
-    Animation fabRotateOpen, fabRotateClose, fabReveal, fabHidden, editTextReveal, editTextHidden;
-    boolean isEditTextOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,51 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setupLayout();
+
+        bean = getIntent().getParcelableExtra(PrivateBeansFragment.BEAN_POST_PARAM);
+        user = getIntent().getParcelableExtra(PrivateBeansFragment.CUSTOM_USER_PARAM);
+
+        setTitle("Post: " + bean.getBeanText());
+
+        String tagsLists = TextUtils.join(", ", bean.getTagList());
+
+        tvEmojiIconField.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[bean.getMoodValue()])));
+        tvPostTitleMoodText.setText(EmojiSelectUtil.emojiIntConvertToString(bean.getMoodValue()));
+        tvPostMainMessageText.setText(bean.getBeanText());
+        tvPostTagListText.setText(tagsLists);
+
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        commentRecyclerView = findViewById(R.id.rv_comments_list);
+        commentRecyclerView.setLayoutManager(linearLayoutManager);
+        commentForBeansDirectoryReference = FirebaseUtil.getCommentListRef().child(bean.getBeanPostKey());
+
+        commentsAdapter = new FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder>(
+                CommentBean.class,
+                R.layout.item_comment_single_post,
+                CommentLayoutViewHolder.class,
+                commentForBeansDirectoryReference
+        ) {
+            @Override
+            protected void populateViewHolder(CommentLayoutViewHolder viewHolder, CommentBean model, int position) {
+
+                viewHolder.setCommentTextFields(model.getCommentText(), model.getUserProfile().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
+
+            }
+
+        };
+
+        commentRecyclerView.setAdapter(commentsAdapter);
+
+//        populateDatabaseWithFakeComments("-LGnhLBdsBsjkWyAufDz");
+
+    }
+
+    private void setupLayout() {
         fabRotateOpen = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open);
         fabRotateClose = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_close);
         fabHidden = AnimationUtils.loadAnimation(this, R.anim.fab_hidden);
@@ -77,67 +124,6 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         tvPostTitleMoodText = findViewById(R.id.tv_current_feeling_condensed);
         tvPostTagListText = findViewById(R.id.tv_tag_list_for_post_condensed);
         tvPostMainMessageText = findViewById(R.id.tv_main_message_field_condensed);
-
-        bean = getIntent().getParcelableExtra(PrivateBeansFragment.BEAN_POST_PARAM);
-        user = getIntent().getParcelableExtra(PrivateBeansFragment.CUSTOM_USER_PARAM);
-
-        setTitle("Post: " + bean.getBeanText());
-
-//        LinearLayoutManager llm = new LinearLayoutManager();
-//        llm.setReverseLayout(true);
-//        llm.setStackFromEnd(true);
-
-//        String year = DateUtils.formatDateTime(this, (long) bean.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
-//        String time = DateUtils.formatDateTime(this, (long) bean.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
-//        String dateTime = String.format("%s %s", year, time);
-
-        String tagsLists = TextUtils.join(", ", bean.getTagList());
-
-        tvEmojiIconField.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[bean.getMoodValue()])));
-        tvPostTitleMoodText.setText(EmojiSelectUtil.emojiIntConvertToString(bean.getMoodValue()));
-        tvPostMainMessageText.setText(bean.getBeanText());
-        tvPostTagListText.setText(tagsLists);
-
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-//        commentEditText = findViewById(R.id.fragment_et_comment_typebox);
-        commentRecyclerView = findViewById(R.id.rv_comments_list);
-        commentRecyclerView.setLayoutManager(linearLayoutManager);
-        commentRef = FirebaseUtil.getCommentListRef().child(bean.getBeanPostKey());
-
-        commentsAdapter = new FirebaseRecyclerAdapter<GratefulComment, CommentLayoutViewHolder>(
-                GratefulComment.class,
-                R.layout.item_comment_single_post,
-                CommentLayoutViewHolder.class,
-                commentRef
-        ) {
-            @Override
-            protected void populateViewHolder(CommentLayoutViewHolder viewHolder, GratefulComment model, int position) {
-
-                viewHolder.setCommentTextFields(model.getCommentText(), model.getCustomUser().getUserDisplayName(), DateUtils.getRelativeTimeSpanString((long) model.getTimestamp()).toString());
-
-            }
-
-        };
-
-        commentRecyclerView.setAdapter(commentsAdapter);
-//        commentsAdapter.notifyDataSetChanged();
-//        commentRecyclerView.smoothScrollToPosition(commentsAdapter.getItemCount());
-
-//        String displayName = user.getUserDisplayName();
-//        tvPostTitleMoodText.setText(bean.getBeanText());
-//        tvPostTagListText.setText(bean.getBeanPostKey());
-//        if (user != null && displayName != null) {
-//
-//            tvPostMainMessageText.setText(displayName);
-//
-//        }
-
-//        populateDatabaseWithFakeComments("-LGnhLBdsBsjkWyAufDz");
-
     }
 
     private void animateFabViews() {
@@ -176,10 +162,10 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         } else {
 
             // Submit to database
-            String commentPushKey = commentRef.push().getKey();
-            GratefulComment gratefulComment = new GratefulComment(FirebaseUtil.getCurrentUser(), comment, ServerValue.TIMESTAMP, commentPushKey, bean.getBeanPostKey());
+            String commentPushKey = commentForBeansDirectoryReference.push().getKey();
+            CommentBean commentBean = new CommentBean(FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentPushKey, comment, ServerValue.TIMESTAMP);
 
-            commentRef.child(commentPushKey).setValue(gratefulComment).addOnCompleteListener(new OnCompleteListener<Void>() {
+            commentForBeansDirectoryReference.child(commentPushKey).setValue(commentBean).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
@@ -198,18 +184,17 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     }
 
     // Used to create some fake comments for testing purposes only
-    public void populateDatabaseWithFakeComments(String postKey) {
-        String tempPostCommentPushKey = postKey;
+    public void populateDatabaseWithFakeComments(String originalThreadPushId) {
 
         Map<String, Object> tempComments = new HashMap<>();
 
         for (int i = 0; i < 10; i++) {
-            String commentPushKey = FirebaseUtil.getCommentListRef().push().getKey();
-            GratefulComment gratefulComment = new GratefulComment(user, "Fake comment " + i, ServerValue.TIMESTAMP, commentPushKey, tempPostCommentPushKey);
+            String commentGenerateRandomPushId = FirebaseUtil.getCommentListRef().push().getKey();
+            CommentBean commentBean = new CommentBean(user, originalThreadPushId, commentGenerateRandomPushId, "Fake comment " + i, ServerValue.TIMESTAMP);
 
-            String tempCommentsRef = "all_public_comment_threads/" + tempPostCommentPushKey + "/" + commentPushKey;
+            String temporaryCommentsDirectoryPath = StringConstantsUtil.COMMENT_FOR_BEANS_PATH + "/" + originalThreadPushId + "/" + commentGenerateRandomPushId;
 
-            tempComments.put(tempCommentsRef, gratefulComment);
+            tempComments.put(temporaryCommentsDirectoryPath, commentBean);
         }
 
         FirebaseUtil.getBaseRef().updateChildren(tempComments, new DatabaseReference.CompletionListener() {
@@ -232,7 +217,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(this, "Open Edittext Flipper Button", Toast.LENGTH_SHORT).show();
 
                 animateFabViews();
-//                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentRef);
+//                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentForBeansDirectoryReference);
 
                 break;
 

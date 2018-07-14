@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Grateful</string>
     <string name="app_tag_line" translatable="false">Think Positive</string>
-    <string name="tag_name">Keep track of your daily beans. Reflect daily.</string>
+    <string name="tag_name">Keep track of your daily beanPosts. Reflect daily.</string>
     <string name="tag_line">Share Something You\'re Grateful for Everyday</string>
 
     <!-- Menu Item -->

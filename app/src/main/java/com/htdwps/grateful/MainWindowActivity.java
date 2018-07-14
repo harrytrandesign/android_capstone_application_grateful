@@ -26,10 +26,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.htdwps.grateful.Fragment.MoodCounterFragment;
 import com.htdwps.grateful.Fragment.PrivateBeansFragment;
 import com.htdwps.grateful.Fragment.TagsCounterFragment;
-import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Util.FirebaseHelper;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.MaterialHelperUtil;
+import com.htdwps.grateful.Util.MaterialDialogHelperUtil;
 import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import io.fabric.sdk.android.Fabric;
@@ -44,7 +44,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    CustomUser user;
+    UserProfile user;
 
     private FloatingActionButton floatingActionButton;
     private Switch toggleSwitchFeedValue;
@@ -159,7 +159,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         fragmentTransaction.replace(R.id.main_frame_layout, fragment);
         fragmentTransaction.commitAllowingStateLoss();
 
-        if (quoteShowingPreference) MaterialHelperUtil.generateInspirationalQuote(this);
+        if (quoteShowingPreference) MaterialDialogHelperUtil.generateInspirationalQuote(this);
 
     }
 
@@ -229,7 +229,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         switch (id) {
             case R.id.settings_menu_new_quote:
 
-                MaterialHelperUtil.generateInspirationalQuote(this);
+                MaterialDialogHelperUtil.generateInspirationalQuote(this);
 
                 break;
 
@@ -248,7 +248,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.settings_menu_feedback_link:
 
-                MaterialHelperUtil.submitFeedbackToDeveloper(this, user);
+                MaterialDialogHelperUtil.submitFeedbackToDeveloper(this, user);
 
                 break;
 

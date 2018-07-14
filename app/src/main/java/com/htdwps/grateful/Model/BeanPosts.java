@@ -8,9 +8,9 @@ import java.util.ArrayList;
 /**
  * Created by HTDWPS on 5/11/18.
  */
-public class Beans implements Parcelable {
+public class BeanPosts implements Parcelable {
 
-    private CustomUser customUser;
+    private UserProfile userProfile;
     private int moodValue;
     private String beanText;
     private Object timestamp;
@@ -18,11 +18,11 @@ public class Beans implements Parcelable {
     private boolean isPublic; // Not changeable
     private String beanPostKey;
 
-    public Beans() {
+    public BeanPosts() {
     }
 
-    public Beans(CustomUser customUser, int moodValue, String beanText, Object timestamp, ArrayList<String> tagList, boolean isPublic, String beanPostKey) {
-        this.customUser = customUser;
+    public BeanPosts(UserProfile userProfile, int moodValue, String beanText, Object timestamp, ArrayList<String> tagList, boolean isPublic, String beanPostKey) {
+        this.userProfile = userProfile;
         this.moodValue = moodValue;
         this.beanText = beanText;
         this.timestamp = timestamp;
@@ -31,7 +31,7 @@ public class Beans implements Parcelable {
         this.beanPostKey = beanPostKey;
     }
 
-    protected Beans(Parcel in) {
+    protected BeanPosts(Parcel in) {
         moodValue = in.readInt();
         beanText = in.readString();
         tagList = in.createStringArrayList();
@@ -39,20 +39,20 @@ public class Beans implements Parcelable {
         beanPostKey = in.readString();
     }
 
-    public static final Creator<Beans> CREATOR = new Creator<Beans>() {
+    public static final Creator<BeanPosts> CREATOR = new Creator<BeanPosts>() {
         @Override
-        public Beans createFromParcel(Parcel in) {
-            return new Beans(in);
+        public BeanPosts createFromParcel(Parcel in) {
+            return new BeanPosts(in);
         }
 
         @Override
-        public Beans[] newArray(int size) {
-            return new Beans[size];
+        public BeanPosts[] newArray(int size) {
+            return new BeanPosts[size];
         }
     };
 
-    public void setCustomUser(CustomUser customUser) {
-        this.customUser = customUser;
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     public void setMoodValue(int moodValue) {
@@ -75,8 +75,8 @@ public class Beans implements Parcelable {
         isPublic = aPublic;
     }
 
-    public CustomUser getCustomUser() {
-        return customUser;
+    public UserProfile getUserProfile() {
+        return userProfile;
     }
 
     public int getMoodValue() {

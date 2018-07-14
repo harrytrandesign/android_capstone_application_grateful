@@ -21,11 +21,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
-import com.htdwps.grateful.Model.Beans;
-import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.BeanPosts;
+import com.htdwps.grateful.Model.CommentBean;
 import com.htdwps.grateful.Model.Feedback;
-import com.htdwps.grateful.Model.GratefulComment;
-import com.htdwps.grateful.QuoteActivity;
+import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.R;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ import java.util.List;
 /**
  * Created by HTDWPS on 6/5/18.
  */
-public class MaterialHelperUtil {
+public class MaterialDialogHelperUtil {
 
     //    Context mContext;
     private static final DatabaseReference feedbackDatabaseReference = FirebaseUtil.getFeedbackRef();
@@ -44,19 +43,17 @@ public class MaterialHelperUtil {
     public static void generateInspirationalQuote(Context context) {
         MaterialDialog dialog;
 
-        // TODO: Run an internet connection check here before calling out this Quote.
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(R.string.tv_quote_inspire_daily)
-                .content(QuoteActivity.runQuoteRequest())
+                .content(QuoteGetRequestHelperUtil.runQuoteRequest())
                 .positiveText(R.string.tv_close_quote);
 
         dialog = builder.build();
         dialog.show();
-        // Stop internet check here.
     }
 
     // Submit a grateful bean to the fb database here
-    public static void createMaterialDialogBeanCreator(final Context context, View view, ArrayAdapter<String> adapter, final String[] emojiList, final String[] emotionList, final CustomUser customUser) {
+    public static void createMaterialDialogBeanCreator(final Context context, View view, ArrayAdapter<String> adapter, final String[] emojiList, final String[] emotionList, final UserProfile userProfile) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
         final View theView = layoutInflater.inflate(R.layout.material_dialog_custom_layout_view, null);
@@ -105,30 +102,13 @@ public class MaterialHelperUtil {
                         } else {
                             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
                             int num;
-//                            expressionDrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                                @Override
-//                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                    num = i;
-//                                }
-//
-//                                @Override
-//                                public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                                }
-//                            });
+
                             List<String> items = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
-//                            List<String> list = new ArrayList<String>(Arrays.asList(tags.split(" , ")));
 
                             ArrayList<String> list = new ArrayList<>(items);
-                            // Option 1
-//                            list.addAll(items);
-                            // Option 2
-//                            for (String tag : items) {
-//                                list.add(tag);
-//                            }
 
-                            Beans beans = new Beans(customUser, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, checkBox.isChecked(), "");
-                            FirebaseUtil.getUserPostRef().child(customUser.getUserid()).push().setValue(beans).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            BeanPosts beanPosts = new BeanPosts(userProfile, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, checkBox.isChecked(), "");
+                            FirebaseUtil.getPrivateUserBeanPostReference().child(userProfile.getUserid()).push().setValue(beanPosts).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
@@ -142,7 +122,7 @@ public class MaterialHelperUtil {
     }
 
     // Submit feedback to developer, feedback goes to the fb database
-    public static void submitFeedbackToDeveloper(final Context context, final CustomUser customUser) {
+    public static void submitFeedbackToDeveloper(final Context context, final UserProfile userProfile) {
 
         MaterialDialog dialog;
 
@@ -157,11 +137,11 @@ public class MaterialHelperUtil {
 
                             Toast.makeText(context, R.string.string_feedback_length_too_short, Toast.LENGTH_SHORT).show();
                             // Recall the feedback box
-                            submitFeedbackToDeveloper(context, customUser);
+                            submitFeedbackToDeveloper(context, userProfile);
 
                         } else {
 
-                            Feedback user_feedback = new Feedback(customUser, input.toString(), ServerValue.TIMESTAMP, false);
+                            Feedback user_feedback = new Feedback(userProfile, input.toString(), ServerValue.TIMESTAMP, false);
 
                             feedbackDatabaseReference.push().setValue(user_feedback).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -184,7 +164,7 @@ public class MaterialHelperUtil {
 
     }
 
-    public static void populateCommentBoxForPost(final Context context, final CustomUser customUser, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
+    public static void populateCommentBoxForPost(final Context context, final UserProfile userProfile, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
 
         MaterialDialog materialDialog;
 
@@ -198,15 +178,15 @@ public class MaterialHelperUtil {
                         if (TextUtils.isEmpty(input) || input.length() < 10) {
 
                             Toast.makeText(context, "Your comment was too short", Toast.LENGTH_SHORT).show();
-                            populateCommentBoxForPost(context, customUser, postKeyPushId, commentDirectoryRef);
+                            populateCommentBoxForPost(context, userProfile, postKeyPushId, commentDirectoryRef);
 
                         } else {
 
                             // Submit to database
-                            String commentPushKey = commentDirectoryRef.push().getKey();
-                            GratefulComment gratefulComment = new GratefulComment(customUser, input.toString(), ServerValue.TIMESTAMP, commentPushKey, postKeyPushId);
+                            String commentGeneratePushId = commentDirectoryRef.push().getKey();
+                            CommentBean commentBean = new CommentBean(userProfile, postKeyPushId, commentGeneratePushId, input.toString(), ServerValue.TIMESTAMP);
 
-                            commentDirectoryRef.child(commentPushKey).setValue(gratefulComment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            commentDirectoryRef.child(commentGeneratePushId).setValue(commentBean).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 

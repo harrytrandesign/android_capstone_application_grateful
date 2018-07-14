@@ -6,7 +6,7 @@ package com.htdwps.grateful.Model;
 
 public class Feedback {
 
-    private CustomUser user;
+    private UserProfile user;
     private String feedback;
     private Object timestamp;
     private Boolean adminread;
@@ -14,18 +14,18 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(CustomUser user, String feedback, Object timestamp, Boolean adminread) {
+    public Feedback(UserProfile user, String feedback, Object timestamp, Boolean adminread) {
         this.user = user;
         this.feedback = feedback;
         this.timestamp = timestamp;
         this.adminread = adminread;
     }
 
-    public CustomUser getUser() {
+    public UserProfile getUser() {
         return user;
     }
 
-    public void setUser(CustomUser user) {
+    public void setUser(UserProfile user) {
         this.user = user;
     }
 

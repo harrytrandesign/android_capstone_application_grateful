@@ -33,12 +33,13 @@ public class        AuthActivity
                     GoogleApiClient.OnConnectionFailedListener {
 
     private static final String LOG_TAG = AuthActivity.class.getSimpleName();
-
     private static final int RC_SIGN_IN = 9001;
+
     private static GoogleApiClient googleApiClient;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
+
     TextView applicationLogo;
     TextView signinButton;
 
@@ -149,69 +150,10 @@ public class        AuthActivity
 
                             progressDialog.dismiss();
 
-                            Intent switchIntent = new Intent(AuthActivity.this, ListActivity.class);
+                            Intent switchIntent = new Intent(AuthActivity.this, MainWindowActivity.class);
                             switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(switchIntent);
-//
-//                            assert firebaseUser != null;
-//                            positionDatabase.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                    if (dataSnapshot.exists()) {
-//
-//                                        Toast.makeText(AuthActivity.this, "User already exists in the database.", Toast.LENGTH_SHORT).show();
-//
-//                                        progressDialog.dismiss();
-//
-//                                        Intent switchIntent = new Intent(AuthActivity.this, ListActivity.class);
-//                                        switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        startActivity(switchIntent);
-//
-//                                    } else {
-//
-//                                        Toast.makeText(AuthActivity.this, "User doesn't exist yet, creating user in database, and send to onboarding screen.", Toast.LENGTH_SHORT).show();
-//
-//                                        String photoQualityEnlargeRes = String.valueOf(firebaseUser.getPhotoUrl());
-//                                        String[] splitString = photoQualityEnlargeRes.split("s96-c");
-//                                        String firstString = splitString[0];
-//                                        String secondString = splitString[1];
-//                                        String newImageString = firstString + photoResolutionSizeString + secondString;
-//
-//                                        User username = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail(), newImageString, "Unspecified", false);
-//
-//                                        firebaseDatabase.child(usernamePath).child(firebaseUser.getUid()).setValue(username).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<Void> task) {
-//
-//                                                Toast.makeText(AuthActivity.this, "Good Log In Done", Toast.LENGTH_SHORT).show();
-//
-//                                                progressDialog.dismiss();
-//
-//                                                Intent switchIntent = new Intent(AuthActivity.this, PersonalActivity.class);
-//                                                switchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                                startActivity(switchIntent);
-//
-//                                            }
-//                                        });
-//
-//                                    }
-//
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {
-//
-//                                }
-//                            });
-//
-//                        }
-//
-//                        // If sign in fails, display a message to the user. If sign in succeeds
-//                        // the auth state listener will be notified and logic to handle the
-//                        // signed in user can be handled in the listener.
-//                        if (!task.isSuccessful()) {
-//                            Log.w(LOG_TAG, "signInWithCredential", task.getException());
-//                            Toast.makeText(AuthActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });

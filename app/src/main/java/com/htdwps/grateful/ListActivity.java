@@ -32,10 +32,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.htdwps.grateful.Fragment.PrivateBeansFragment;
-import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.MaterialHelperUtil;
+import com.htdwps.grateful.Util.MaterialDialogHelperUtil;
 import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -47,7 +47,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    CustomUser user;
+    UserProfile user;
 
     private static final String TERMS_LABEL = "TERMS";
     private static final String PRIVACY_LABEL = "PRIVACY";
@@ -185,7 +185,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         // TODO: Run an internet connection check here before calling out this Quote.
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title(R.string.tv_quote_inspire_daily)
-                .content(QuoteActivity.runQuoteRequest())
+//                .content(QuoteActivity.runQuoteRequest())
                 .positiveText(R.string.tv_close_quote);
 
         dialog = builder.build();
@@ -399,7 +399,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.settings_menu_feedback_link:
 
-                MaterialHelperUtil.submitFeedbackToDeveloper(this, user);
+                MaterialDialogHelperUtil.submitFeedbackToDeveloper(this, user);
 
 //                FeedbackAlertDialogSubmitWindow feedbackSubmitDialogBox = new FeedbackAlertDialogSubmitWindow(this);
 //                feedbackSubmitDialogBox.cloneInContext(this);
@@ -444,9 +444,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_floating_action:
 
-//                CustomUser user = FirebaseUtil.getCurrentUser();
+//                UserProfile user = FirebaseUtil.getCurrentUser();
 //                createTopic();
-//                MaterialHelperUtil.createMaterialDialogBeanCreator(this, view, emojiExpressionAdapter, EmojiSelectUtil.emojiForSpinnerDropdown, EmojiSelectUtil.emojiExpressionTextValue, user);
+//                MaterialDialogHelperUtil.createMaterialDialogBeanCreator(this, view, emojiExpressionAdapter, EmojiSelectUtil.emojiForSpinnerDropdown, EmojiSelectUtil.emojiExpressionTextValue, user);
                 Intent submitBeanIntent = new Intent(ListActivity.this, SubmitBeanActivity.class);
                 startActivity(submitBeanIntent);
 

@@ -36,10 +36,10 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Adapter.CustomSpinnerArrayAdapter;
-import com.htdwps.grateful.Model.Beans;
-import com.htdwps.grateful.Model.CustomUser;
+import com.htdwps.grateful.Model.BeanPosts;
 import com.htdwps.grateful.Model.MoodCount;
 import com.htdwps.grateful.Model.TagName;
+import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
 
@@ -76,12 +76,10 @@ public class SubmitBeanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_submit_bean);
         setTitle("New Post");
 
-//        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
         mAdview = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview.loadAd(adRequest);
+//        MobileAds.initialize(this, SubmitBeanActivity.this.getResources().getString(R.string.admob_app_id));
 
         searchUserDefaults();
 
@@ -176,20 +174,20 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                     Toast.makeText(this, beanMessage, Toast.LENGTH_SHORT).show();
 
-                    final String postKeyGenerated = FirebaseUtil.getUserPostRef().push().getKey();
+                    final String postKeyGenerated = FirebaseUtil.getPrivateUserBeanPostReference().push().getKey();
 
                     List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too
 //                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
                     ArrayList<String> list = new ArrayList<>(items);
-                    final CustomUser user = FirebaseUtil.getCurrentUser();
+                    final UserProfile user = FirebaseUtil.getCurrentUser();
 
-                    Beans beans = new Beans(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, postIsPublic, postKeyGenerated);
+                    BeanPosts beanPosts = new BeanPosts(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, postIsPublic, postKeyGenerated);
 
                     Map<String, Object> beanMap = new HashMap<>();
 
-                    String beanPostPath = "post_private_user/" + user.getUserid() + "/" + postKeyGenerated;
+                    String beanPostPath = "personal_beans_list/" + user.getUserid() + "/" + postKeyGenerated;
 
-                    beanMap.put(beanPostPath, beans);
+                    beanMap.put(beanPostPath, beanPosts);
 
                     // Keep track of the tags the user is using
                     for (String tag : list) {
@@ -211,7 +209,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                     beanMap.put(moodPostPath, true);
 
                     if (postIsPublic) {
-                        beanMap.put("post_public_all/" + postKeyGenerated, beans);
+                        beanMap.put("post_public_all/" + postKeyGenerated, beanPosts);
                     }
 
                     FirebaseUtil.getBaseRef().updateChildren(beanMap, new DatabaseReference.CompletionListener() {
@@ -298,7 +296,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                         }
                     });
 
-//                    FirebaseUtil.getUserPostRef().child(user.getUserid()).push().setValue(beans).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    FirebaseUtil.getUserPostRef().child(user.getUserid()).push().setValue(beanPosts).addOnCompleteListener(new OnCompleteListener<Void>() {
 //                        @Override
 //                        public void onComplete(@NonNull Task<Void> task) {
 //
