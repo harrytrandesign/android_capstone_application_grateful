@@ -27,7 +27,7 @@
 
             <!-- Create a more custom layout for post -->
             <include
-                layout="@layout/item_grateful_post_top_simplified"
+                layout="@layout/item_bean_user_single_post_condensed"
                 android:background="@color/color_text_white"
                 app:layout_collapseMode="parallax"/>
 

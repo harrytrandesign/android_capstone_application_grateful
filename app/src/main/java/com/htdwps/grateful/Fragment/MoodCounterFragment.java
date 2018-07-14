@@ -20,7 +20,7 @@ import com.htdwps.grateful.Model.MoodCount;
 import com.htdwps.grateful.MoodCountActivity;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.MoodValueCounterViewHolder;
+import com.htdwps.grateful.Viewholder.MoodCountLayoutViewHolder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +34,7 @@ public class MoodCounterFragment extends Fragment {
 
     DatabaseReference moodCountListReference;
     RecyclerView moodListRecyclerView;
-    FirebaseRecyclerAdapter<MoodCount, MoodValueCounterViewHolder> moodCountAdapter;
+    FirebaseRecyclerAdapter<MoodCount, MoodCountLayoutViewHolder> moodCountAdapter;
     TextView tvRemindAddNewPosts;
 
     GridLayoutManager gridLayoutManager;
@@ -59,7 +59,7 @@ public class MoodCounterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mood_counter, container, false);
+        View view = inflater.inflate(R.layout.fragment_mood_list_private, container, false);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -70,14 +70,14 @@ public class MoodCounterFragment extends Fragment {
 
         if (firebaseUser != null) {
             moodCountListReference = FirebaseUtil.getMoodCounterReference().child(firebaseUser.getUid());
-            moodCountAdapter = new FirebaseRecyclerAdapter<MoodCount, MoodValueCounterViewHolder>(
+            moodCountAdapter = new FirebaseRecyclerAdapter<MoodCount, MoodCountLayoutViewHolder>(
                     MoodCount.class,
-                    R.layout.item_mood_count_single_value,
-                    MoodValueCounterViewHolder.class,
+                    R.layout.item_mood_icon_count_value,
+                    MoodCountLayoutViewHolder.class,
                     moodCountListReference
             ) {
                 @Override
-                protected void populateViewHolder(MoodValueCounterViewHolder viewHolder, final MoodCount model, int position) {
+                protected void populateViewHolder(MoodCountLayoutViewHolder viewHolder, final MoodCount model, int position) {
 
                     viewHolder.setMoodValue(model.getMoodName(), model.getValueCount());
 

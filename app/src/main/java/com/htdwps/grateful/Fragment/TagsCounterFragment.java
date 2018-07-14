@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +21,7 @@ import com.htdwps.grateful.R;
 import com.htdwps.grateful.TagPostActivity;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.SpacingItemDecoration;
-import com.htdwps.grateful.Viewholder.TagNamesViewHolder;
+import com.htdwps.grateful.Viewholder.TagNameLayoutViewHolder;
 
 public class TagsCounterFragment extends Fragment {
 
@@ -32,8 +31,7 @@ public class TagsCounterFragment extends Fragment {
 
     DatabaseReference tagListReference;
     RecyclerView tagListRecyclerView;
-    FirebaseRecyclerAdapter<TagName, TagNamesViewHolder> tagListAdapter;
-    TextView tvRemindToAddPosts;
+    FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder> tagListAdapter;
 
     public TagsCounterFragment() {
         // Required empty public constructor
@@ -66,10 +64,9 @@ public class TagsCounterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tags_counter, container, false);
+        View view = inflater.inflate(R.layout.fragment_tags_list_private, container, false);
 
         tagListRecyclerView = view.findViewById(R.id.rv_tag_counter_list);
-//        tvRemindToAddPosts = view.findViewById(R.id.tv_load_some_posts_text);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -77,23 +74,20 @@ public class TagsCounterFragment extends Fragment {
         if (firebaseUser != null) {
             tagListReference = FirebaseUtil.getTagsBeanReference().child(firebaseUser.getUid());
 
-            tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagNamesViewHolder>(
+            tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder>(
                     TagName.class,
                     R.layout.item_tag_single_label,
-                    TagNamesViewHolder.class,
+                    TagNameLayoutViewHolder.class,
                     tagListReference
             ) {
                 @Override
-                protected void populateViewHolder(final TagNamesViewHolder viewHolder, final TagName model, int position) {
+                protected void populateViewHolder(final TagNameLayoutViewHolder viewHolder, final TagName model, int position) {
 
                     viewHolder.setTagName(model.getTagName());
 
-                    // Delegate this over to the interface design, similar to movie db app.
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-//                            Toast.makeText(getContext(), model.getTagName(), Toast.LENGTH_SHORT).show();
-
                             Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
                             tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, model.getTagName());
                             startActivity(tagPostActivityIntent);
@@ -102,26 +96,11 @@ public class TagsCounterFragment extends Fragment {
 
                 }
 
-//                @Override
-//                public int getItemCount() {
-//                    int count = super.getItemCount();
-//
-//                    if (count == 0) {
-//                        tvRemindToAddPosts.setVisibility(View.VISIBLE);
-//                        tagListRecyclerView.setVisibility(View.GONE);
-//                    } else {
-//                        tvRemindToAddPosts.setVisibility(View.GONE);
-//                        tagListRecyclerView.setVisibility(View.VISIBLE);
-//                    }
-//
-//                    return count;
-//                }
-
                 //                @Override
-//                public TagNamesViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-//                    TagNamesViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
+//                public TagNameLayoutViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+//                    TagNameLayoutViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
 //
-//                    tagListViewHolder.setOnClickListener(new TagNamesViewHolder.ClickListener() {
+//                    tagListViewHolder.setOnClickListener(new TagNameLayoutViewHolder.ClickListener() {
 //                        @Override
 //                        public void onItemClick(AdapterView<?> adapterView, View view, int position) {
 //                            TagName tagName = (TagName) adapterView.getAdapter().getItem(position);
@@ -144,7 +123,6 @@ public class TagsCounterFragment extends Fragment {
 //                }
             };
 
-//            tagListRecyclerView.setLayoutManager(createLayoutManager());
             tagListRecyclerView.setLayoutManager(ChipLayoutManager.createLayoutManager(getActivity()));
             tagListRecyclerView.addItemDecoration(new SpacingItemDecoration(OFFSET, OFFSET));
             tagListRecyclerView.setAdapter(tagListAdapter);

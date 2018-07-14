@@ -55,6 +55,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     SharedPreferences sharedPreferences;
     Boolean quoteShowingPreference;
 
+
     // TODO Redo the fragment to condense into a single method
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -145,6 +146,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 //        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_grateful);
 
         Fragment fragment;
         if (showPublicFeed) {

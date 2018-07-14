@@ -26,24 +26,24 @@ import com.htdwps.grateful.Util.FirebaseUtil;
  */
 
 // Class file no longer used, in lieu of Material Dialog library
-public class FeedbackSubmitDialogBox extends LayoutInflater implements View.OnTouchListener {
+public class FeedbackAlertDialogSubmitWindow extends LayoutInflater implements View.OnTouchListener {
 
     private AlertDialog alertDialog;
     private DatabaseReference feedbackReference;
     private String user_feedback_text;
     private EditText feedback_text_field;
 
-    public FeedbackSubmitDialogBox(Context context) {
+    public FeedbackAlertDialogSubmitWindow(Context context) {
         super(context);
     }
 
-
     @Override
     public LayoutInflater cloneInContext(Context context) {
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.alert_dialog_feedback_window, null);
+        View view = layoutInflater.inflate(R.layout.alert_dialog_feedback_submit, null);
 
         feedbackReference = FirebaseUtil.getFeedbackRef();
         final CustomUser user = FirebaseUtil.getCurrentUser();
@@ -127,6 +127,7 @@ public class FeedbackSubmitDialogBox extends LayoutInflater implements View.OnTo
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
         return layoutInflater;
+
     }
 
     @Override

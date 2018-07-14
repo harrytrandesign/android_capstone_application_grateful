@@ -9,13 +9,13 @@ import com.htdwps.grateful.R;
 /**
  * Created by HTDWPS on 7/7/18.
  */
-public class PostCommentsViewHolder extends RecyclerView.ViewHolder {
+public class CommentLayoutViewHolder extends RecyclerView.ViewHolder {
 
     private TextView tvCommentText;
     private TextView tvCommentUserName;
     private TextView tvCommentTimestamp;
 
-    public PostCommentsViewHolder(View itemView) {
+    public CommentLayoutViewHolder(View itemView) {
         super(itemView);
 
         tvCommentText = itemView.findViewById(R.id.tv_comment_main_text);
@@ -25,9 +25,11 @@ public class PostCommentsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setCommentTextFields(String text, String username, String time) {
+
         tvCommentText.setText(text);
         tvCommentUserName.setText(username);
         tvCommentTimestamp.setText(time);
+
     }
 
 }

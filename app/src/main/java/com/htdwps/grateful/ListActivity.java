@@ -401,7 +401,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
                 MaterialHelperUtil.submitFeedbackToDeveloper(this, user);
 
-//                FeedbackSubmitDialogBox feedbackSubmitDialogBox = new FeedbackSubmitDialogBox(this);
+//                FeedbackAlertDialogSubmitWindow feedbackSubmitDialogBox = new FeedbackAlertDialogSubmitWindow(this);
 //                feedbackSubmitDialogBox.cloneInContext(this);
 
                 break;

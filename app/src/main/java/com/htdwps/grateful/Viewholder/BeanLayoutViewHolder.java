@@ -14,9 +14,9 @@ import java.util.ArrayList;
 /**
  * Created by HTDWPS on 6/8/18.
  */
-public class BeanPostsViewHolder extends RecyclerView.ViewHolder {
+public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
 
-    private BeanPostsViewHolder.ClickListener mClickListener;
+    private BeanLayoutViewHolder.ClickListener mClickListener;
 
     private LinearLayout llPublicStats;
     private TextView tvFeeling;
@@ -27,7 +27,7 @@ public class BeanPostsViewHolder extends RecyclerView.ViewHolder {
     private TextView tvIsPublic;
     private TextView tvPostOwner;
 
-    public BeanPostsViewHolder(View itemView) {
+    public BeanLayoutViewHolder(View itemView) {
         super(itemView);
 
         llPublicStats = itemView.findViewById(R.id.linear_layout_only_show_public_posts);
@@ -53,41 +53,54 @@ public class BeanPostsViewHolder extends RecyclerView.ViewHolder {
 
     public void setBeanPostFields(int feelingValue, String timestamp, String mainText, ArrayList<String> tags, boolean publicStatus, String postOwner, boolean onPublicFeed) {
 
-        String value = String.valueOf(feelingValue);
-
         String tagsLists = TextUtils.join(", ", tags);
 
-        tvFeeling.setText(EmojiSelectUtil.emojiExpressionTextValue[feelingValue]);
+        tvFeeling.setText(String.format("FEELING %s", EmojiSelectUtil.emojiExpressionTextValue[feelingValue]));
         tvEmojiIcon.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[feelingValue])));
         tvDatePost.setText(timestamp);
         tvMainMessage.setText(mainText);
 
         if (TextUtils.isEmpty(tagsLists)) {
+
             tvTagList.setText(R.string.string_no_tags_found);
+
         } else {
+
             tvTagList.setText(tagsLists);
+
         }
 
         tvIsPublic.setText(R.string.string_public_status_text);
         if (!onPublicFeed) {
-            if (!publicStatus) {
-                tvIsPublic.setVisibility(View.GONE);
-            }
+
             llPublicStats.setVisibility(View.GONE);
+
+            if (!publicStatus) {
+
+                tvIsPublic.setVisibility(View.GONE);
+
+            }
+
         } else {
+
             llPublicStats.setVisibility(View.VISIBLE);
             tvPostOwner.setText(String.format("By %s", postOwner));
+
         }
 
     }
 
     // Interface to send callbacks
     public interface ClickListener {
+
         void onItemClick(View view, int position);
+
     }
 
-    public void setOnClickListener(BeanPostsViewHolder.ClickListener clickListener) {
+    public void setOnClickListener(BeanLayoutViewHolder.ClickListener clickListener) {
+
         mClickListener = clickListener;
+
     }
 
 }

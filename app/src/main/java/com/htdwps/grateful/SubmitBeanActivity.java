@@ -89,7 +89,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         emojiExpressionAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, EmojiSelectUtil.emojiForSpinnerDropdown);
-        CustomSpinnerArrayAdapter customSpinnerArrayAdapter = new CustomSpinnerArrayAdapter(this, R.layout.spinner_item_picker_layout, EmojiSelectUtil.emojiForSpinnerDropdown);
+        CustomSpinnerArrayAdapter customSpinnerArrayAdapter = new CustomSpinnerArrayAdapter(this, R.layout.spinner_picker_layout, EmojiSelectUtil.emojiForSpinnerDropdown);
         emojiList = EmojiSelectUtil.emojiForSpinnerDropdown;
         emotionList = EmojiSelectUtil.emojiExpressionTextValue;
 

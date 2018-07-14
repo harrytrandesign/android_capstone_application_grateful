@@ -25,7 +25,7 @@ import com.htdwps.grateful.Model.Beans;
 import com.htdwps.grateful.Model.CustomUser;
 import com.htdwps.grateful.R;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Viewholder.BeanPostsViewHolder;
+import com.htdwps.grateful.Viewholder.BeanLayoutViewHolder;
 
 import timber.log.Timber;
 
@@ -53,7 +53,7 @@ public class PrivateBeansFragment extends Fragment {
     private DatabaseReference queryRefrence;
     String queryTypeString;
 
-    FirebaseRecyclerAdapter<Beans, BeanPostsViewHolder> beanPostAdapter;
+    FirebaseRecyclerAdapter<Beans, BeanLayoutViewHolder> beanPostAdapter;
     DatabaseReference mainAllPostsReference;
     DatabaseReference userOnlyPostsReference;
     FirebaseUser firebaseUser;
@@ -96,7 +96,7 @@ public class PrivateBeansFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_private_beans, container, false);
+        View view = inflater.inflate(R.layout.fragment_beans_feedlist, container, false);
 
         runLayout(view);
         runInitialize();
@@ -195,15 +195,15 @@ public class PrivateBeansFragment extends Fragment {
         return linearLayoutManager;
     }
 
-    public FirebaseRecyclerAdapter<Beans, BeanPostsViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
-        beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanPostsViewHolder>(
+    public FirebaseRecyclerAdapter<Beans, BeanLayoutViewHolder> createBeanRecyclerViewAdapter(DatabaseReference databaseReference) {
+        beanPostAdapter = new FirebaseRecyclerAdapter<Beans, BeanLayoutViewHolder>(
                 Beans.class,
-                R.layout.item_grateful_post_user_posts,
-                BeanPostsViewHolder.class,
+                R.layout.item_bean_user_single_post,
+                BeanLayoutViewHolder.class,
                 databaseReference
         ) {
             @Override
-            protected void populateViewHolder(BeanPostsViewHolder viewHolder, Beans model, int position) {
+            protected void populateViewHolder(BeanLayoutViewHolder viewHolder, Beans model, int position) {
 
                 String year = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
                 String time = DateUtils.formatDateTime(getActivity(), (long) model.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
@@ -216,10 +216,10 @@ public class PrivateBeansFragment extends Fragment {
             }
 
             @Override
-            public BeanPostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                BeanPostsViewHolder beanPostsViewHolder = super.onCreateViewHolder(parent, viewType);
+            public BeanLayoutViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                BeanLayoutViewHolder beanPostsViewHolder = super.onCreateViewHolder(parent, viewType);
 
-                beanPostsViewHolder.setOnClickListener(new BeanPostsViewHolder.ClickListener() {
+                beanPostsViewHolder.setOnClickListener(new BeanLayoutViewHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (isPublicFeedDisplayed) {

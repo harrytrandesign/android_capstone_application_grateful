@@ -33,29 +33,37 @@ public class CustomSpinnerArrayAdapter extends ArrayAdapter<String> {
 
     @Override
     public void setDropDownViewResource(int resource) {
+
         super.setDropDownViewResource(resource);
+
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         return createItemView(position, convertView, parent);
+
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         return createItemView(position, convertView, parent);
+
     }
 
     private View createItemView(int position, View convertView, ViewGroup parent) {
+
         final View view = mInflater.inflate(mResource, parent, false);
 
-        TextView feelingText = view.findViewById(R.id.tv_mood_description_text);
+        TextView feelingText = view.findViewById(R.id.tv_spinner_mood_name_description);
 
         String feeling = mFeelings[position];
 
         feelingText.setText(feeling);
 
         return view;
+
     }
 }

@@ -175,7 +175,9 @@ public class MaterialHelperUtil {
 
                         }
                     }
-                });
+                })
+                .positiveText("Ok")
+                .negativeText("Cancel");
 
         dialog = builder.build();
         dialog.show();

@@ -9,11 +9,11 @@ import com.htdwps.grateful.R;
 /**
  * Created by HTDWPS on 6/27/18.
  */
-public class TagNamesViewHolder extends RecyclerView.ViewHolder {
+public class TagNameLayoutViewHolder extends RecyclerView.ViewHolder {
 
     private TextView tvTagName;
 
-    public TagNamesViewHolder(View itemView) {
+    public TagNameLayoutViewHolder(View itemView) {
         super(itemView);
 
         tvTagName = itemView.findViewById(R.id.tv_tag_text_label);
@@ -21,7 +21,9 @@ public class TagNamesViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setTagName(String text) {
+
         tvTagName.setText(text);
+
     }
 
 }
