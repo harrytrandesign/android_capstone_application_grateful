@@ -16,11 +16,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Model.MoodCount;
+import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.ProgressDialogUtil;
 import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import java.util.Arrays;
@@ -33,7 +32,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
 
-    private static final DatabaseReference userProfileDetailsDirectoryReference = FirebaseUtil.getUserProfileDetailsDirectoryReference();
+    private DatabaseReference userProfileDetailsDirectoryReference = FirebaseUtil.getUserProfileDetailsDirectoryReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                 .setAvailableProviders(Arrays.asList(
                         new AuthUI.IdpConfig.EmailBuilder().build(),
                         new AuthUI.IdpConfig.GoogleBuilder().build()))
-                .setLogo(R.drawable.grateful_bean_signin_logo_think_positive_msg)
+                .setLogo(R.drawable.icon_grateful_app_signin_logo)
                 .setTheme(R.style.SignInTheme)
 //                .setTosUrl("http://imharry.me/privacy.html")
                 .setPrivacyPolicyUrl("http://imharry.me/privacy.html")
@@ -67,37 +66,33 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
             // Successfully signed in
             if (resultCode == RESULT_OK) {
 
-                final ProgressDialogUtil progressDialogUtil = new ProgressDialogUtil();
-                progressDialogUtil.showProgressDialog(this, getResources().getString(R.string.progress_dialog_creating_new_account));
-
                 final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 if (firebaseUser != null) {
 
-                    final UserProfile createThisNewUserInDatabase = new UserProfile(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                    final String generatedUserKey = firebaseUser.getUid();
 
-                    userProfileDetailsDirectoryReference.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    final UserProfile createThisNewUserInDatabase = new UserProfile(generatedUserKey, firebaseUser.getDisplayName(), firebaseUser.getEmail());
+
+                    userProfileDetailsDirectoryReference.child(generatedUserKey).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.exists()) {
 
-                                Timber.i("This user does not exist and so creating a new user profile.");
-                                // On first sign up register the landlord object, and also isPremium is false for the user so they can only create 2 property objects
-                                Map<String, Object> newUser = new HashMap<>();
-                                newUser.put(StringConstantsUtil.USER_PROFILE_DETAILS_PATH + "/" + firebaseUser.getUid(), createThisNewUserInDatabase);
+                                Timber.d("This user does not exist and so creating a new user profile.");
 
-                                for (String mood : EmojiSelectUtil.emojiExpressionTextValue) {
-                                    MoodCount moodCount = new MoodCount(mood, 0);
-                                    newUser.put(StringConstantsUtil.MOOD_TYPE_NAME_COUNTER_PATH + "/" + firebaseUser.getUid() + "/" + mood, moodCount);
+                                Map<String, Object> generateNewUserProfile = new HashMap<>();
+                                generateNewUserProfile.put(StringConstantsUtil.createUserProfileDirectoryPath(generatedUserKey), createThisNewUserInDatabase);
+
+                                for (String mood_label_name : EmojiSelectUtil.emojiExpressionTextValue) {
+                                    MoodCount moodCount = new MoodCount(mood_label_name, 0);
+                                    generateNewUserProfile.put(StringConstantsUtil.createMoodTypeInitialZeroValues(generatedUserKey, mood_label_name), moodCount);
                                 }
 
-                                FirebaseUtil.getBaseRef().updateChildren(newUser, new DatabaseReference.CompletionListener() {
+                                FirebaseUtil.getBaseRef().updateChildren(generateNewUserProfile, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                                        if (progressDialogUtil != null) {
-                                            ProgressDialogUtil.dismissProgressDialog(progressDialogUtil);
-                                        }
                                         startActivity(new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class));
                                         finish();
 
@@ -106,10 +101,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
 
                             } else {
 
-                                Timber.i("User already exists, leaving FirebaseUIAuthActivity now.");
-                                if (progressDialogUtil != null) {
-                                    ProgressDialogUtil.dismissProgressDialog(progressDialogUtil);
-                                }
+                                Timber.d("User already exists, leaving FirebaseUIAuthActivity now.");
 
                                 startActivity(new Intent(FirebaseUiAuthActivity.this, MainWindowActivity.class));
                                 finish();
@@ -157,10 +149,5 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-//        Intent intent = new Intent(Intent.ACTION_MAIN);
-//        intent.addCategory(Intent.CATEGORY_HOME);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
-//
     }
 }

@@ -41,8 +41,8 @@ public class TagPostActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null) {
             taggedListing = getIntent().getExtras().getString(TAG_WORD_KEY_PARAM);
-            mainPostsReference = FirebaseUtil.getPrivateUserBeanPostReference().child(firebaseUser.getUid());
-            tagListReference = FirebaseUtil.getTagsPostsWithTagReference().child(firebaseUser.getUid()).child(taggedListing);
+            mainPostsReference = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(firebaseUser.getUid());
+            tagListReference = FirebaseUtil.getTagsPostsWithTagDirectoryReference().child(firebaseUser.getUid()).child(taggedListing);
 
             rvPostsWithTag = findViewById(R.id.rv_posts_with_tag);
 

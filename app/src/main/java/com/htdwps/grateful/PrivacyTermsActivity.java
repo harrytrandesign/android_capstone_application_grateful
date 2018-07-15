@@ -10,13 +10,11 @@ import com.htdwps.grateful.Util.StringConstantsUtil;
 
 public class PrivacyTermsActivity extends AppCompatActivity {
 
-    private static final String TERMS_LABEL = "TERMS";
-    private static final String PRIVACY_LABEL = "PRIVACY";
-    private static final String STATEMENT_TYPE = "StatementType";
+    private Intent intentExtra;
 
-    Intent intentExtra;
-    TextView statementHolderTextView;
-    String statementType;
+    private String statementType;
+
+    private TextView statementHolderTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +26,7 @@ public class PrivacyTermsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        statementHolderTextView = findViewById(R.id.tv_blank_text_statement);
+        statementHolderTextView = findViewById(R.id.tv_blank_statement_holder);
 
         intentExtra = getIntent();
 

@@ -83,7 +83,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
         commentRecyclerView = findViewById(R.id.rv_comments_list);
         commentRecyclerView.setLayoutManager(linearLayoutManager);
-        commentForBeansDirectoryReference = FirebaseUtil.getCommentListRef().child(bean.getBeanPostKey());
+        commentForBeansDirectoryReference = FirebaseUtil.getCommentForBeansListDirectoryReference().child(bean.getBeanPostKey());
 
         commentsAdapter = new FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder>(
                 CommentBean.class,
@@ -189,7 +189,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         Map<String, Object> tempComments = new HashMap<>();
 
         for (int i = 0; i < 10; i++) {
-            String commentGenerateRandomPushId = FirebaseUtil.getCommentListRef().push().getKey();
+            String commentGenerateRandomPushId = FirebaseUtil.getCommentForBeansListDirectoryReference().push().getKey();
             CommentBean commentBean = new CommentBean(user, originalThreadPushId, commentGenerateRandomPushId, "Fake comment " + i, ServerValue.TIMESTAMP);
 
             String temporaryCommentsDirectoryPath = StringConstantsUtil.COMMENT_FOR_BEANS_PATH + "/" + originalThreadPushId + "/" + commentGenerateRandomPushId;

@@ -37,13 +37,13 @@ public class EmojiSelectUtil {
     private static final int EMOJI_MONEY = 0x1F4B0;
     private static final int EMOJI_BLESSED = 0x1F47C;
 
+    // Values: 0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
     public static int[] emojiIconCodePoint = new int[]{
             0x1F525, 0x1F603, 0x1F60D, 0x1F60E,
             0x1F914, 0x1F623, 0x1F62A, 0x1F613,
             0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF,
             0x1F4B0, 0x1F47C, 0x1F625, 0x1F915
     };
-    //      0x1F525, 0x1F603, 0x1F60D, 0x1F60E, 0x1F914, 0x1F623, 0x1F62A, 0x1F613, 0x1F61F, 0x1F620, 0x1F4A9, 0x1F4AF, 0x1F4B0, 0x1F47C
 
     public static String[] emojiExpressionTextValue = new String[]{
             EMOJI_ON_FIRE_STRING,
@@ -179,76 +179,6 @@ public class EmojiSelectUtil {
         }
 
         return feeling;
-    }
-
-    public static int emojiIconPicker(int value) {
-
-        //        switch (value) {
-//
-//            case 0:
-//
-//                emoji = EMOJI_ON_FIRE;
-//
-//                break;
-//
-//            case 1:
-//
-//                emoji = EMOJI_HAPPY;
-//
-//                break;
-//
-//            case 2:
-//
-//                break;
-//
-//            case 3:
-//
-//                break;
-//
-//            case 4:
-//
-//                break;
-//
-//            case 5:
-//
-//                break;
-//
-//            case 6:
-//
-//                break;
-//
-//            case 7:
-//
-//                break;
-//
-//            case 8:
-//
-//                break;
-//
-//            case 9:
-//
-//                break;
-//
-//            case 10:
-//
-//                break;
-//
-//            case 11:
-//
-//                break;
-//
-//            case 12:
-//
-//                break;
-//
-//            case 13:
-//
-//                break;
-//
-//
-//        },
-
-        return emojiIconCodePoint[value];
     }
 
 }

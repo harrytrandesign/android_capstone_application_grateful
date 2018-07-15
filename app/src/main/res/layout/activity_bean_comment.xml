@@ -25,7 +25,6 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <!-- Create a more custom layout for post -->
             <include
                 layout="@layout/item_bean_user_single_post_condensed"
                 android:background="@color/color_text_white"
@@ -35,46 +34,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="vertical"-->
-    <!--app:layout_anchor="@id/appbar_hold_original_post_details"-->
-    <!--app:layout_anchorGravity="bottom"-->
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-    <!--app:layout_collapseMode="pin">-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_comments_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/padding_three"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="vertical">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_post_text"-->
-    <!--tools:text="This is the message"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"/>-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_post_pushkey"-->
-    <!--android:layout_width="match_parent"-->
-    <!--tools:text="Random NUMBERS"-->
-    <!--android:layout_height="wrap_content"/>-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_post_username"-->
-    <!--android:layout_width="match_parent"-->
-    <!--tools:text="HTDWPS"-->
-    <!--android:layout_height="wrap_content"/>-->
-
-    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +56,7 @@
             android:layout_marginBottom="@dimen/padding_xsmall"
             android:layout_marginEnd="@dimen/padding_xsmall"
             android:background="@color/colorPrimary"
-            android:src="@drawable/ic_comment"
+            android:src="@drawable/floating_action_icon_comment_button"
             android:tint="@android:color/white"
             android:visibility="invisible"
             app:backgroundTint="@color/colorPrimary"/>
@@ -112,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:background="@drawable/circle_shape_blue_occupation_box"
+                android:background="@drawable/drawable_blue_edittext_bubble_frame"
                 android:hint="@string/submit_text_hint_comment"
                 android:inputType="textLongMessage|textCapSentences|textAutoCorrect|textAutoComplete"
                 android:maxLength="200"
@@ -136,6 +101,5 @@
         </LinearLayout>
 
     </LinearLayout>
-    <!--</LinearLayout>-->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -10,10 +10,20 @@
     <string name="invite_title_label">Invite Your Friends</string>
     <string name="invite_message_label">Join me on Grateful. Share the things you\'re grateful for. You know, like me.</string>
 
+    <!-- Toggle label for Public and Private post feed -->
+    <string name="switch_public_text_label">Viewing Private Feed</string>
+    <string name="switch_private_text_label">Viewing Public Feed</string>
+
     <!-- Bottom Navigation Items -->
     <string name="bottom_navigation_grateful_label">Beans</string>
     <string name="bottom_navigation_mood_label">Moods</string>
     <string name="bottom_navigation_tags_label">Tags</string>
+
+    <!-- Feedback for Developer via Material Dialog Popup -->
+    <string name="material_dialog_submit_feedback">We want to hear from you</string>
+    <string name="material_dialog_feedback_content">Let us know what you think</string>
+    <string name="material_dialog_feedback_hint">Comments, feedback, suggestions.</string>
+    <string name="material_dialog_feedback_prefill"></string>
 
     <!-- Preference Settings Labels -->
         <!-- Quote Display Setting -->
@@ -64,16 +74,9 @@
     <string name="feedback_hint">We want to hear from you.</string>
 
     <string name="item_tv_comment_count">Comment</string>
-    <string name="next_button_text">Next</string>
     <string name="tv_quote_inspire_daily">Inspire Yourself…</string>
     <string name="tv_close_quote">Close</string>
-    <string name="tv_user_wrote">You Wrote…</string>
-    <string name="tv_user_journal_wrote">Your Journal Entries</string>
     <string name="tv_today_feeling">I\'m Feeling</string>
-    <string name="material_dialog_submit_feedback">We want to hear from you</string>
-    <string name="material_dialog_feedback_content">Let us know what you think</string>
-    <string name="material_dialog_feedback_hint">Comments, feedback, suggestions.</string>
-    <string name="material_dialog_feedback_prefill"></string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="submit_upload_image">Upload Image</string>
@@ -92,13 +95,10 @@
     <string name="public_text_label">Public</string>
     <string name="string_no_tags_found">No Tags Used</string>
     <string name="string_public_status_text">Public</string>
-    <string name="string_feedback_response_received">Your feedback has been submitted. We thank you for your input to improve our app. You can also email us directly at htdwps@gmail.com</string>
+    <string name="string_feedback_response_received">Your feedback has been submitted. We thank you for your input to improve our app. Also, you can always email us directly at htdwps@gmail.com</string>
     <string name="string_feedback_length_too_short">Your feedback is too short.</string>
     <string name="string_message_too_short_error_alert">Sorry, your message is too short</string>
     <string name="title_activity_main_window">MainWindowActivity</string>
-
-    <string name="switch_public_text_label">Viewing Private Feed</string>
-    <string name="switch_private_text_label">Viewing Public Feed</string>
 
     <string name="progress_dialog_creating_new_account">Please wait while we create a brand new account for you</string>
     <string name="submit_text_hint_comment">Add a comment</string>
@@ -133,6 +133,7 @@
     <string name="navigation_menu_tag_list">Tag List</string>
     <string name="navigation_menu_user_journal">Your Entries</string>
     <string name="navigation_menu_public_journal_feed">Public Journal Feed</string>
+    <string name="add_comment_button_label">add comment</string>
 
     <!-- Labels for the menu items -->
     <string-array name="navigation_labels">

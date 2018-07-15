@@ -60,7 +60,6 @@ public class PrivateBeansFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
 
     TextView tvTextTogglePublicPrivateFeed;
-    TextView tvRemindAddText;
     Switch switchToggleValue;
     RecyclerView recyclerView;
     RecyclerView moodCounterRecyclerView;
@@ -96,7 +95,7 @@ public class PrivateBeansFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_beans_feedlist, container, false);
+        View view = inflater.inflate(R.layout.fragment_beans_feed_layout, container, false);
 
         runLayout(view);
         runInitialize();
@@ -111,7 +110,6 @@ public class PrivateBeansFragment extends Fragment {
     }
 
     public void runLayout(View view) {
-        tvRemindAddText = view.findViewById(R.id.tv_load_some_posts_text);
 //        tvTextTogglePublicPrivateFeed = view.findViewById(R.id.tv_public_private_display_text);
 //        switchToggleValue = view.findViewById(R.id.switch_toggle_public_private_feed_display);
         recyclerView = view.findViewById(R.id.fragment_recyclerview_post);
@@ -130,14 +128,14 @@ public class PrivateBeansFragment extends Fragment {
         user = FirebaseUtil.getCurrentUser();
 
         if (user != null) {
-            mainAllPostsReference = FirebaseUtil.getPrivateUserBeanPostReference();
-            userOnlyPostsReference = FirebaseUtil.getPrivateUserBeanPostReference().child(user.getUserid());
+            mainAllPostsReference = FirebaseUtil.getPrivateUserBeanPostDirectoryReference();
+            userOnlyPostsReference = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(user.getUserid());
 
             Timber.i(queryTypeString);
 
             if (queryTypeString.equals(MainWindowActivity.PUBLIC_PARAM)) {
 
-                queryRefrence = FirebaseUtil.getBeanPublicReference();
+                queryRefrence = FirebaseUtil.getBeanPublicDirectoryReference();
 
             } else if (queryTypeString.equals(MainWindowActivity.PRIVATE_PARAM)) {
 
@@ -160,7 +158,7 @@ public class PrivateBeansFragment extends Fragment {
 
         if (feed) {
 //            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_private_text_label));
-            queryRefrence = FirebaseUtil.getBeanPublicReference();
+            queryRefrence = FirebaseUtil.getBeanPublicDirectoryReference();
         } else {
 //            tvTextTogglePublicPrivateFeed.setText(getResources().getString(R.string.switch_public_text_label));
             queryRefrence = mainAllPostsReference.child(user.getUserid());

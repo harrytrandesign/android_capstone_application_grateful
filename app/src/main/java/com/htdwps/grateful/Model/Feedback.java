@@ -14,11 +14,11 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(UserProfile user, String feedback, Object timestamp, Boolean adminread) {
+    public Feedback(UserProfile user, String feedback, Object timestamp) {
         this.user = user;
         this.feedback = feedback;
         this.timestamp = timestamp;
-        this.adminread = adminread;
+        this.adminread = false;
     }
 
     public UserProfile getUser() {

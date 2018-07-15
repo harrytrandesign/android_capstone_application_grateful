@@ -64,7 +64,7 @@ public class TagsCounterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tags_list_private, container, false);
+        View view = inflater.inflate(R.layout.fragment_tags_list_layout, container, false);
 
         tagListRecyclerView = view.findViewById(R.id.rv_tag_counter_list);
 
@@ -72,7 +72,7 @@ public class TagsCounterFragment extends Fragment {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            tagListReference = FirebaseUtil.getTagsBeanReference().child(firebaseUser.getUid());
+            tagListReference = FirebaseUtil.getTagsBeanDirectoryReference().child(firebaseUser.getUid());
 
             tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder>(
                     TagName.class,

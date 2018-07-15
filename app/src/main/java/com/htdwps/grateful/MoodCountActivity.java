@@ -52,9 +52,9 @@ public class MoodCountActivity extends AppCompatActivity {
 
             setTitle("All \"" + EmojiSelectUtil.emojiIntConvertToString(moodIntValue) + "\" Posts");
 
-            moodsListedPostReference = FirebaseUtil.getMoodBeanListReference().child(firebaseUser.getUid()).child(String.valueOf(moodIntValue));
+            moodsListedPostReference = FirebaseUtil.getMoodBeanListDirectoryReference().child(firebaseUser.getUid()).child(String.valueOf(moodIntValue));
 
-            moodListDirectoryReference = FirebaseUtil.getPrivateUserBeanPostReference().child(firebaseUser.getUid());
+            moodListDirectoryReference = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(firebaseUser.getUid());
 
 //            Toast.makeText(this, String.valueOf(moodIntValue), Toast.LENGTH_LONG).show();
 

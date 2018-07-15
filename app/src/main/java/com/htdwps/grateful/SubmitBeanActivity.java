@@ -174,7 +174,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                     Toast.makeText(this, beanMessage, Toast.LENGTH_SHORT).show();
 
-                    final String postKeyGenerated = FirebaseUtil.getPrivateUserBeanPostReference().push().getKey();
+                    final String postKeyGenerated = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().push().getKey();
 
                     List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too
 //                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
@@ -198,7 +198,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                             String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag + "/" + postKeyGenerated;
                             beanMap.put(taggedPosts, true);
 
-//                        String tagKeyGenerated = FirebaseUtil.getTagsBeanReference().push().getKey();
+//                        String tagKeyGenerated = FirebaseUtil.getTagsBeanDirectoryReference().push().getKey();
                             String tagPostPath = "post_tags_list/" + user.getUserid() + "/" + tag;
                             beanMap.put(tagPostPath, tagName);
                         }
@@ -217,7 +217,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             if (databaseError == null) {
 
-                                final DatabaseReference moodRef = FirebaseUtil.getMoodCounterReference().child(user.getUserid());
+                                final DatabaseReference moodRef = FirebaseUtil.getMoodCounterDirectoryReference().child(user.getUserid());
                                 moodRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {

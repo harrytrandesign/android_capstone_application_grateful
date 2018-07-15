@@ -36,9 +36,7 @@ import java.util.List;
  */
 public class MaterialDialogHelperUtil {
 
-    //    Context mContext;
-    private static final DatabaseReference feedbackDatabaseReference = FirebaseUtil.getFeedbackRef();
-    private static final DatabaseReference commentDatabaseReference = FirebaseUtil.getCommentListRef();
+    private static DatabaseReference feedbackforDeveloperDatabaseReference = FirebaseUtil.getFeedbackForDeveloperDirectoryReference();
 
     public static void generateInspirationalQuote(Context context) {
         MaterialDialog dialog;
@@ -52,6 +50,95 @@ public class MaterialDialogHelperUtil {
         dialog.show();
     }
 
+    // Submit feedback to developer, feedback goes to the fb database
+    public static void submitFeedbackToDeveloper(final Context context, final UserProfile userProfile) {
+
+        MaterialDialog dialog;
+
+        final MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                .title(R.string.material_dialog_submit_feedback)
+                .content(R.string.material_dialog_feedback_content)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                .input(R.string.material_dialog_feedback_hint, R.string.material_dialog_feedback_prefill, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+
+                        String feedbackTextValue = input.toString();
+                        Object feedbackTimeSubmitted = ServerValue.TIMESTAMP;
+
+                        if (TextUtils.isEmpty(feedbackTextValue) || feedbackTextValue.length() < 10) {
+
+                            Toast.makeText(context, R.string.string_feedback_length_too_short, Toast.LENGTH_SHORT).show();
+                            // Repeat the feedback box
+                            submitFeedbackToDeveloper(context, userProfile);
+
+                        } else {
+
+                            Feedback userFeedbackForDeveloper = new Feedback(userProfile, feedbackTextValue, feedbackTimeSubmitted);
+
+                            feedbackforDeveloperDatabaseReference.push().setValue(userFeedbackForDeveloper).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    Toast.makeText(context, R.string.string_feedback_response_received, Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            });
+
+                        }
+                    }
+                })
+                .positiveText("Ok")
+                .negativeText("Close");
+
+        dialog = builder.build();
+        dialog.show();
+
+    }
+
+    // Unused method
+    public static void populateCommentBoxForPost(final Context context, final UserProfile userProfile, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
+
+        MaterialDialog materialDialog;
+
+        final MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                .title("Add a comment")
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                .input("Must be at least 10 characters long.", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+
+                        if (TextUtils.isEmpty(input) || input.length() < 10) {
+
+                            Toast.makeText(context, "Your comment was too short", Toast.LENGTH_SHORT).show();
+                            populateCommentBoxForPost(context, userProfile, postKeyPushId, commentDirectoryRef);
+
+                        } else {
+
+                            // Submit to database
+                            String commentGeneratePushId = commentDirectoryRef.push().getKey();
+                            CommentBean commentBean = new CommentBean(userProfile, postKeyPushId, commentGeneratePushId, input.toString(), ServerValue.TIMESTAMP);
+
+                            commentDirectoryRef.child(commentGeneratePushId).setValue(commentBean).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    Toast.makeText(context, "Comment Posted", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+                        }
+                    }
+                });
+
+        materialDialog = builder.build();
+        materialDialog.show();
+
+    }
+
+    // Unused method
     // Submit a grateful bean to the fb database here
     public static void createMaterialDialogBeanCreator(final Context context, View view, ArrayAdapter<String> adapter, final String[] emojiList, final String[] emotionList, final UserProfile userProfile) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -108,7 +195,7 @@ public class MaterialDialogHelperUtil {
                             ArrayList<String> list = new ArrayList<>(items);
 
                             BeanPosts beanPosts = new BeanPosts(userProfile, expressionDrop.getSelectedItemPosition(), text, ServerValue.TIMESTAMP, list, checkBox.isChecked(), "");
-                            FirebaseUtil.getPrivateUserBeanPostReference().child(userProfile.getUserid()).push().setValue(beanPosts).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(userProfile.getUserid()).push().setValue(beanPosts).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
@@ -119,89 +206,6 @@ public class MaterialDialogHelperUtil {
                     }
                 })
                 .show();
-    }
-
-    // Submit feedback to developer, feedback goes to the fb database
-    public static void submitFeedbackToDeveloper(final Context context, final UserProfile userProfile) {
-
-        MaterialDialog dialog;
-
-        final MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
-                .title(R.string.material_dialog_submit_feedback)
-                .content(R.string.material_dialog_feedback_content)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
-                .input(R.string.material_dialog_feedback_hint, R.string.material_dialog_feedback_prefill, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        if (TextUtils.isEmpty(input) || input.length() < 10) {
-
-                            Toast.makeText(context, R.string.string_feedback_length_too_short, Toast.LENGTH_SHORT).show();
-                            // Recall the feedback box
-                            submitFeedbackToDeveloper(context, userProfile);
-
-                        } else {
-
-                            Feedback user_feedback = new Feedback(userProfile, input.toString(), ServerValue.TIMESTAMP, false);
-
-                            feedbackDatabaseReference.push().setValue(user_feedback).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-
-                                    Toast.makeText(context, R.string.string_feedback_response_received, Toast.LENGTH_SHORT).show();
-
-                                }
-
-                            });
-
-                        }
-                    }
-                })
-                .positiveText("Ok")
-                .negativeText("Cancel");
-
-        dialog = builder.build();
-        dialog.show();
-
-    }
-
-    public static void populateCommentBoxForPost(final Context context, final UserProfile userProfile, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
-
-        MaterialDialog materialDialog;
-
-        final MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
-                .title("Add a comment")
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
-                .input("Must be at least 10 characters long.", "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-
-                        if (TextUtils.isEmpty(input) || input.length() < 10) {
-
-                            Toast.makeText(context, "Your comment was too short", Toast.LENGTH_SHORT).show();
-                            populateCommentBoxForPost(context, userProfile, postKeyPushId, commentDirectoryRef);
-
-                        } else {
-
-                            // Submit to database
-                            String commentGeneratePushId = commentDirectoryRef.push().getKey();
-                            CommentBean commentBean = new CommentBean(userProfile, postKeyPushId, commentGeneratePushId, input.toString(), ServerValue.TIMESTAMP);
-
-                            commentDirectoryRef.child(commentGeneratePushId).setValue(commentBean).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-
-                                    Toast.makeText(context, "Comment Posted", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-
-                        }
-                    }
-                });
-
-        materialDialog = builder.build();
-        materialDialog.show();
-
     }
 
 }

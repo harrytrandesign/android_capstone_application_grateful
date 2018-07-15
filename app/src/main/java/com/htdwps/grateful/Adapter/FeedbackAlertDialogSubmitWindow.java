@@ -45,7 +45,7 @@ public class FeedbackAlertDialogSubmitWindow extends LayoutInflater implements V
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.alert_dialog_feedback_submit, null);
 
-        feedbackReference = FirebaseUtil.getFeedbackRef();
+        feedbackReference = FirebaseUtil.getFeedbackForDeveloperDirectoryReference();
         final UserProfile user = FirebaseUtil.getCurrentUser();
 
         feedback_text_field = view.findViewById(R.id.wyd_feedback_add);
@@ -90,7 +90,7 @@ public class FeedbackAlertDialogSubmitWindow extends LayoutInflater implements V
                             user_feedback_text = feedback_text_field.getText().toString();
                             feedback_text_field.setText("");
 
-                            Feedback user_feedback = new Feedback(user, user_feedback_text, ServerValue.TIMESTAMP, false);
+                            Feedback user_feedback = new Feedback(user, user_feedback_text, ServerValue.TIMESTAMP);
 
                             feedbackReference.push().setValue(user_feedback).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

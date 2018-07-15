@@ -9,34 +9,17 @@
 
     <TextView
         android:id="@+id/tv_today_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding_xsmall"
-        android:paddingEnd="@dimen/padding_zero"
-        android:paddingStart="@dimen/padding_xsmall"
-        android:paddingTop="@dimen/padding_xsmall"
+        android:padding="@dimen/padding_xsmall"
         android:text="@string/tv_today_feeling"
+        android:textAllCaps="true"
         android:textColor="@color/color_text_primary"
         android:textSize="@dimen/font_standard"
         android:textStyle="bold"
+        ads:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_mood_expression_text"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="@dimen/padding_xsmall"-->
-    <!--android:paddingEnd="@dimen/padding_xsmall"-->
-    <!--android:paddingStart="@dimen/padding_zero"-->
-    <!--android:paddingTop="@dimen/padding_xsmall"-->
-    <!--android:textAllCaps="true"-->
-    <!--android:textColor="@color/color_text_primary"-->
-    <!--android:textSize="@dimen/font_standard"-->
-    <!--android:textStyle="bold|italic"-->
-    <!--app:layout_constraintStart_toEndOf="@id/tv_today_text"-->
-    <!--app:layout_constraintTop_toTopOf="@id/tv_today_text"-->
-    <!--tools:text="Excited"/>-->
 
     <Spinner
         android:id="@+id/spinner_emoji_expression_moods_dropdown"
@@ -46,6 +29,7 @@
         android:paddingStart="@dimen/padding_xsmall"
         android:spinnerMode="dialog"
         android:textAlignment="textStart"
+        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/tv_today_text"/>
 
     <EditText
@@ -53,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_xsmall"
-        android:background="@drawable/border"
+        android:background="@drawable/drawable_border"
         android:elevation="@dimen/padding_tiny"
         android:gravity="top|start"
         android:hint="@string/et_what_to_say_text"
@@ -61,7 +45,7 @@
         android:lines="4"
         android:padding="@dimen/padding_xsmall"
         android:textSize="@dimen/font_standard"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
 
     <TextView
@@ -74,6 +58,7 @@
         android:text="@string/submit_tag_label"
         android:textSize="@dimen/font_medium"
         android:textStyle="bold"
+        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         ads:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
 
     <EditText
@@ -81,10 +66,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_xsmall"
-        android:background="@drawable/border"
+        android:background="@drawable/drawable_border"
+        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,1234567890"
         android:elevation="@dimen/padding_tiny"
         android:gravity="top|start"
-        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,1234567890"
         android:hint="@string/et_tag_list_hint"
         android:imeOptions="actionDone"
         android:inputType="text|textAutoComplete|textAutoCorrect"
@@ -92,17 +77,16 @@
         android:padding="@dimen/padding_xsmall"
         android:singleLine="true"
         android:textSize="@dimen/font_standard"
+        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text"/>
 
-    <!-- TODO Temporary remove checkbox -->
     <CheckBox
         android:id="@+id/checkbox_public_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
         android:text="@string/checkbox_share_public_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>
 
     <com.google.android.gms.ads.AdView

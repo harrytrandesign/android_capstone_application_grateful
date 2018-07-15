@@ -59,7 +59,7 @@ public class MoodCounterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mood_list_private, container, false);
+        View view = inflater.inflate(R.layout.fragment_mood_list_layout, container, false);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -69,7 +69,7 @@ public class MoodCounterFragment extends Fragment {
         moodListRecyclerView.setLayoutManager(gridLayoutManager);
 
         if (firebaseUser != null) {
-            moodCountListReference = FirebaseUtil.getMoodCounterReference().child(firebaseUser.getUid());
+            moodCountListReference = FirebaseUtil.getMoodCounterDirectoryReference().child(firebaseUser.getUid());
             moodCountAdapter = new FirebaseRecyclerAdapter<MoodCount, MoodCountLayoutViewHolder>(
                     MoodCount.class,
                     R.layout.item_mood_icon_count_value,

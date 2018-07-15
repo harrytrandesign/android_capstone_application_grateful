@@ -17,11 +17,20 @@ public class StringConstantsUtil {
     public static final String PERSONAL_BEANS_LIST_PATH = "personal_beans_list";
 
     public static final String MOOD_TYPE_NAME_COUNTER_PATH = "mood_type_name_counter";
-    public static final String POSTBY_MOOD_TYPE_PATH = "post_by_mood_type";
+    public static final String POST_EXISTS_MOOD_TYPE_PATH = "post_by_mood_type";
     public static final String TAG_NAME_USED_PATH = "tag_name_used";
-    public static final String POSTBY_TAG_NAME_PATH = "post_by_tag_name";
+    public static final String POST_EXISTS_TAG_NAME_PATH = "post_by_tag_name";
     public static final String COMMENT_FOR_BEANS_PATH = "comment_for_beans";
     public static final String FEEDBACK_FOR_DEVELOPER_PATH = "feedback_for_developer";
+
+    // Use this method to populate a new user's profile with their name, email, and firebase generated user_key
+    public static String createUserProfileDirectoryPath(String user_id) {
+        return USER_PROFILE_DETAILS_PATH + "/" + user_id;
+    }
+
+    public static String createMoodTypeInitialZeroValues(String user_id, String mood_name) {
+        return MOOD_TYPE_NAME_COUNTER_PATH + "/" + user_id + "/" + mood_name;
+    }
 
 
 }

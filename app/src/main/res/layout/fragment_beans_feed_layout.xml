@@ -5,11 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TagPostActivity">
+    tools:context=".Fragment.PrivateBeansFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_posts_with_tag"
+        android:id="@+id/fragment_recyclerview_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="3dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </FrameLayout>
