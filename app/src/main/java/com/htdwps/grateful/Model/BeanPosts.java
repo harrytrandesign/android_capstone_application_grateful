@@ -32,6 +32,7 @@ public class BeanPosts implements Parcelable {
     }
 
     protected BeanPosts(Parcel in) {
+        userProfile = in.readParcelable(UserProfile.class.getClassLoader());
         moodValue = in.readInt();
         beanText = in.readString();
         tagList = in.createStringArrayList();
@@ -110,6 +111,7 @@ public class BeanPosts implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(userProfile, i);
         parcel.writeInt(moodValue);
         parcel.writeString(beanText);
         parcel.writeStringList(tagList);

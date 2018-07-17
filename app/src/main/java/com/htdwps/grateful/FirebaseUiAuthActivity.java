@@ -79,14 +79,18 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.exists()) {
 
-                                Timber.d("This user does not exist and so creating a new user profile.");
+                                Timber.d("This userProfile does not exist and so creating a new userProfile profile.");
 
                                 Map<String, Object> generateNewUserProfile = new HashMap<>();
+
                                 generateNewUserProfile.put(StringConstantsUtil.createUserProfileDirectoryPath(generatedUserKey), createThisNewUserInDatabase);
 
                                 for (String mood_label_name : EmojiSelectUtil.emojiExpressionTextValue) {
+
                                     MoodCount moodCount = new MoodCount(mood_label_name, 0);
-                                    generateNewUserProfile.put(StringConstantsUtil.createMoodTypeInitialZeroValues(generatedUserKey, mood_label_name), moodCount);
+
+                                    generateNewUserProfile.put(StringConstantsUtil.createMoodTypeInitialZeroValuesPath(generatedUserKey, mood_label_name), moodCount);
+
                                 }
 
                                 FirebaseUtil.getBaseRef().updateChildren(generateNewUserProfile, new DatabaseReference.CompletionListener() {

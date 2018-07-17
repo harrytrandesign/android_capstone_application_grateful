@@ -42,7 +42,7 @@ public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
         tvPostOwner = itemView.findViewById(R.id.tv_post_submitted_by);
         TextView tvCommentLink = itemView.findViewById(R.id.tv_comment_on_post_link);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
+        tvCommentLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mClickListener.onItemClick(view, getAdapterPosition());
@@ -71,6 +71,7 @@ public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
         }
 
         tvIsPublic.setText(R.string.string_public_status_text);
+
         if (!onPublicFeed) {
 
             llPublicStats.setVisibility(View.GONE);

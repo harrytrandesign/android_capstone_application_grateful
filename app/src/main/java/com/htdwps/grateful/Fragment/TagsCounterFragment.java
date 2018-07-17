@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +20,21 @@ import com.htdwps.grateful.R;
 import com.htdwps.grateful.TagPostActivity;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.SpacingItemDecoration;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 import com.htdwps.grateful.Viewholder.TagNameLayoutViewHolder;
 
 public class TagsCounterFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private static final int OFFSET = 16;
+    private DatabaseReference tagNameChipsDirectoryReference;
 
-    DatabaseReference tagListReference;
-    RecyclerView tagListRecyclerView;
-    FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder> tagListAdapter;
+    private FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder> adapterTagNameList;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+
+    private RecyclerView recyclerViewChipsTagNameList;
 
     public TagsCounterFragment() {
         // Required empty public constructor
@@ -47,18 +50,6 @@ public class TagsCounterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-    }
-
-    public LinearLayoutManager createLayoutManager() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        linearLayoutManager.setReverseLayout(true);
-
-        return linearLayoutManager;
     }
 
     @Override
@@ -66,76 +57,64 @@ public class TagsCounterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tags_list_layout, container, false);
 
-        tagListRecyclerView = view.findViewById(R.id.rv_tag_counter_list);
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        setupLayoutView(view);
+        setupInitializers();
 
         if (firebaseUser != null) {
-            tagListReference = FirebaseUtil.getTagsBeanDirectoryReference().child(firebaseUser.getUid());
 
-            tagListAdapter = new FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder>(
-                    TagName.class,
-                    R.layout.item_tag_single_label,
-                    TagNameLayoutViewHolder.class,
-                    tagListReference
-            ) {
-                @Override
-                protected void populateViewHolder(final TagNameLayoutViewHolder viewHolder, final TagName model, int position) {
+            tagNameChipsDirectoryReference = FirebaseUtil.getTagsPostsWithTagDirectoryReference().child(firebaseUser.getUid());
 
-                    viewHolder.setTagName(model.getTagName());
-
-                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
-                            tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, model.getTagName());
-                            startActivity(tagPostActivityIntent);
-                        }
-                    });
-
-                }
-
-                //                @Override
-//                public TagNameLayoutViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-//                    TagNameLayoutViewHolder tagListViewHolder = super.onCreateViewHolder(parent, viewType);
-//
-//                    tagListViewHolder.setOnClickListener(new TagNameLayoutViewHolder.ClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> adapterView, View view, int position) {
-//                            TagName tagName = (TagName) adapterView.getAdapter().getItem(position);
-//                            Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
-//                            tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, tagName.getTagName());
-//                            startActivity(tagPostActivityIntent);
-//
-//                        }
-//                    });
-//
-////                        @Override
-////                        public void onTagClick(TagName tagName) {
-////                            Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
-////                            tagPostActivityIntent.putExtra(TagPostActivity.TAG_WORD_KEY_PARAM, tagName.getTagName());
-////                            startActivity(tagPostActivityIntent);
-////                        }
-////                });
-//
-//                    return tagListViewHolder;
-//                }
-            };
-
-            tagListRecyclerView.setLayoutManager(ChipLayoutManager.createLayoutManager(getActivity()));
-            tagListRecyclerView.addItemDecoration(new SpacingItemDecoration(OFFSET, OFFSET));
-            tagListRecyclerView.setAdapter(tagListAdapter);
+            recyclerViewChipsTagNameList.setAdapter(createAdapterTagNameList(tagNameChipsDirectoryReference));
 
         }
 
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void setupLayoutView(View view) {
+
+        recyclerViewChipsTagNameList = view.findViewById(R.id.rv_tag_counter_list);
+        recyclerViewChipsTagNameList.setLayoutManager(ChipLayoutManager.createLayoutManager(getActivity()));
+        recyclerViewChipsTagNameList.addItemDecoration(new SpacingItemDecoration(StringConstantsUtil.OFFSET, StringConstantsUtil.OFFSET));
+
+    }
+
+    private void setupInitializers() {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+    }
+
+    public FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder> createAdapterTagNameList(DatabaseReference databaseReference) {
+
+        adapterTagNameList = new FirebaseRecyclerAdapter<TagName, TagNameLayoutViewHolder>(
+                TagName.class,
+                R.layout.item_tag_single_label,
+                TagNameLayoutViewHolder.class,
+                databaseReference
+        ) {
+            @Override
+            protected void populateViewHolder(final TagNameLayoutViewHolder viewHolder, final TagName model, int position) {
+
+                viewHolder.setTagName(model.getTagName());
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent tagPostActivityIntent = new Intent(getActivity(), TagPostActivity.class);
+                        tagPostActivityIntent.putExtra(StringConstantsUtil.TAG_WORD_KEY_PARAM, model.getTagName());
+                        startActivity(tagPostActivityIntent);
+
+                    }
+                });
+
+            }
+
+        };
+
+        return adapterTagNameList;
     }
 
     @Override

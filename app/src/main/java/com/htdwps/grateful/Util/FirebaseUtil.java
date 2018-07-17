@@ -47,32 +47,33 @@ public class FirebaseUtil {
         return getBaseRef().child(StringConstantsUtil.PERSONAL_BEANS_LIST_PATH);
     }
 
-    // ref --> user_id --> mood_name --> post_key : true;
     // Posts directory holds all instances of posts that come up;
     // DatabaseReference MoodPostsDirectoryRef;
-    public static DatabaseReference getMoodBeanListDirectoryReference() {
-        return getBaseRef().child(StringConstantsUtil.POST_EXISTS_MOOD_TYPE_PATH);
+    // ref --> user_id --> mood_name --> post_key : true;
+    public static DatabaseReference getMoodBeanListBooleanDirectoryReference() {
+        return getBaseRef().child(StringConstantsUtil.POST_EXISTS_MOOD_TYPE_BOOLEAN_PATH);
     }
 
-    // ref --> user_id --> mood : int 0, mood2 : int 0;
     // While the other folder tracks the actual counts
     // DatabaseReference MoodCountDirectoryRef;
+    // ref --> user_id --> mood : int 4, mood2 : int 10;
     public static DatabaseReference getMoodCounterDirectoryReference() {
         return getBaseRef().child(StringConstantsUtil.MOOD_TYPE_NAME_COUNTER_PATH);
     }
 
-    // ref --> user_id --> tag_word --> post_key : true;
     // DatabaseReference TagPostsDirectoryRef;
-    public static DatabaseReference getTagsBeanDirectoryReference() {
-        return getBaseRef().child(StringConstantsUtil.POST_EXISTS_TAG_NAME_PATH);
+    // ref --> user_id --> tag_word --> post_key : true;
+    public static DatabaseReference getTagsBeanBooleanDirectoryReference() {
+        return getBaseRef().child(StringConstantsUtil.POST_EXISTS_TAG_NAME_BOOLEAN_PATH);
     }
 
-    // ref --> user_id --> tag_word --> tag pojo
     // DatabaseReference TagNameDirectoryRef;
+    // ref --> user_id --> tag_word --> tag pojo
     public static DatabaseReference getTagsPostsWithTagDirectoryReference() {
         return getBaseRef().child(StringConstantsUtil.TAG_NAME_USED_PATH);
     }
 
+    // DatabaseReference CommentForBeansDirectoryRef;
     // ref --> post_key --> comment_key --> comment.class;
     public static DatabaseReference getCommentForBeansListDirectoryReference() {
         return getBaseRef().child(StringConstantsUtil.COMMENT_FOR_BEANS_PATH);

@@ -2,9 +2,9 @@ package com.htdwps.grateful;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -15,42 +15,48 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.htdwps.grateful.Model.BeanPosts;
-import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.DatabaseReferenceHelperUtil;
+import com.htdwps.grateful.Util.GeneralActivityHelperUtil;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 import com.htdwps.grateful.Viewholder.BeanLayoutViewHolder;
+
+import java.util.ArrayList;
 
 import timber.log.Timber;
 
 public class TagPostActivity extends AppCompatActivity {
 
-    public static final String TAG_WORD_KEY_PARAM = "tag_param";
+    private DatabaseReference personalBeanListDirectoryReference;
+    private DatabaseReference postsByTagsBooleanDirectoryReference;
 
-    FirebaseUser firebaseUser;
-    RecyclerView.Adapter<BeanLayoutViewHolder> tagPostAdapter;
-    RecyclerView rvPostsWithTag;
-    LinearLayoutManager linearLayoutManager;
-    DatabaseReference mainPostsReference;
-    DatabaseReference tagListReference;
+    private RecyclerView.Adapter<BeanLayoutViewHolder> adapterAllPostWithSelectedTagName;
+
+    private FirebaseUser firebaseUser;
+
+    private RecyclerView recyclerViewAllPostWithSelectedTagName;
+
+    private String tagTermSelected = "";
+    private String userIdKey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_post);
 
-        String taggedListing;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        userIdKey = firebaseUser.getUid();
 
         if (getIntent().getExtras() != null) {
-            taggedListing = getIntent().getExtras().getString(TAG_WORD_KEY_PARAM);
-            mainPostsReference = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(firebaseUser.getUid());
-            tagListReference = FirebaseUtil.getTagsPostsWithTagDirectoryReference().child(firebaseUser.getUid()).child(taggedListing);
 
-            rvPostsWithTag = findViewById(R.id.rv_posts_with_tag);
+            tagTermSelected = getIntent().getExtras().getString(StringConstantsUtil.TAG_WORD_KEY_PARAM);
 
-            rvPostsWithTag.setLayoutManager(createLayoutManager());
+            initializeDatabaseReferenceLinks(userIdKey, tagTermSelected);
 
-            rvPostsWithTag.setAdapter(createTagPostRecyclerViewAdapter(tagListReference));
+            setupLayout();
 
-//            Toast.makeText(this, "This tag activity is for all the posts with the following tag: " + taggedListing, Toast.LENGTH_SHORT).show();
+            recyclerViewAllPostWithSelectedTagName.setAdapter(createTagPostRecyclerViewAdapter(postsByTagsBooleanDirectoryReference));
+
+//            Toast.makeText(this, "This tag activity is for all the posts with the following tag: " + tagTermSelected, Toast.LENGTH_SHORT).show();
 
         } else {
 
@@ -61,17 +67,23 @@ public class TagPostActivity extends AppCompatActivity {
         }
     }
 
-    public LinearLayoutManager createLayoutManager() {
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        linearLayoutManager.setReverseLayout(true);
+    private void initializeDatabaseReferenceLinks(String userId, String tagName) {
 
-        return linearLayoutManager;
+        personalBeanListDirectoryReference = DatabaseReferenceHelperUtil.getUserPostsMatchingPostKeyDirectoryRef(userId);
+        postsByTagsBooleanDirectoryReference = DatabaseReferenceHelperUtil.getTaggedPostBooleanDirectoryRef(userId, tagName);
+
+    }
+
+    private void setupLayout() {
+
+        recyclerViewAllPostWithSelectedTagName = findViewById(R.id.rv_posts_with_tag);
+        recyclerViewAllPostWithSelectedTagName.setLayoutManager(GeneralActivityHelperUtil.createVerticalLinearLayout(this, LinearLayout.VERTICAL, true, true));
+
     }
 
     public RecyclerView.Adapter<BeanLayoutViewHolder> createTagPostRecyclerViewAdapter(DatabaseReference databaseReference) {
-        tagPostAdapter = new FirebaseRecyclerAdapter<Boolean, BeanLayoutViewHolder>(
+
+        adapterAllPostWithSelectedTagName = new FirebaseRecyclerAdapter<Boolean, BeanLayoutViewHolder>(
                 Boolean.class,
                 R.layout.item_bean_user_single_post,
                 BeanLayoutViewHolder.class,
@@ -80,9 +92,9 @@ public class TagPostActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(final BeanLayoutViewHolder viewHolder, Boolean model, int position) {
 
-                final String postKey = this.getRef(position).getKey();
+                final String thisPostKey = this.getRef(position).getKey();
 
-                mainPostsReference.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                personalBeanListDirectoryReference.child(thisPostKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         BeanPosts beanPost = dataSnapshot.getValue(BeanPosts.class);
@@ -90,9 +102,17 @@ public class TagPostActivity extends AppCompatActivity {
                         if (beanPost != null) {
                             String year = DateUtils.formatDateTime(TagPostActivity.this, (long) beanPost.getTimestamp(), DateUtils.FORMAT_SHOW_YEAR);
                             String time = DateUtils.formatDateTime(TagPostActivity.this, (long) beanPost.getTimestamp(), DateUtils.FORMAT_SHOW_TIME);
-                            String dateTime = String.format("%s %s", year, time);
+                            String dateAndTime = String.format("%s %s", year, time);
 
-                            viewHolder.setBeanPostFields(beanPost.getMoodValue(), dateTime, beanPost.getBeanText(), beanPost.getTagList(), beanPost.isPublic(), beanPost.getUserProfile().getUserDisplayName(), false);
+                            // Grab all necessary data from the BeanPosts class
+                            int mood = beanPost.getMoodValue();
+                            String textMessage = beanPost.getBeanText();
+                            ArrayList<String> listOfTags = beanPost.getTagList();
+                            boolean isPublic = beanPost.isPublic();
+                            String userDisplayName = beanPost.getUserProfile().getUserDisplayName();
+                            boolean isOnPublicFeed = false;
+
+                            viewHolder.setBeanPostFields(mood, dateAndTime, textMessage, listOfTags, isPublic, userDisplayName, isOnPublicFeed);
                             Timber.i("This message's value is " + String.valueOf(beanPost.getMoodValue()));
                             Timber.i("This message's message is " + beanPost.getBeanText());
 
@@ -109,8 +129,8 @@ public class TagPostActivity extends AppCompatActivity {
 
         };
 
-        return tagPostAdapter;
-    }
+        return adapterAllPostWithSelectedTagName;
 
+    }
 
 }

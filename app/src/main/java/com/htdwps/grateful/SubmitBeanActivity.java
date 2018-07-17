@@ -42,6 +42,7 @@ import com.htdwps.grateful.Model.TagName;
 import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -158,7 +159,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
             case R.id.settings_submit_new_bean:
 
-                Toast.makeText(this, "Submit this data to the database, on complete go back to the previous activity.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Submit this data to the database, on complete go back to the previous activity.", Toast.LENGTH_SHORT).show();
 
                 String beanMessage = editText.getText().toString();
                 String beanTagArray = tagText.getText().toString();
@@ -170,59 +171,64 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                 } else {
 
-                    boolean postIsPublic = checkBox.isChecked();
-
-                    Toast.makeText(this, beanMessage, Toast.LENGTH_SHORT).show();
-
                     final String postKeyGenerated = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().push().getKey();
 
-                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too
-//                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
-                    ArrayList<String> list = new ArrayList<>(items);
                     final UserProfile user = FirebaseUtil.getCurrentUser();
 
-                    BeanPosts beanPosts = new BeanPosts(user, expressionDropdown.getSelectedItemPosition(), beanMessage, ServerValue.TIMESTAMP, list, postIsPublic, postKeyGenerated);
+                    List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too // List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
 
-                    Map<String, Object> beanMap = new HashMap<>();
+                    ArrayList<String> list = new ArrayList<>(items);
 
-                    String beanPostPath = "personal_beans_list/" + user.getUserid() + "/" + postKeyGenerated;
+                    boolean postIsPublic = checkBox.isChecked();
 
-                    beanMap.put(beanPostPath, beanPosts);
+                    final String userId = user.getUserid();
 
-                    // Keep track of the tags the user is using
+                    final int expressionSelected = expressionDropdown.getSelectedItemPosition();
+
+                    Map<String, Object> generateNewBeanPostForUser = new HashMap<>();
+
+                    BeanPosts beanPosts = new BeanPosts(user, expressionSelected, beanMessage, ServerValue.TIMESTAMP, list, postIsPublic, postKeyGenerated);
+
+                    String beanPostPath = StringConstantsUtil.createPostForUserDirectoryPath(userId, postKeyGenerated); //"personal_beans_list/" + userProfile.getUserid() + "/" + postKeyGenerated;
+
+                    generateNewBeanPostForUser.put(beanPostPath, beanPosts);
+
+                    // Keep track of the tags the userProfile is using
                     for (String tag : list) {
 
                         if (tag.length() > 0) {
+
                             TagName tagName = new TagName(tag);
 
-                            String taggedPosts = "posts_with_tag_name_list/" + user.getUserid() + "/" + tag + "/" + postKeyGenerated;
-                            beanMap.put(taggedPosts, true);
+                            String postsTaggedWithTagNamePath = StringConstantsUtil.POST_EXISTS_TAG_NAME_BOOLEAN_PATH + "/" + userId + "/" + tag + "/" + postKeyGenerated;
+                            String tagNameThatIsUsedPath = StringConstantsUtil.TAG_NAME_USED_PATH + "/" + userId + "/" + tag;
 
-//                        String tagKeyGenerated = FirebaseUtil.getTagsBeanDirectoryReference().push().getKey();
-                            String tagPostPath = "post_tags_list/" + user.getUserid() + "/" + tag;
-                            beanMap.put(tagPostPath, tagName);
+                            generateNewBeanPostForUser.put(postsTaggedWithTagNamePath, true);
+                            generateNewBeanPostForUser.put(tagNameThatIsUsedPath, tagName);
+
                         }
                     }
 
                     // Keep track of mood based posts, moodname -> pushkey:true;
-                    String moodPostPath = "mood_bean_listed_posts/" + user.getUserid() + "/" + expressionDropdown.getSelectedItemPosition() + "/" + postKeyGenerated;
-                    beanMap.put(moodPostPath, true);
+                    String postsUsingMoodTypePath = StringConstantsUtil.POST_EXISTS_MOOD_TYPE_BOOLEAN_PATH + "/" + userId + "/" + expressionSelected + "/" + postKeyGenerated;
+                    generateNewBeanPostForUser.put(postsUsingMoodTypePath, true);
 
                     if (postIsPublic) {
-                        beanMap.put("post_public_all/" + postKeyGenerated, beanPosts);
+                        generateNewBeanPostForUser.put(StringConstantsUtil.PUBLICLY_SHARED_BEANS_PATH + "/" + postKeyGenerated, beanPosts);
                     }
 
-                    FirebaseUtil.getBaseRef().updateChildren(beanMap, new DatabaseReference.CompletionListener() {
+                    FirebaseUtil.getBaseRef().updateChildren(generateNewBeanPostForUser, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             if (databaseError == null) {
 
-                                final DatabaseReference moodRef = FirebaseUtil.getMoodCounterDirectoryReference().child(user.getUserid());
-                                moodRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                // Increment the count for each mood that is uploaded
+                                final DatabaseReference moodCountDirectoryReference = FirebaseUtil.getMoodCounterDirectoryReference().child(userId);
+                                moodCountDirectoryReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.hasChild(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition()))) {
-                                            moodRef.child(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition())).child("valueCount").runTransaction(new Transaction.Handler() {
+                                        if (dataSnapshot.hasChild(EmojiSelectUtil.emojiIntConvertToString(expressionSelected))) {
+                                            moodCountDirectoryReference.child(EmojiSelectUtil.emojiIntConvertToString(expressionSelected)).child(StringConstantsUtil.MOOD_INCREMENT_VALUE_COUNT).runTransaction(new Transaction.Handler() {
                                                 @Override
                                                 public Transaction.Result doTransaction(MutableData mutableData) {
                                                     if (mutableData.getValue() == null) {
@@ -249,7 +255,7 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                                         } else {
                                             MoodCount moodCount = new MoodCount(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition()));
-                                            moodRef.child(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition())).setValue(moodCount).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            moodCountDirectoryReference.child(EmojiSelectUtil.emojiIntConvertToString(expressionDropdown.getSelectedItemPosition())).setValue(moodCount).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     Toast.makeText(SubmitBeanActivity.this, "Complete", Toast.LENGTH_SHORT).show();
@@ -267,58 +273,9 @@ public class SubmitBeanActivity extends AppCompatActivity {
 
                                     }
                                 });
-
-
-                                // Increment comment count up by one using a runTransaction
-//
-//                                final DatabaseReference moodReference = FirebaseUtil.getBaseRef().child("mood_type_counter_values").child(user.getUserid()).child(EmojiSelectUtil.emojiExpressionTextValue[expressionDropdown.getSelectedItemPosition()]);
-//                                moodReference.runTransaction(new Transaction.Handler() {
-//                                    @Override
-//                                    public Transaction.Result doTransaction(MutableData mutableData) {
-//                                        if (mutableData.getValue() == null) {
-//                                            mutableData.setValue(1);
-//                                        } else {
-//                                            mutableData.setValue((Long) mutableData.getValue() + 1);
-//                                        }
-//                                        return Transaction.success(mutableData);
-//                                    }
-//
-//                                    @Override
-//                                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-//                                        if (databaseError != null) {
-//                                            Timber.i("Firebase counter increment failed.");
-//                                        } else {
-//                                            Timber.i("Firebase counter increment succeeded.");
-//                                        }
-//                                    }
-//                                });
                             }
                         }
                     });
-
-//                    FirebaseUtil.getUserPostRef().child(user.getUserid()).push().setValue(beanPosts).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//
-//                            Toast.makeText(SubmitBeanActivity.this, "Complete", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(SubmitBeanActivity.this, MainWindowActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//
-//                        }
-//                    })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(SubmitBeanActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                }
-//                            })
-//                            .addOnCanceledListener(new OnCanceledListener() {
-//                                @Override
-//                                public void onCanceled() {
-//                                    Toast.makeText(SubmitBeanActivity.this, "Upload has been cancelled by user.", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
 
                 }
 

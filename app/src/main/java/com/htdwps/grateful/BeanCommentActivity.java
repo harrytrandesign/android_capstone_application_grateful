@@ -3,6 +3,7 @@ package com.htdwps.grateful;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,78 +19,72 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
-import com.htdwps.grateful.Fragment.PrivateBeansFragment;
+import com.htdwps.grateful.Fragment.BeanFeedListFragment;
 import com.htdwps.grateful.Model.BeanPosts;
-import com.htdwps.grateful.Model.UserProfile;
 import com.htdwps.grateful.Model.CommentBean;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
-import com.htdwps.grateful.Util.StringConstantsUtil;
+import com.htdwps.grateful.Util.GeneralActivityHelperUtil;
 import com.htdwps.grateful.Viewholder.CommentLayoutViewHolder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class BeanCommentActivity extends AppCompatActivity implements View.OnClickListener {
 
-    boolean isEditTextOpen = false;
+    private boolean isEditTextOpen = false;
 
-    DatabaseReference commentForBeansDirectoryReference;
-    FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder> commentsAdapter;
-    BeanPosts bean;
-    UserProfile user;
+    private static String emptyComment = "Please create a comment before submitting";
+    private static String shortComment = "Comment is too short";
 
-    Animation fabRotateOpen, fabRotateClose, fabReveal, fabHidden, editTextReveal, editTextHidden;
-    LinearLayoutManager linearLayoutManager;
-    RecyclerView commentRecyclerView;
+    private DatabaseReference commentForBeansDirectoryReference;
+    private FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder> adapterCommentsList;
 
-    EditText commentEditText;
-    FloatingActionButton commentOpenDialogBtn;
-    FloatingActionButton commentSubmitBtn;
+    private BeanPosts beanPosts;
 
-    TextView tvEmojiIconField;
-    TextView tvPostTitleMoodText;
-    TextView tvPostTagListText;
-    TextView tvPostMainMessageText;
+    private Animation fabRotateOpen, fabRotateClose, fabReveal, fabHidden, editTextReveal, editTextHidden;
+    private RecyclerView recyclerViewBeanCommentsList;
+
+    private EditText etCommentTextInputBox;
+    private FloatingActionButton fabCommentOpenDialogBtn, fabCommentSubmitBtn;
+
+    // For the 1st Position of Comment Activity showing original Post details.
+    private TextView tvEmojiIconField, tvPostTitleMoodText, tvPostTagListText, tvPostMainMessageText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bean_comment);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setupLayout();
 
-        bean = getIntent().getParcelableExtra(PrivateBeansFragment.BEAN_POST_PARAM);
-        user = getIntent().getParcelableExtra(PrivateBeansFragment.CUSTOM_USER_PARAM);
+        gatherIntentsFromMainFeedForPost();
 
-        setTitle("Post: " + bean.getBeanText());
+        recyclerViewBeanCommentsList.setAdapter(createCommentsForPostAdapter(commentForBeansDirectoryReference));
 
-        String tagsLists = TextUtils.join(", ", bean.getTagList());
+//        populateDatabaseWithFakeComments("-LGnhLBdsBsjkWyAufDz");
 
-        tvEmojiIconField.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[bean.getMoodValue()])));
-        tvPostTitleMoodText.setText(EmojiSelectUtil.emojiIntConvertToString(bean.getMoodValue()));
-        tvPostMainMessageText.setText(bean.getBeanText());
-        tvPostTagListText.setText(tagsLists);
+    }
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    private void gatherIntentsFromMainFeedForPost() {
 
-        commentRecyclerView = findViewById(R.id.rv_comments_list);
-        commentRecyclerView.setLayoutManager(linearLayoutManager);
-        commentForBeansDirectoryReference = FirebaseUtil.getCommentForBeansListDirectoryReference().child(bean.getBeanPostKey());
+        beanPosts = getIntent().getParcelableExtra(BeanFeedListFragment.BEAN_POST_PARAM);
+//        Toast.makeText(this, beanPosts.getUserProfile().getUserDisplayName(), Toast.LENGTH_SHORT).show();
 
-        commentsAdapter = new FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder>(
+        setTitle("Post: " + beanPosts.getBeanText());
+
+        commentForBeansDirectoryReference = FirebaseUtil.getCommentForBeansListDirectoryReference().child(beanPosts.getBeanPostKey());
+
+        populateFirstPositionPostFieldsWithOriginalData(beanPosts);
+
+    }
+
+    public FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder> createCommentsForPostAdapter(DatabaseReference databaseReference) {
+
+        adapterCommentsList = new FirebaseRecyclerAdapter<CommentBean, CommentLayoutViewHolder>(
                 CommentBean.class,
                 R.layout.item_comment_single_post,
                 CommentLayoutViewHolder.class,
-                commentForBeansDirectoryReference
+                databaseReference
         ) {
             @Override
             protected void populateViewHolder(CommentLayoutViewHolder viewHolder, CommentBean model, int position) {
@@ -100,13 +95,50 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
         };
 
-        commentRecyclerView.setAdapter(commentsAdapter);
+        return adapterCommentsList;
 
-//        populateDatabaseWithFakeComments("-LGnhLBdsBsjkWyAufDz");
+    }
+
+    private void populateFirstPositionPostFieldsWithOriginalData(BeanPosts beanPosts) {
+
+        String tagsContainedList = TextUtils.join(", ", beanPosts.getTagList());
+
+        tvEmojiIconField.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[beanPosts.getMoodValue()])));
+        tvPostTitleMoodText.setText(EmojiSelectUtil.emojiIntConvertToString(beanPosts.getMoodValue()));
+        tvPostMainMessageText.setText(beanPosts.getBeanText());
+        tvPostTagListText.setText(tagsContainedList);
 
     }
 
     private void setupLayout() {
+
+        loadAnimationUtils();
+
+        ActionBar actionBar = BeanCommentActivity.this.getSupportActionBar();
+
+        GeneralActivityHelperUtil.backButtonReturnToParentArrowSetup(actionBar);
+
+        // First position at top details
+        tvEmojiIconField = findViewById(R.id.tv_emoji_icon_image_condensed);
+        tvPostTitleMoodText = findViewById(R.id.tv_current_feeling_condensed);
+        tvPostTagListText = findViewById(R.id.tv_tag_list_for_post_condensed);
+        tvPostMainMessageText = findViewById(R.id.tv_main_message_field_condensed);
+
+        // Bottom position buttons and edittext views
+        fabCommentOpenDialogBtn = findViewById(R.id.fab_submit_comment_btn);
+        fabCommentOpenDialogBtn.setOnClickListener(this);
+        fabCommentSubmitBtn = findViewById(R.id.fab_submit_new_comment_post);
+        fabCommentSubmitBtn.setOnClickListener(this);
+        etCommentTextInputBox = findViewById(R.id.fragment_et_comment_typebox);
+
+        // Recyclerview
+        recyclerViewBeanCommentsList = findViewById(R.id.rv_comments_list);
+        recyclerViewBeanCommentsList.setLayoutManager(GeneralActivityHelperUtil.createVerticalLinearLayout(this, LinearLayoutManager.VERTICAL, true, true));
+
+    }
+
+    private void loadAnimationUtils() {
+
         fabRotateOpen = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open);
         fabRotateClose = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_close);
         fabHidden = AnimationUtils.loadAnimation(this, R.anim.fab_hidden);
@@ -114,66 +146,61 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         editTextHidden = AnimationUtils.loadAnimation(this, R.anim.edittext_hidden);
         editTextReveal = AnimationUtils.loadAnimation(this, R.anim.edittext_reveal);
 
-        commentOpenDialogBtn = findViewById(R.id.fab_submit_comment_btn);
-        commentOpenDialogBtn.setOnClickListener(this);
-        commentSubmitBtn = findViewById(R.id.fab_submit_new_comment_post);
-        commentSubmitBtn.setOnClickListener(this);
-        commentEditText = findViewById(R.id.fragment_et_comment_typebox);
-
-        tvEmojiIconField = findViewById(R.id.tv_emoji_icon_image_condensed);
-        tvPostTitleMoodText = findViewById(R.id.tv_current_feeling_condensed);
-        tvPostTagListText = findViewById(R.id.tv_tag_list_for_post_condensed);
-        tvPostMainMessageText = findViewById(R.id.tv_main_message_field_condensed);
     }
 
     private void animateFabViews() {
+
         if (isEditTextOpen) {
-            commentOpenDialogBtn.startAnimation(fabRotateClose);
-            commentEditText.startAnimation(editTextHidden);
-            commentSubmitBtn.startAnimation(fabHidden);
-            commentSubmitBtn.setClickable(false);
+
+            fabCommentOpenDialogBtn.startAnimation(fabRotateClose);
+            etCommentTextInputBox.startAnimation(editTextHidden);
+            fabCommentSubmitBtn.startAnimation(fabHidden);
+            fabCommentSubmitBtn.setClickable(false);
             isEditTextOpen = false;
+
         } else {
-            commentOpenDialogBtn.startAnimation(fabRotateOpen);
-            commentEditText.startAnimation(editTextReveal);
-            commentEditText.setVisibility(View.VISIBLE);
-            commentSubmitBtn.startAnimation(fabReveal);
-            commentSubmitBtn.setClickable(true);
+
+            fabCommentOpenDialogBtn.startAnimation(fabRotateOpen);
+            etCommentTextInputBox.startAnimation(editTextReveal);
+            etCommentTextInputBox.setVisibility(View.VISIBLE);
+            fabCommentSubmitBtn.startAnimation(fabReveal);
+            fabCommentSubmitBtn.setClickable(true);
             isEditTextOpen = true;
+
         }
+    }
+
+    private void editTextShowErrorMessage(EditText et, String message) {
+        et.requestFocus();
+        et.setError(message);
     }
 
     public void submitNewComment(String comment) {
 
         if (TextUtils.isEmpty(comment)) {
-            Toast.makeText(this, "Please create a comment before submitting", Toast.LENGTH_SHORT).show();
+
+            editTextShowErrorMessage(etCommentTextInputBox, emptyComment);
+
         } else if (TextUtils.getTrimmedLength(comment) < 10) {
-            commentEditText.requestFocus();
-            commentEditText.setError("Comment is too short.");
-        } else {
-            // Submit to database
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        }
 
-        if (TextUtils.isEmpty(comment) || comment.length() < 10) {
-
-            Toast.makeText(this, "Your comment was too short", Toast.LENGTH_SHORT).show();
+            editTextShowErrorMessage(etCommentTextInputBox, shortComment);
 
         } else {
 
             // Submit to database
             String commentPushKey = commentForBeansDirectoryReference.push().getKey();
-            CommentBean commentBean = new CommentBean(FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentPushKey, comment, ServerValue.TIMESTAMP);
+            CommentBean commentBean = new CommentBean(FirebaseUtil.getCurrentUser(), beanPosts.getBeanPostKey(), commentPushKey, comment, ServerValue.TIMESTAMP);
 
             commentForBeansDirectoryReference.child(commentPushKey).setValue(commentBean).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
-                    Toast.makeText(BeanCommentActivity.this, "Comment Posted", Toast.LENGTH_SHORT).show();
-                    commentEditText.setText("");
-                    commentEditText.getText().clear();
+                    Toast.makeText(BeanCommentActivity.this, "Your comment has been posted", Toast.LENGTH_SHORT).show();
 
-                    commentRecyclerView.smoothScrollToPosition(commentsAdapter.getItemCount());
+                    etCommentTextInputBox.setText("");
+                    etCommentTextInputBox.getText().clear();
+
+                    recyclerViewBeanCommentsList.smoothScrollToPosition(adapterCommentsList.getItemCount());
 
                 }
             });
@@ -184,27 +211,27 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     }
 
     // Used to create some fake comments for testing purposes only
-    public void populateDatabaseWithFakeComments(String originalThreadPushId) {
-
-        Map<String, Object> tempComments = new HashMap<>();
-
-        for (int i = 0; i < 10; i++) {
-            String commentGenerateRandomPushId = FirebaseUtil.getCommentForBeansListDirectoryReference().push().getKey();
-            CommentBean commentBean = new CommentBean(user, originalThreadPushId, commentGenerateRandomPushId, "Fake comment " + i, ServerValue.TIMESTAMP);
-
-            String temporaryCommentsDirectoryPath = StringConstantsUtil.COMMENT_FOR_BEANS_PATH + "/" + originalThreadPushId + "/" + commentGenerateRandomPushId;
-
-            tempComments.put(temporaryCommentsDirectoryPath, commentBean);
-        }
-
-        FirebaseUtil.getBaseRef().updateChildren(tempComments, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                Toast.makeText(BeanCommentActivity.this, "Fake Comments Loaded", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//    public void populateDatabaseWithFakeComments(String originalThreadPushId) {
+//
+//        Map<String, Object> tempComments = new HashMap<>();
+//
+//        for (int i = 0; i < 10; i++) {
+//            String commentGenerateRandomPushId = FirebaseUtil.getCommentForBeansListDirectoryReference().push().getKey();
+//            CommentBean commentBean = new CommentBean(userProfile, originalThreadPushId, commentGenerateRandomPushId, "Fake comment " + i, ServerValue.TIMESTAMP);
+//
+//            String temporaryCommentsDirectoryPath = StringConstantsUtil.COMMENT_FOR_BEANS_PATH + "/" + originalThreadPushId + "/" + commentGenerateRandomPushId;
+//
+//            tempComments.put(temporaryCommentsDirectoryPath, commentBean);
+//        }
+//
+//        FirebaseUtil.getBaseRef().updateChildren(tempComments, new DatabaseReference.CompletionListener() {
+//            @Override
+//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//                Toast.makeText(BeanCommentActivity.this, "Fake Comments Loaded", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onClick(View view) {
@@ -214,18 +241,21 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
         switch (id) {
             case R.id.fab_submit_comment_btn:
 
-                Toast.makeText(this, "Open Edittext Flipper Button", Toast.LENGTH_SHORT).show();
-
                 animateFabViews();
-//                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), bean.getBeanPostKey(), commentForBeansDirectoryReference);
+
+//                Toast.makeText(this, "Open Edittext Flipper Button", Toast.LENGTH_SHORT).show();
+
+//                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), beanPosts.getBeanPostKey(), commentForBeansDirectoryReference);
 
                 break;
 
             case R.id.fab_submit_new_comment_post:
 
-                submitNewComment(commentEditText.getText().toString());
+                String userComment = etCommentTextInputBox.getText().toString();
 
-                Toast.makeText(this, "Submit a new comment button", Toast.LENGTH_SHORT).show();
+                submitNewComment(userComment);
+
+//                Toast.makeText(this, "Submit a new comment button", Toast.LENGTH_SHORT).show();
 
                 break;
 

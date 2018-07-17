@@ -36,12 +36,13 @@ public class        AuthActivity
     private static final int RC_SIGN_IN = 9001;
 
     private static GoogleApiClient googleApiClient;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
-    TextView applicationLogo;
-    TextView signinButton;
+    private ProgressDialog progressDialog;
+
+    private TextView applicationLogo;
+    private TextView signinButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

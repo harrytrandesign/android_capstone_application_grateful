@@ -16,12 +16,12 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    ProgressDialog progressDialog;
-    AuthUI authUI;
-    FirebaseAuth mFirebaseAuth;
-    FirebaseUser mFirebaseUser;
-    FirebaseAnalytics mFirebaseAnalytics;
+    private AuthUI authUI;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
         plantTimberTreeDebug();
 
+        initiateFirebaseServices();
+
+        initiateSwitchActivity(mFirebaseUser);
+
+    }
+
+    private void initiateFirebaseServices() {
+
         authUI = AuthUI.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-        initiateSwitchActivity(mFirebaseUser);
 
     }
 
