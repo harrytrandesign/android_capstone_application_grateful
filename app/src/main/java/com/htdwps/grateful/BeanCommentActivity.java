@@ -101,11 +101,15 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
     private void populateFirstPositionPostFieldsWithOriginalData(BeanPosts beanPosts) {
 
+        int originalPostMoodValue = beanPosts.getMoodValue();
+        String emojiIconFromString = String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[originalPostMoodValue]));
+        String originalMoodFeeling = String.format("FEELING %s", EmojiSelectUtil.emojiIntConvertToString(originalPostMoodValue));
+        String originalPostText = beanPosts.getBeanText();
         String tagsContainedList = TextUtils.join(", ", beanPosts.getTagList());
 
-        tvEmojiIconField.setText(String.valueOf(Character.toChars(EmojiSelectUtil.emojiIconCodePoint[beanPosts.getMoodValue()])));
-        tvPostTitleMoodText.setText(EmojiSelectUtil.emojiIntConvertToString(beanPosts.getMoodValue()));
-        tvPostMainMessageText.setText(beanPosts.getBeanText());
+        tvEmojiIconField.setText(emojiIconFromString);
+        tvPostTitleMoodText.setText(originalMoodFeeling);
+        tvPostMainMessageText.setText(originalPostText);
         tvPostTagListText.setText(tagsContainedList);
 
     }

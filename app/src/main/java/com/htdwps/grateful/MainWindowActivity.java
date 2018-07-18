@@ -91,28 +91,30 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    // TODO Redo the fragment to condense into a single method
-    // TODO Wrap this into the refreshFeedFragment Somehow
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment fragment;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            Fragment replacementFragment;
 
             switch (item.getItemId()) {
+
                 case R.id.navigation_grateful:
 
                     enableToggleSwitch(true);
 
                     if (showPublicFeed) {
-                        fragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PUBLIC_PARAM);
+
+                        replacementFragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PUBLIC_PARAM);
+
                     } else {
-                        fragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PRIVATE_PARAM);
+
+                        replacementFragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PRIVATE_PARAM);
+
                     }
-                    fragmentTransaction.replace(R.id.main_frame_layout, fragment);
-                    fragmentTransaction.commitAllowingStateLoss();
+
+                    replaceFragmentLoaderCall(replacementFragment);
 
                     return true;
 
@@ -120,9 +122,9 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
                     enableToggleSwitch(false);
 
-                    fragment = MoodCounterFragment.newInstance();
-                    fragmentTransaction.replace(R.id.main_frame_layout, fragment);
-                    fragmentTransaction.commitAllowingStateLoss();
+                    replacementFragment = MoodCounterFragment.newInstance();
+
+                    replaceFragmentLoaderCall(replacementFragment);
 
                     return true;
 
@@ -130,26 +132,38 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
                     enableToggleSwitch(false);
 
-                    fragment = TagsCounterFragment.newInstance();
-                    fragmentTransaction.replace(R.id.main_frame_layout, fragment);
-                    fragmentTransaction.commitAllowingStateLoss();
+                    replacementFragment = TagsCounterFragment.newInstance();
+
+                    replaceFragmentLoaderCall(replacementFragment);
 
                     return true;
 
             }
+
             return false;
+
         }
     };
 
     public void refreshFeedFragment(boolean value) {
 
-        Fragment fragment;
+        Fragment newFragment;
 
         if (value) {
-            fragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PUBLIC_PARAM);
+
+            newFragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PUBLIC_PARAM);
+
         } else {
-            fragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PRIVATE_PARAM);
+
+            newFragment = BeanFeedListFragment.newInstance(StringConstantsUtil.PRIVATE_PARAM);
+
         }
+
+        replaceFragmentLoaderCall(newFragment);
+
+    }
+
+    public void replaceFragmentLoaderCall(Fragment fragment) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);

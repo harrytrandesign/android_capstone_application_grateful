@@ -39,6 +39,10 @@ public class StringConstantsUtil {
         return USER_PROFILE_DETAILS_PATH + "/" + user_id;
     }
 
+    public static String createPostForPublicViewDirectoryPath(String post_key) {
+        return PUBLICLY_SHARED_BEANS_PATH + "/" + post_key;
+    }
+
     public static String createPostForUserDirectoryPath(String user_id, String postKey) {
         return PERSONAL_BEANS_LIST_PATH + "/" + user_id + "/" + postKey;
     }
@@ -47,6 +51,16 @@ public class StringConstantsUtil {
         return MOOD_TYPE_NAME_COUNTER_PATH + "/" + user_id + "/" + mood_name;
     }
 
+    public static String createTagsPostsUsedBooleanDirectoryPath(String user_id, String tag_name, String post_unique_key) {
+        return POST_EXISTS_TAG_NAME_BOOLEAN_PATH + "/" + user_id + "/" + tag_name + "/" + post_unique_key;
+    }
 
+    public static String createTagsNamesForTagRvListDirectoryPath(String user_id, String tag_name) {
+        return TAG_NAME_USED_PATH + "/" + user_id + "/" + tag_name;
+    }
+
+    public static String createMoodForPostsBooleanDirectoryPath(String user_id, int mood_value, String post_unique_key) {
+        return POST_EXISTS_MOOD_TYPE_BOOLEAN_PATH + "/" + user_id + "/" + mood_value + "/" + post_unique_key;
+    }
 
 }
