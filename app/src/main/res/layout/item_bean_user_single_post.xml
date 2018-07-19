@@ -52,7 +52,7 @@
                     android:layout_gravity="center|bottom"
                     android:layout_marginTop="@dimen/padding_xsmall"
                     android:gravity="center|bottom"
-                    android:text="@string/public_text_label"/>
+                    android:text="@string/public_status_text_indicator"/>
 
             </LinearLayout>
 
@@ -126,7 +126,7 @@
                 android:id="@+id/tv_comment_on_post_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_comment_button_label"
+                android:text="@string/single_post_add_comment_click_label"
                 android:textAllCaps="true"
                 android:textSize="@dimen/font_tiny"
                 android:textStyle="bold"/>

@@ -69,7 +69,7 @@ public class MoodCountActivity extends AppCompatActivity {
         moodListPostsDirectoryReference = DatabaseReferenceHelperUtil.getMoodPostBooleanDirectoryRef(userId, String.valueOf(moodIntValue)); // moodListPostsDirectoryReference = FirebaseUtil.getMoodBeanListBooleanDirectoryReference().child(firebaseUser.getUid()).child(String.valueOf(moodIntValue));
 
         // This one tracks the userProfile's personal beans for post data
-        userPostsMatchingPostDirectoryReference = DatabaseReferenceHelperUtil.getUserPostsMatchingPostKeyDirectoryRef(userId); // FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(firebaseUser.getUid());
+        userPostsMatchingPostDirectoryReference = DatabaseReferenceHelperUtil.getUserPostsMatchingThisUserIdDirectoryRef(userId); // FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(firebaseUser.getUid());
 
     }
 

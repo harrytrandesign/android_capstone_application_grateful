@@ -11,9 +11,13 @@ public class StringConstantsUtil {
 
     // Hold Constant string types for use in other Classes.
     public static final String SAVE_INSTANCE_PARAM = "public_feed_status";
+    public static final String ALL_POSTS_PARAM = "public_posts";
     public static final String PUBLIC_PARAM = "public_feed";
     public static final String PRIVATE_PARAM = "private_feed";
     public static final String TAG_WORD_KEY_PARAM = "tag_param";
+
+    // Key Params for wrapping Parcelable Objects
+    public static final String BEAN_POST_PARAM = "public_posting_key";
 
     public static final String TERMS_LABEL = "TERMS";
     public static final String PRIVACY_LABEL = "PRIVACY";

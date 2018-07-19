@@ -69,7 +69,7 @@ public class TagPostActivity extends AppCompatActivity {
 
     private void initializeDatabaseReferenceLinks(String userId, String tagName) {
 
-        personalBeanListDirectoryReference = DatabaseReferenceHelperUtil.getUserPostsMatchingPostKeyDirectoryRef(userId);
+        personalBeanListDirectoryReference = DatabaseReferenceHelperUtil.getUserPostsMatchingThisUserIdDirectoryRef(userId);
         postsByTagsBooleanDirectoryReference = DatabaseReferenceHelperUtil.getTaggedPostBooleanDirectoryRef(userId, tagName);
 
     }

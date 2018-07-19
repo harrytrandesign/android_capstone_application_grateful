@@ -78,7 +78,7 @@
                 android:layout_marginStart="@dimen/padding_xsmall"
                 android:layout_weight="1"
                 android:background="@drawable/drawable_blue_edittext_bubble_frame"
-                android:hint="@string/submit_text_hint_comment"
+                android:hint="@string/comment_activity_edittext_submit_comment_hint"
                 android:inputType="textLongMessage|textCapSentences|textAutoCorrect|textAutoComplete"
                 android:maxLength="200"
                 android:paddingBottom="@dimen/padding_xsmall"

@@ -26,9 +26,12 @@ public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
     private TextView tvTagList;
     private TextView tvIsPublic;
     private TextView tvPostOwner;
+    private TextView tvCommentLink;
 
     public BeanLayoutViewHolder(View itemView) {
         super(itemView);
+
+        itemView.setClickable(false);
 
         llPublicStats = itemView.findViewById(R.id.linear_layout_only_show_public_posts);
         llPublicStats.setVisibility(View.INVISIBLE);
@@ -40,8 +43,7 @@ public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
         tvTagList = itemView.findViewById(R.id.tv_tag_list_for_post);
         tvIsPublic = itemView.findViewById(R.id.tv_public_post_indicator);
         tvPostOwner = itemView.findViewById(R.id.tv_post_submitted_by);
-        TextView tvCommentLink = itemView.findViewById(R.id.tv_comment_on_post_link);
-
+        tvCommentLink = itemView.findViewById(R.id.tv_comment_on_post_link);
         tvCommentLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +64,7 @@ public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
 
         if (TextUtils.isEmpty(tagsLists)) {
 
-            tvTagList.setText(R.string.string_no_tags_found);
+            tvTagList.setText(R.string.tags_none_used_message_text);
 
         } else {
 
@@ -70,7 +72,7 @@ public class BeanLayoutViewHolder extends RecyclerView.ViewHolder {
 
         }
 
-        tvIsPublic.setText(R.string.string_public_status_text);
+        tvIsPublic.setText(R.string.public_status_text_indicator);
 
         if (!onPublicFeed) {
 

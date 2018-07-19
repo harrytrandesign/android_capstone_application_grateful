@@ -7,8 +7,13 @@ import com.google.firebase.database.DatabaseReference;
  */
 public class DatabaseReferenceHelperUtil {
 
+    // Return the directory that stores all posts;
+    public static DatabaseReference getAllPostsSubmittedToServiceDirectoryRef() {
+        return FirebaseUtil.getBeanPublicDirectoryReference();
+    }
+
     // Return the directory for user's posts;
-    public static DatabaseReference getUserPostsMatchingPostKeyDirectoryRef(String user_id) {
+    public static DatabaseReference getUserPostsMatchingThisUserIdDirectoryRef(String user_id) {
         return FirebaseUtil.getPrivateUserBeanPostDirectoryReference().child(user_id);
     }
 

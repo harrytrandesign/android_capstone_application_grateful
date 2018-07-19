@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
         android:gravity="top|start"
-        android:hint="@string/et_what_to_say_text"
+        android:hint="@string/submit_post_what_to_say_text"
         android:inputType="text|textCapSentences|textAutoComplete|textAutoCorrect|textShortMessage"
         android:lines="4"
         android:minLines="4"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
         android:gravity="top|start"
-        android:hint="@string/et_tag_list_hint"
+        android:hint="@string/submit_tag_list_hint_text"
         android:padding="@dimen/padding_xsmall"
         android:textSize="@dimen/font_standard"
         app:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
-        android:text="@string/checkbox_share_public_text"
+        android:text="@string/submit_checkbox_share_public_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>

@@ -21,12 +21,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
-import com.htdwps.grateful.Fragment.BeanFeedListFragment;
 import com.htdwps.grateful.Model.BeanPosts;
 import com.htdwps.grateful.Model.CommentBean;
 import com.htdwps.grateful.Util.EmojiSelectUtil;
 import com.htdwps.grateful.Util.FirebaseUtil;
 import com.htdwps.grateful.Util.GeneralActivityHelperUtil;
+import com.htdwps.grateful.Util.StringConstantsUtil;
 import com.htdwps.grateful.Viewholder.CommentLayoutViewHolder;
 
 public class BeanCommentActivity extends AppCompatActivity implements View.OnClickListener {
@@ -67,7 +67,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
     private void gatherIntentsFromMainFeedForPost() {
 
-        beanPosts = getIntent().getParcelableExtra(BeanFeedListFragment.BEAN_POST_PARAM);
+        beanPosts = getIntent().getParcelableExtra(StringConstantsUtil.BEAN_POST_PARAM);
 //        Toast.makeText(this, beanPosts.getUserProfile().getUserDisplayName(), Toast.LENGTH_SHORT).show();
 
         setTitle("Post: " + beanPosts.getBeanText());

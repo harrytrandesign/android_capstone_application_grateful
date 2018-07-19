@@ -36,6 +36,9 @@ import java.util.List;
  */
 public class MaterialDialogHelperUtil {
 
+    private static final int MIN_FEEDBACK_LENGTH = 10;
+    private static final int MAX_FEEDBACK_LENGTH = 300;
+
     private static DatabaseReference feedbackforDeveloperDatabaseReference = FirebaseUtil.getFeedbackForDeveloperDirectoryReference();
 
     public static void generateInspirationalQuote(Context context) {
@@ -59,6 +62,7 @@ public class MaterialDialogHelperUtil {
                 .title(R.string.material_dialog_submit_feedback)
                 .content(R.string.material_dialog_feedback_content)
                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                .inputRange(MIN_FEEDBACK_LENGTH, MAX_FEEDBACK_LENGTH, context.getResources().getColor(R.color.colorAccent))
                 .input(R.string.material_dialog_feedback_hint, R.string.material_dialog_feedback_prefill, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
@@ -80,7 +84,7 @@ public class MaterialDialogHelperUtil {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
-                                    Toast.makeText(context, R.string.string_feedback_response_received, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, R.string.string_feedback_received_response, Toast.LENGTH_SHORT).show();
 
                                 }
 
