@@ -8,7 +8,7 @@
     tools:context=".Fragment.BeanFeedListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_recyclerview_post"
+        android:id="@+id/rv_all_posts_list"
         style="@style/recycler_view_for_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

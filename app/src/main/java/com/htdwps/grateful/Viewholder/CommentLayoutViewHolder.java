@@ -18,9 +18,9 @@ public class CommentLayoutViewHolder extends RecyclerView.ViewHolder {
     public CommentLayoutViewHolder(View itemView) {
         super(itemView);
 
-        tvCommentText = itemView.findViewById(R.id.tv_comment_main_text);
-        tvCommentUserName = itemView.findViewById(R.id.tv_comment_creator_username);
-        tvCommentTimestamp = itemView.findViewById(R.id.tv_comment_date_posted);
+        tvCommentText = itemView.findViewById(R.id.tv_comment_main_text_field);
+        tvCommentUserName = itemView.findViewById(R.id.tv_comment_creator_field);
+        tvCommentTimestamp = itemView.findViewById(R.id.tv_comment_date_posted_field);
 
     }
 

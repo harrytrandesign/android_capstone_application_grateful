@@ -73,7 +73,7 @@ public class TagsCounterFragment extends Fragment {
 
     private void setupLayoutView(View view) {
 
-        recyclerViewChipsTagNameList = view.findViewById(R.id.rv_tag_counter_list);
+        recyclerViewChipsTagNameList = view.findViewById(R.id.rv_tag_used_list);
         recyclerViewChipsTagNameList.setLayoutManager(ChipLayoutManager.createLayoutManager(getActivity()));
         recyclerViewChipsTagNameList.addItemDecoration(new SpacingItemDecoration(StringConstantsUtil.OFFSET, StringConstantsUtil.OFFSET));
 

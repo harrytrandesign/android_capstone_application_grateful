@@ -48,7 +48,7 @@ public class FeedbackAlertDialogSubmitWindow extends LayoutInflater implements V
         feedbackReference = FirebaseUtil.getFeedbackForDeveloperDirectoryReference();
         final UserProfile user = FirebaseUtil.getCurrentUser();
 
-        feedback_text_field = view.findViewById(R.id.wyd_feedback_add);
+        feedback_text_field = view.findViewById(R.id.et_feedback_message_field);
 
         feedback_text_field.addTextChangedListener(new TextWatcher() {
             @Override

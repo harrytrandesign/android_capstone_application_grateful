@@ -16,7 +16,7 @@ public class TagNameLayoutViewHolder extends RecyclerView.ViewHolder {
     public TagNameLayoutViewHolder(View itemView) {
         super(itemView);
 
-        tvTagName = itemView.findViewById(R.id.tv_tag_text_label);
+        tvTagName = itemView.findViewById(R.id.tv_tag_name_label);
 
     }
 

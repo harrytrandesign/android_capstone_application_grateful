@@ -44,7 +44,9 @@ public class TagPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tag_post);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        userIdKey = firebaseUser.getUid();
+        if (firebaseUser != null) {
+            userIdKey = firebaseUser.getUid();
+        }
 
         if (getIntent().getExtras() != null) {
 
@@ -76,7 +78,7 @@ public class TagPostActivity extends AppCompatActivity {
 
     private void setupLayout() {
 
-        recyclerViewAllPostWithSelectedTagName = findViewById(R.id.rv_posts_with_tag);
+        recyclerViewAllPostWithSelectedTagName = findViewById(R.id.rv_all_tagged_posts_by_user);
         recyclerViewAllPostWithSelectedTagName.setLayoutManager(GeneralActivityHelperUtil.createVerticalLinearLayout(this, LinearLayout.VERTICAL, true, true));
 
     }
@@ -110,9 +112,9 @@ public class TagPostActivity extends AppCompatActivity {
                             ArrayList<String> listOfTags = beanPost.getTagList();
                             boolean isPublic = beanPost.isPublic();
                             String userDisplayName = beanPost.getUserProfile().getUserDisplayName();
-                            boolean isOnPublicFeed = false;
+//                            boolean isOnPublicFeed = false;
 
-                            viewHolder.setBeanPostFields(mood, dateAndTime, textMessage, listOfTags, isPublic, userDisplayName, isOnPublicFeed);
+                            viewHolder.setBeanPostFields(mood, dateAndTime, textMessage, listOfTags, isPublic, userDisplayName, false);
                             Timber.i("This message's value is " + String.valueOf(beanPost.getMoodValue()));
                             Timber.i("This message's message is " + beanPost.getBeanText());
 

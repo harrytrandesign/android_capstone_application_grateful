@@ -46,11 +46,15 @@ public class MoodCountActivity extends AppCompatActivity {
 
             String moodNameReceived = getIntent().getExtras().getString(StringConstantsUtil.MOOD_TYPE_KEY_PARAM);
             String userId = firebaseUser.getUid();
-            int moodIntValue = EmojiSelectUtil.emojiStringConvertToInt(moodNameReceived);
+            if (moodNameReceived != null) {
 
-            setTitle("All \"" + EmojiSelectUtil.emojiIntConvertToString(moodIntValue) + "\" Posts");
+                int moodIntValue = EmojiSelectUtil.emojiStringConvertToInt(moodNameReceived);
 
-            connectToDatabaseReferenceLinks(userId, moodIntValue);
+                setTitle("All \"" + EmojiSelectUtil.emojiIntConvertToString(moodIntValue) + "\" Posts");
+
+                connectToDatabaseReferenceLinks(userId, moodIntValue);
+
+            }
 
             recyclerViewMoodPostList.setAdapter(createMoodListRecyclerViewAdapter(moodListPostsDirectoryReference));
 
@@ -79,7 +83,7 @@ public class MoodCountActivity extends AppCompatActivity {
 
         GeneralActivityHelperUtil.backButtonReturnToParentArrowSetup(actionBar);
 
-        recyclerViewMoodPostList = findViewById(R.id.rv_mood_all_posts_by_user);
+        recyclerViewMoodPostList = findViewById(R.id.rv_all_mood_posts_by_user);
         recyclerViewMoodPostList.setLayoutManager(GeneralActivityHelperUtil.createVerticalLinearLayout(this, LinearLayout.VERTICAL, true, true));
 
     }

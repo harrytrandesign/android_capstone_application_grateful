@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_xsmall"
         android:gravity=""
-        android:text="Excited"
         android:textAllCaps="true"
         android:textColor="@color/color_text_primary"
         android:textSize="@dimen/font_standard"
@@ -56,12 +55,13 @@
         app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
 
     <EditText
-        android:id="@+id/et_beans_extra_taglist"
+        android:id="@+id/et_tags_by_comma_textbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
         android:gravity="top|start"
         android:hint="@string/submit_tag_list_hint_text"
+        android:inputType="text"
         android:padding="@dimen/padding_xsmall"
         android:textSize="@dimen/font_standard"
         app:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
@@ -74,6 +74,6 @@
         android:text="@string/submit_checkbox_share_public_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_today_text"
-        app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>
+        app:layout_constraintTop_toBottomOf="@id/et_tags_by_comma_textbox"/>
 
 </android.support.constraint.ConstraintLayout>

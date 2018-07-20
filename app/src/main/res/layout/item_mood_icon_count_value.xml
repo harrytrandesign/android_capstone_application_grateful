@@ -14,7 +14,7 @@
         android:padding="@dimen/padding_medium">
 
         <TextView
-            android:id="@+id/tv_emoji_type_icon_placeholder"
+            android:id="@+id/tv_emoji_icon_text_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_large"
@@ -25,13 +25,13 @@
             tools:text=":)"/>
 
         <TextView
-            android:id="@+id/tv_mood_count_value_placeholder"
+            android:id="@+id/tv_mood_count_value_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_large"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_emoji_type_icon_placeholder"
+            app:layout_constraintTop_toBottomOf="@id/tv_emoji_icon_text_label"
             tools:text="12"/>
 
     </android.support.constraint.ConstraintLayout>

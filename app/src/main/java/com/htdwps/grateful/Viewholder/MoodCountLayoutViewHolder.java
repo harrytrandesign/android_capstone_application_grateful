@@ -18,8 +18,8 @@ public class MoodCountLayoutViewHolder extends RecyclerView.ViewHolder {
     public MoodCountLayoutViewHolder(View itemView) {
         super(itemView);
 
-        tvMoodEmojiIcon = itemView.findViewById(R.id.tv_emoji_type_icon_placeholder);
-        tvMoodValueCount = itemView.findViewById(R.id.tv_mood_count_value_placeholder);
+        tvMoodEmojiIcon = itemView.findViewById(R.id.tv_emoji_icon_text_label);
+        tvMoodValueCount = itemView.findViewById(R.id.tv_mood_count_value_label);
 
     }
 

@@ -175,7 +175,7 @@
         <item name="android:textAlignment">textStart</item>
     </style>
 
-    <style name="spinner_mood_layout">
+    <style name="spinner_single_item_mood_layout">
         <item name="android:padding">@dimen/padding_xsmall</item>
         <item name="android:textSize">@dimen/font_standard</item>
         <item name="android:textStyle">bold</item>

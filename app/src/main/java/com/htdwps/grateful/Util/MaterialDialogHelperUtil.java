@@ -102,7 +102,7 @@ public class MaterialDialogHelperUtil {
     }
 
     // Unused method
-    public static void populateCommentBoxForPost(final Context context, final UserProfile userProfile, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
+    private static void populateCommentBoxForPost(final Context context, final UserProfile userProfile, final String postKeyPushId, final DatabaseReference commentDirectoryRef) {
 
         MaterialDialog materialDialog;
 
@@ -149,7 +149,7 @@ public class MaterialDialogHelperUtil {
 
         final View theView = layoutInflater.inflate(R.layout.material_dialog_custom_layout_view, null);
         final EditText editText = theView.findViewById(R.id.et_beans_message_textbox);
-        final EditText tagText = theView.findViewById(R.id.et_beans_extra_taglist);
+        final EditText tagText = theView.findViewById(R.id.et_tags_by_comma_textbox);
         final CheckBox checkBox = theView.findViewById(R.id.checkbox_public_box);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -163,12 +163,10 @@ public class MaterialDialogHelperUtil {
         expressionDrop.setAdapter(adapter);
         expressionDrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int expressionValue, long l) {
 
-                int expressionValue = i;
-
-                expressionTextLabel.setText(emotionList[i]);
-                Toast.makeText(context, emojiList[i] + " " + expressionValue, Toast.LENGTH_SHORT).show();
+                expressionTextLabel.setText(emotionList[expressionValue]);
+                Toast.makeText(context, emojiList[expressionValue] + " " + expressionValue, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -194,7 +192,7 @@ public class MaterialDialogHelperUtil {
                             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
                             int num;
 
-                            List<String> items = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
+                            List<String> items = new ArrayList<>(Arrays.asList(tags.split("\\s*,\\s*")));
 
                             ArrayList<String> list = new ArrayList<>(items);
 

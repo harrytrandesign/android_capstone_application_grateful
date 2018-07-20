@@ -3,7 +3,6 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -47,7 +46,7 @@
         ads:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
 
     <EditText
-        android:id="@+id/et_beans_extra_taglist"
+        android:id="@+id/et_tags_by_comma_textbox"
         style="@style/submit_edittext_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,8 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xsmall"
         android:text="@string/submit_checkbox_share_public_text"
-        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
-        app:layout_constraintTop_toBottomOf="@id/et_beans_extra_taglist"/>
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
+        app:layout_constraintTop_toBottomOf="@id/et_tags_by_comma_textbox"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

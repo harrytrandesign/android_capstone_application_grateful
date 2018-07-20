@@ -135,7 +135,7 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
         etMainMessageTextWindow.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         etMainMessageTextWindow.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
-        etTagForPostTextWindow = findViewById(R.id.et_beans_extra_taglist);
+        etTagForPostTextWindow = findViewById(R.id.et_tags_by_comma_textbox);
 
         checkBoxSharePostPublicly = findViewById(R.id.checkbox_public_box);
         checkBoxSharePostPublicly.setChecked(postPublicSettingDefault);
@@ -173,7 +173,7 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
     }
 
-    private void submitNewPostToDatabase(String beanMessage, String beanTagArray) {
+    private void submitNewPostToDatabase(UserProfile user, String beanMessage, String beanTagArray) {
 
         if (TextUtils.isEmpty(beanMessage) || beanMessage.length() < 10) {
 
@@ -185,9 +185,9 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
             // Create the random key values and the list data structures
             final String postKeyGenerated = FirebaseUtil.getPrivateUserBeanPostDirectoryReference().push().getKey();
 
-            final UserProfile user = FirebaseUtil.getCurrentUser();
+//            final UserProfile user = FirebaseUtil.getCurrentUser();
 
-            List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too // List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
+            List<String> items = new ArrayList<>(Arrays.asList(beanTagArray.trim().split("\\s*,+\\s*,*\\s*"))); // Suppose to remove empty elements too // List<String> items = new ArrayList<String>(Arrays.asList(beanTagArray.trim().split("\\s*,\\s*")));
 
             ArrayList<String> list = new ArrayList<>(items);
 
@@ -322,7 +322,11 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
                 String beanMessage = etMainMessageTextWindow.getText().toString();
                 String beanTagArray = etTagForPostTextWindow.getText().toString();
 
-                submitNewPostToDatabase(beanMessage, beanTagArray);
+                final UserProfile user = FirebaseUtil.getCurrentUser();
+
+                if (user != null) {
+                    submitNewPostToDatabase(user, beanMessage, beanTagArray);
+                }
 
                 break;
 
@@ -344,12 +348,12 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
         if (b) {
 
             postPublicSettingDefault = getResources().getBoolean(R.bool.publish_public_setting_true);
-            isPublic = b;
+//            isPublic = b;
 
         } else {
 
             postPublicSettingDefault = getResources().getBoolean(R.bool.publish_private_default_setting_false);
-            isPublic = b;
+//            isPublic = b;
 
         }
 
