@@ -9,10 +9,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_recyclerview_post"
+        style="@style/recycler_view_for_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="3dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </FrameLayout>

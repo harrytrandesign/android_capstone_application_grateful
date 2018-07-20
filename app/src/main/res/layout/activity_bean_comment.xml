@@ -50,14 +50,10 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_submit_new_comment_post"
+            style="@style/floating_action_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginBottom="@dimen/padding_xsmall"
-            android:layout_marginEnd="@dimen/padding_xsmall"
-            android:background="@color/colorPrimary"
             android:src="@drawable/floating_action_icon_comment_button"
-            android:tint="@android:color/white"
             android:visibility="invisible"
             app:backgroundTint="@color/colorPrimary"/>
 
@@ -72,31 +68,21 @@
 
             <EditText
                 android:id="@+id/fragment_et_comment_typebox"
+                style="@style/edittext_floating_bubble"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/padding_xsmall"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_blue_edittext_bubble_frame"
                 android:hint="@string/comment_activity_edittext_submit_comment_hint"
                 android:inputType="textLongMessage|textCapSentences|textAutoCorrect|textAutoComplete"
                 android:maxLength="200"
-                android:paddingBottom="@dimen/padding_xsmall"
-                android:paddingEnd="@dimen/padding_medium"
-                android:paddingStart="@dimen/padding_medium"
-                android:paddingTop="@dimen/padding_xsmall"
                 android:visibility="invisible"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_submit_comment_btn"
+                style="@style/floating_action_button_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/padding_xsmall"
-                android:background="@color/colorPrimary"
-                android:elevation="0dp"
                 android:src="@android:drawable/ic_input_add"
-                android:tint="@android:color/white"
                 app:backgroundTint="@color/colorPrimary"/>
 
         </LinearLayout>

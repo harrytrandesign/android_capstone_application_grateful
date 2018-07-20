@@ -126,4 +126,175 @@
         <item name="android:textSize">@dimen/font_xlarge</item>
         <item name="android:background">@color/white_transparent_frost</item>
     </style>
+
+    <style name="edittext_floating_bubble">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">@dimen/padding_xsmall</item>
+        <item name="android:background">@drawable/drawable_blue_edittext_bubble_frame</item>
+        <item name="android:paddingBottom">@dimen/padding_xsmall</item>
+        <item name="android:paddingEnd">@dimen/padding_medium</item>
+        <item name="android:paddingStart">@dimen/padding_medium</item>
+        <item name="android:paddingTop">@dimen/padding_xsmall</item>
+    </style>
+
+    <style name="floating_action_button">
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:layout_marginBottom">@dimen/padding_xsmall</item>
+        <item name="android:layout_marginEnd">@dimen/padding_xsmall</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:tint">@color/color_text_white</item>
+    </style>
+
+    <style name="floating_action_button_submit">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_margin">@dimen/padding_xsmall</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:tint">@color/color_text_white</item>
+    </style>
+
+    <style name="submit_post_text_label">
+        <item name="android:padding">@dimen/padding_xsmall</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+        <item name="android:textSize">@dimen/font_standard</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="submit_post_tag_label">
+        <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
+        <item name="android:paddingEnd">@dimen/padding_xsmall</item>
+        <item name="android:paddingStart">@dimen/padding_xsmall</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="spinner_submit_selection_style">
+        <item name="android:paddingEnd">@dimen/padding_xsmall</item>
+        <item name="android:paddingStart">@dimen/padding_xsmall</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="spinner_mood_layout">
+        <item name="android:padding">@dimen/padding_xsmall</item>
+        <item name="android:textSize">@dimen/font_standard</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="submit_post_edit_text_field">
+        <item name="android:layout_margin">@dimen/padding_xsmall</item>
+        <item name="android:background">@drawable/drawable_border</item>
+        <item name="android:elevation">@dimen/padding_tiny</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:padding">@dimen/padding_xsmall</item>
+        <item name="android:textSize">@dimen/font_standard</item>
+    </style>
+
+    <style name="tag_fragment_text_label">
+        <item name="android:padding">@dimen/padding_xsmall</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="feedback_submit_label">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="recycler_view_for_fragment">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:padding">@dimen/padding_three</item>
+    </style>
+
+    <style name="linear_layout_spec">
+        <item name="android:paddingBottom">@dimen/padding_medium</item>
+        <item name="android:paddingEnd">@dimen/padding_xsmall</item>
+        <item name="android:paddingStart">@dimen/padding_xsmall</item>
+        <item name="android:paddingTop">@dimen/padding_medium</item>
+    </style>
+
+    <style name="emoji_icon_text_image">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="single_post_public_indicator">
+        <item name="android:layout_gravity">center|bottom</item>
+        <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
+        <item name="android:gravity">center|bottom</item>
+    </style>
+
+    <style name="single_post_feeling_label">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/font_standard</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="single_post_date_label">
+        <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
+        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="single_post_message_label">
+        <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="single_post_tag_label">
+        <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <style name="single_post_submitted_label">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="single_post_comment_link_label">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="comment_display_name">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="comment_date_posted_label">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

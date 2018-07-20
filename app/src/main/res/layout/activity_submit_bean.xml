@@ -9,74 +9,54 @@
 
     <TextView
         android:id="@+id/tv_today_text"
+        style="@style/submit_post_text_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_xsmall"
         android:text="@string/tv_today_feeling"
-        android:textAllCaps="true"
-        android:textColor="@color/color_text_primary"
-        android:textSize="@dimen/font_standard"
-        android:textStyle="bold"
         ads:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Spinner
         android:id="@+id/spinner_emoji_expression_moods_dropdown"
+        style="@style/spinner_submit_selection_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall"
         android:spinnerMode="dialog"
-        android:textAlignment="textStart"
         ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/tv_today_text"/>
 
     <EditText
         android:id="@+id/et_beans_message_textbox"
+        style="@style/submit_edittext_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_xsmall"
-        android:background="@drawable/drawable_border"
-        android:elevation="@dimen/padding_tiny"
-        android:gravity="top|start"
         android:hint="@string/submit_post_what_to_say_text"
         android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
         android:lines="4"
-        android:padding="@dimen/padding_xsmall"
-        android:textSize="@dimen/font_standard"
         app:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
 
     <TextView
         android:id="@+id/tv_tag_label_text"
+        style="@style/submit_post_tag_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_xsmall"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall"
         android:text="@string/submit_tag_label"
-        android:textSize="@dimen/font_medium"
-        android:textStyle="bold"
         ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         ads:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
 
     <EditText
         android:id="@+id/et_beans_extra_taglist"
+        style="@style/submit_edittext_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_xsmall"
-        android:background="@drawable/drawable_border"
         android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,1234567890"
-        android:elevation="@dimen/padding_tiny"
-        android:gravity="top|start"
         android:hint="@string/submit_tag_list_hint_text"
         android:imeOptions="actionDone"
         android:inputType="text|textAutoComplete|textAutoCorrect"
         android:lines="1"
-        android:padding="@dimen/padding_xsmall"
         android:singleLine="true"
-        android:textSize="@dimen/font_standard"
         ads:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text"/>
 

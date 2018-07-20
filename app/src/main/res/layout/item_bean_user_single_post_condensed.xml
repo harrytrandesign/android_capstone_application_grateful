@@ -12,22 +12,16 @@
     app:cardElevation="@dimen/padding_tiny">
 
     <LinearLayout
+        style="@style/linear_layout_spec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/padding_medium"
-        android:paddingEnd="@dimen/padding_xsmall"
-        android:paddingStart="@dimen/padding_xsmall"
-        android:paddingTop="@dimen/padding_medium">
+        android:orientation="vertical">
 
         <LinearLayout
+            style="@style/linear_layout_spec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_medium"
-            android:paddingEnd="@dimen/padding_xsmall"
-            android:paddingStart="@dimen/padding_xsmall"
-            android:paddingTop="@dimen/padding_medium">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -37,12 +31,10 @@
 
                 <TextView
                     android:id="@+id/tv_emoji_icon_image_condensed"
+                    style="@style/emoji_icon_text_image"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="@dimen/font_large"
                     tools:text="O"/>
 
             </LinearLayout>
@@ -55,32 +47,26 @@
 
                 <TextView
                     android:id="@+id/tv_current_feeling_condensed"
+                    style="@style/single_post_feeling_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/font_standard"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="On Fire"/>
 
                 <TextView
                     android:id="@+id/tv_main_message_field_condensed"
+                    style="@style/single_post_message_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_xsmall"
-                    android:textSize="@dimen/font_medium"
                     app:layout_constraintTop_toBottomOf="@id/tv_current_feeling_condensed"
                     tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
                 <TextView
                     android:id="@+id/tv_tag_list_for_post_condensed"
+                    style="@style/single_post_tag_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_xsmall"
-                    android:textColor="@color/colorPrimaryLight"
-                    android:textSize="@dimen/font_medium"
-                    android:textStyle="bold|italic"
                     app:layout_constraintTop_toBottomOf="@id/tv_main_message_field_condensed"
                     tools:text="fish, whale, ocean, dinosaur, transformer, car, automobile"/>
 
