@@ -73,7 +73,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         tvTogglePublicPrivateFeed = findViewById(R.id.tv_public_private_display_text);
 
-        fabSwitchToSubmitActivity = findViewById(R.id.btn_add_bean_floating_action);
+        fabSwitchToSubmitActivity = findViewById(R.id.fab_switch_activity_submit_bean);
         fabSwitchToSubmitActivity.setOnClickListener(this);
 
         switchToggleFeedPrivacySettingValue = findViewById(R.id.switch_toggle_public_private_feed);
@@ -329,7 +329,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         switch (view.getId()) {
 
-            case R.id.btn_add_bean_floating_action:
+            case R.id.fab_switch_activity_submit_bean:
 
                 Intent submitBeanIntent = new Intent(MainWindowActivity.this, SubmitBeanActivity.class);
                 startActivity(submitBeanIntent);
