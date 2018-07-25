@@ -1,6 +1,7 @@
 package com.htdwps.grateful;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -67,7 +68,12 @@ public class MoodCountActivity extends AppCompatActivity {
         }
     }
 
-    private void connectToDatabaseReferenceLinks(String userId, int moodIntValue) {
+    /**
+     *
+     * @param userId            User's ID for directing the database to a specific database destination
+     * @param moodIntValue      Post's mood value to append to the end of the database reference to find the mood specific posts
+     */
+    private void connectToDatabaseReferenceLinks(@NonNull String userId, int moodIntValue) {
 
         // This gets the mood post key true values
         moodListPostsDirectoryReference = DatabaseReferenceHelperUtil.getMoodPostBooleanDirectoryRef(userId, String.valueOf(moodIntValue)); // moodListPostsDirectoryReference = FirebaseUtil.getMoodBeanListBooleanDirectoryReference().child(firebaseUser.getUid()).child(String.valueOf(moodIntValue));

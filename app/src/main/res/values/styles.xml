@@ -253,13 +253,15 @@
     </style>
 
     <style name="single_post_submitted_label">
+        <item name="android:padding">@dimen/padding_xsmall</item>
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="single_post_comment_link_label">
+        <item name="android:padding">@dimen/padding_medium</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textSize">@dimen/font_small</item>
         <item name="android:textStyle">bold</item>
     </style>
 

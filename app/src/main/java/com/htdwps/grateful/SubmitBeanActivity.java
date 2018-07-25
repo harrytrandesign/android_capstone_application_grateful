@@ -173,7 +173,13 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
     }
 
-    private void submitNewPostToDatabase(UserProfile user, String beanMessage, String beanTagArray) {
+    /**
+     *
+     * @param user          UserProfile data from the logged user including their displayname, id, and email
+     * @param beanMessage   The text message that is used in the post submit
+     * @param beanTagArray  String of tags that are seperated by commas to be trimmed into a list
+     */
+    private void submitNewPostToDatabase(@NonNull UserProfile user, @NonNull String beanMessage, @NonNull String beanTagArray) {
 
         if (TextUtils.isEmpty(beanMessage) || beanMessage.length() < 10) {
 
