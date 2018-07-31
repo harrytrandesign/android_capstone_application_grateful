@@ -56,7 +56,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
-        setTitle(R.string.app_tag_line);
+        setTitle(R.string.app_main_feed_title);
 
         displayingQuotesSetting();
         displayInspirationQuoteOnLoadComplete(this, quoteShowingPreference);
