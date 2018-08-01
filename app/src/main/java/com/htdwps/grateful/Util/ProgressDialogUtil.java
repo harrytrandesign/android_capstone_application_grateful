@@ -26,8 +26,8 @@ public class ProgressDialogUtil {
         return progressDialog;
     }
 
-    public static void dismissProgressDialog(ProgressDialogUtil progressDialogUtil) {
-        if (progressDialogUtil != null) {
+    public static void dismissProgressDialog(ProgressDialog progressDialog) {
+        if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }

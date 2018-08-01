@@ -30,6 +30,7 @@
     <string name="single_post_add_comment_click_label">add comment</string>
     <string name="comment_activity_edittext_submit_comment_hint">Add a comment</string>
     <string name="progress_dialog_creating_new_account">Please wait while we create a brand new account for you</string>
+    <string name="progress_dialog_loading_message">Loading Please Wait</string>
 
     <!-- Bottom Navigation Items -->
     <string name="bottom_navigation_grateful_label">Beans</string>
