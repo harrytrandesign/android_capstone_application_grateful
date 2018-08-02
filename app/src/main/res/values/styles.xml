@@ -226,6 +226,7 @@
         <item name="android:layout_gravity">center|bottom</item>
         <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
         <item name="android:gravity">center|bottom</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="single_post_feeling_label">
@@ -236,13 +237,13 @@
 
     <style name="single_post_date_label">
         <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
-        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textSize">@dimen/font_small</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="single_post_message_label">
         <item name="android:layout_marginTop">@dimen/padding_xsmall</item>
-        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textSize">@dimen/font_standard</item>
     </style>
 
     <style name="single_post_tag_label">
