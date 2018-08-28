@@ -102,5 +102,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="widget_imageview_text_label">Add a new grateful post to your account button</string>
+    <string name="widget_text">Post</string>
 
 </resources>

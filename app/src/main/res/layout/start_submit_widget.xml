@@ -2,7 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_text_secondary"
     android:padding="@dimen/widget_margin">
 
     <ImageView
@@ -11,8 +10,19 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:background="@color/color_text_secondary"
         android:contentDescription="@string/widget_imageview_text_label"
+        android:padding="@dimen/widget_margin"
         android:src="@android:drawable/ic_input_add"
         android:tint="@color/color_text_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_button_submit_post"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/padding_small"
+        android:text="@string/widget_text"
+        android:textColor="@color/color_text_white"/>
 
 </RelativeLayout>
