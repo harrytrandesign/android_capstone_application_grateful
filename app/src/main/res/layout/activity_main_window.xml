@@ -20,13 +20,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="start"
+            android:layout_gravity="start"
             android:text="@string/switch_public_text_label"
             android:textStyle="bold"/>
 
         <Switch
             android:id="@+id/switch_toggle_public_private_feed"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"/>
 
     </LinearLayout>
 

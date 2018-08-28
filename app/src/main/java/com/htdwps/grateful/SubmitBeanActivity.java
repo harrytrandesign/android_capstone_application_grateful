@@ -81,11 +81,11 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
 //        MobileAds.initialize(this, SubmitBeanActivity.this.getResources().getString(R.string.admob_app_id));
 
+        runInitializeOnFirebase();
+
         searchUserDefaults();
 
         setupLayoutViews();
-
-        runInitializeOnFirebase();
 
         // Testing a custom spinner adapter and layout
         spinnerEmojiExpressionDropdown.setAdapter(getCustomSpinnerArrayAdapter());
@@ -161,7 +161,13 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        generateDataStructureLists();
+        if (firebaseUser != null) {
+            generateDataStructureLists();
+        } else {
+            Intent notSignedOnIntent = new Intent(this, FirebaseUiAuthActivity.class);
+            startActivity(notSignedOnIntent);
+            finish();
+        }
 
     }
 

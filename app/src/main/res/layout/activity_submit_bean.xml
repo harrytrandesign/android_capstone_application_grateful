@@ -30,6 +30,7 @@
         style="@style/submit_edittext_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="top|start"
         android:hint="@string/submit_post_what_to_say_text"
         android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
         android:lines="4"
