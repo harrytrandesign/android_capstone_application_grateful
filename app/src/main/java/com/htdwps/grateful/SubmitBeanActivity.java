@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -124,8 +125,11 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
     private void setupLayoutViews() {
 
+        // Request an Ad - Admob key stored in build properties file
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview = findViewById(R.id.adView);
+        mAdview.setAdSize(AdSize.SMART_BANNER);
+        mAdview.setAdUnitId(BuildConfig.ADMOB_BANNER_ID_KEY);
         mAdview.loadAd(adRequest);
 
         spinnerEmojiExpressionDropdown = findViewById(R.id.spinner_emoji_expression_moods_dropdown);
