@@ -60,7 +60,7 @@
                     android:gravity="start"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="On Fire"/>
+                    tools:text="@string/test_string_feeling_label"/>
 
                 <TextView
                     android:id="@+id/tv_date_posted"
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_current_feeling"
-                    tools:text="June 8, 2018 5:49 PM"/>
+                    tools:text="@string/test_string_date_submit"/>
 
                 <TextView
                     android:id="@+id/tv_main_message_field"
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_date_posted"
-                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+                    tools:text="@string/test_string_message_text"/>
 
                 <TextView
                     android:id="@+id/tv_tag_list_for_post"
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_main_message_field"
-                    tools:text="fish, whale, ocean, dinosaur, transformer, car, automobile"/>
+                    tools:text="@string/test_string_tag_list"/>
 
             </android.support.constraint.ConstraintLayout>
 
@@ -103,7 +103,7 @@
                 android:gravity="start"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="By Harrison Design"/>
+                tools:text="@string/test_string_post_by"/>
 
             <TextView
                 android:id="@+id/tv_comment_on_post_link"

@@ -104,4 +104,10 @@
     <string name="widget_imageview_text_label">Add a new grateful post to your account button</string>
     <string name="widget_text">Post</string>
 
+    <string name="test_string_tag_list">fish, whale, ocean, dinosaur, transformer, car, automobile</string>
+    <string name="test_string_message_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="test_string_feeling_label">On Fire</string>
+    <string name="test_string_post_by">By Harrison Design</string>
+    <string name="test_string_date_submit">June 8, 2018 5:49 PM</string>
+
 </resources>
