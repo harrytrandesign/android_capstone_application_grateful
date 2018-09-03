@@ -338,7 +338,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
             default:
 
-                Toast.makeText(this, "Error. Please Try Again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_error_try_again, Toast.LENGTH_SHORT).show();
 
                 break;
 

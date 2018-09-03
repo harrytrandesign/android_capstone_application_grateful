@@ -96,7 +96,7 @@ public class FeedbackAlertDialogSubmitWindow extends LayoutInflater implements V
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
-                                    Toast.makeText(getContext(), "Your feedback has been submitted. We thank you for your input to improve our app.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), R.string.toast_feedback_submit_success, Toast.LENGTH_SHORT).show();
 
                                 }
 

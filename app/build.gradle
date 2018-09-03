@@ -54,11 +54,9 @@ dependencies {
 
     implementation 'com.firebaseui:firebase-ui-database:0.4.3'
     implementation 'com.firebaseui:firebase-ui-auth:3.2.1'
-    implementation "com.google.firebase:firebase-core:$firebase_version"
     implementation "com.google.firebase:firebase-ads:$firebase_version"
     implementation "com.google.firebase:firebase-auth:$firebase_version"
     implementation "com.google.firebase:firebase-database:$firebase_version"
-    implementation "com.google.firebase:firebase-storage:$firebase_version"
     implementation "com.google.firebase:firebase-invites:$firebase_version"
 
     implementation "com.google.android.gms:play-services-auth:$firebase_version"

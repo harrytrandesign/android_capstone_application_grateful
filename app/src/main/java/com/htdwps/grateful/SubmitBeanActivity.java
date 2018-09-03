@@ -90,21 +90,6 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
         // Testing a custom spinner adapter and layout
         spinnerEmojiExpressionDropdown.setAdapter(getCustomSpinnerArrayAdapter());
-//        spinnerEmojiExpressionDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                moodExpressionValue = i;
-//
-////                expressionTextLabel.setText(emotionList[i]);
-//                Toast.makeText(SubmitBeanActivity.this, emojiList[i] + " " + moodExpressionValue, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
     }
 
@@ -144,19 +129,6 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
         checkBoxSharePostPublicly = findViewById(R.id.checkbox_public_box);
         checkBoxSharePostPublicly.setChecked(postPublicSettingDefault);
         checkBoxSharePostPublicly.setOnCheckedChangeListener(this);
-//        checkBoxSharePostPublicly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                boolean isPublic = b;
-//                if (b) {
-//                    postPublicSettingDefault = getResources().getBoolean(R.bool.publish_public_setting_true);
-//                    isPublic = b;
-//                } else {
-//                    postPublicSettingDefault = getResources().getBoolean(R.bool.publish_private_default_setting_false);
-//                    isPublic = b;
-//                }
-//            }
-//        });
 
     }
 
@@ -292,7 +264,7 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
                                     moodCountDirectoryReference.child(moodName).setValue(moodCount).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(SubmitBeanActivity.this, "Complete", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SubmitBeanActivity.this, R.string.toast_complete, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(SubmitBeanActivity.this, MainWindowActivity.class);
                                             startActivity(intent);
                                             finish();
@@ -332,8 +304,6 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
         switch (id) {
 
             case R.id.settings_submit_new_bean:
-
-//                Toast.makeText(this, "Submit this data to the database, on complete go back to the previous activity.", Toast.LENGTH_SHORT).show();
 
                 String beanMessage = etMainMessageTextWindow.getText().toString();
                 String beanTagArray = etTagForPostTextWindow.getText().toString();

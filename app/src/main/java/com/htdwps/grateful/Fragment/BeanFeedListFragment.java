@@ -196,9 +196,8 @@ public class BeanFeedListFragment extends Fragment {
 
                             if (isPublicFeedDisplayed) {
 
-                                String debugMsg = "Public Feed Showing Public Posts, Go to Comment's Section";
+                                String debugMsg = getString(R.string.debug_message_show_public_post);
                                 Timber.d(debugMsg);
-//                                Toast.makeText(getActivity(), debugMsg, Toast.LENGTH_SHORT).show();
 
                                 // Create this Parcelable objects to send to Comment Activity
                                 BeanPosts beanPosts = adapterForBeanPosts.getItem(position);
@@ -209,7 +208,7 @@ public class BeanFeedListFragment extends Fragment {
 
                             } else {
 
-                                Timber.d("Nothing going to happen here. Clicked at position " + position);
+                                Timber.d(getString(R.string.log_nothing_happening) + position);
 
                             }
                         }

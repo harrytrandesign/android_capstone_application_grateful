@@ -104,10 +104,32 @@
     <string name="widget_imageview_text_label">Add a new grateful post to your account button</string>
     <string name="widget_text">Post</string>
 
+    <!-- Test Strings for Placeholder -->
     <string name="test_string_tag_list">fish, whale, ocean, dinosaur, transformer, car, automobile</string>
     <string name="test_string_message_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="test_string_feeling_label">On Fire</string>
     <string name="test_string_post_by">By Harrison Design</string>
     <string name="test_string_date_submit">June 8, 2018 5:49 PM</string>
+
+    <!-- Toast Messages -->
+    <string name="toast_missing_message">Couldn\'t get a message</string>
+    <string name="toast_signin_failure">Failed to sign in.</string>
+    <string name="toast_feedback_submit_success">Your feedback has been submitted. We thank you for your input to improve our app.</string>
+    <string name="toast_signin_cancelled">Sign In Cancelled</string>
+    <string name="toast_internet_connection_fail">No Internet Connection</string>
+    <string name="toast_unknown_error">An Error Occurred</string>
+    <string name="toast_comment_post_success">Your comment has been posted</string>
+    <string name="toast_comment_too_short">Your comment was too short</string>
+    <string name="toast_comment_posted">Comment Posted</string>
+    <string name="toast_error_try_again">Error. Please Try Again.</string>
+    <string name="toast_complete">Complete</string>
+    <string name="toast_server_connection_failed">Error connecting to server</string>
+
+    <string name="debug_message_show_public_post">Public Feed Showing Public Posts, Go to Comment\'s Section</string>
+    <string name="log_nothing_happening">Nothing going to happen here. Clicked at position</string>
+
+    <string name="content_description_open_submit_activity">Open submit post window</string>
+    <string name="content_description_submit_comment">Submit comment button</string>
+    <string name="content_description_submitting_comment">Submit a comment</string>
 
 </resources>

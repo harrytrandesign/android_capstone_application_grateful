@@ -123,7 +123,7 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-                    Toast.makeText(this, "Sign In Cancelled", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_signin_cancelled, Toast.LENGTH_SHORT).show();
                     Intent startIntent = new Intent(FirebaseUiAuthActivity.this, MainActivity.class);
                     startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(startIntent);
@@ -133,12 +133,12 @@ public class FirebaseUiAuthActivity extends AppCompatActivity {
                 }
 
                 if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_internet_connection_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-                    Toast.makeText(this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_unknown_error, Toast.LENGTH_SHORT).show();
                     return;
                 }
 

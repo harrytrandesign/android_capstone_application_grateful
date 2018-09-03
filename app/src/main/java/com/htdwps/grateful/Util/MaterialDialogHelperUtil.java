@@ -115,7 +115,7 @@ public class MaterialDialogHelperUtil {
 
                         if (TextUtils.isEmpty(input) || input.length() < 10) {
 
-                            Toast.makeText(context, "Your comment was too short", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.toast_comment_too_short, Toast.LENGTH_SHORT).show();
                             populateCommentBoxForPost(context, userProfile, postKeyPushId, commentDirectoryRef);
 
                         } else {
@@ -128,7 +128,7 @@ public class MaterialDialogHelperUtil {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
-                                    Toast.makeText(context, "Comment Posted", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, R.string.toast_comment_posted, Toast.LENGTH_SHORT).show();
 
                                 }
                             });

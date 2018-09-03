@@ -52,6 +52,7 @@
             android:id="@+id/fab_submit_new_comment_post"
             style="@style/floating_action_button"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/content_description_submit_comment"
             android:layout_height="wrap_content"
             android:src="@drawable/floating_action_icon_comment_button"
             android:visibility="invisible"
@@ -81,6 +82,7 @@
                 android:id="@+id/fab_submit_comment_btn"
                 style="@style/floating_action_button_submit"
                 android:layout_width="wrap_content"
+                android:contentDescription="@string/content_description_submitting_comment"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_input_add"
                 app:backgroundTint="@color/colorPrimary"/>

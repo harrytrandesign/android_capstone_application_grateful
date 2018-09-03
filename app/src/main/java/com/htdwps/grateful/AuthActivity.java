@@ -131,7 +131,7 @@ public class        AuthActivity
 
             progressDialog.dismiss();
 
-            Toast.makeText(this, "Failed to sign in.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_signin_failure, Toast.LENGTH_SHORT).show();
 
         }
     }

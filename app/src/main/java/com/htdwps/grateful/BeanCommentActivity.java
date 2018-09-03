@@ -68,7 +68,6 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
     private void gatherIntentsFromMainFeedForPost() {
 
         beanPosts = getIntent().getParcelableExtra(StringConstantsUtil.BEAN_POST_PARAM);
-//        Toast.makeText(this, beanPosts.getUserProfile().getUserDisplayName(), Toast.LENGTH_SHORT).show();
 
         setTitle("Post: " + beanPosts.getBeanText());
 
@@ -199,7 +198,7 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
-                    Toast.makeText(BeanCommentActivity.this, "Your comment has been posted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BeanCommentActivity.this, R.string.toast_comment_post_success, Toast.LENGTH_SHORT).show();
 
                     etCommentTextInputBox.setText("");
                     etCommentTextInputBox.getText().clear();
@@ -214,29 +213,6 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    // Used to create some fake comments for testing purposes only
-//    public void populateDatabaseWithFakeComments(String originalThreadPushId) {
-//
-//        Map<String, Object> tempComments = new HashMap<>();
-//
-//        for (int i = 0; i < 10; i++) {
-//            String commentGenerateRandomPushId = FirebaseUtil.getCommentForBeansListDirectoryReference().push().getKey();
-//            CommentBean commentBean = new CommentBean(userProfile, originalThreadPushId, commentGenerateRandomPushId, "Fake comment " + i, ServerValue.TIMESTAMP);
-//
-//            String temporaryCommentsDirectoryPath = StringConstantsUtil.COMMENT_FOR_BEANS_PATH + "/" + originalThreadPushId + "/" + commentGenerateRandomPushId;
-//
-//            tempComments.put(temporaryCommentsDirectoryPath, commentBean);
-//        }
-//
-//        FirebaseUtil.getBaseRef().updateChildren(tempComments, new DatabaseReference.CompletionListener() {
-//            @Override
-//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//                Toast.makeText(BeanCommentActivity.this, "Fake Comments Loaded", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
-
     @Override
     public void onClick(View view) {
 
@@ -247,10 +223,6 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
 
                 animateFabViews();
 
-//                Toast.makeText(this, "Open Edittext Flipper Button", Toast.LENGTH_SHORT).show();
-
-//                MaterialHelperUtil.populateCommentBoxForPost(this, FirebaseUtil.getCurrentUser(), beanPosts.getBeanPostKey(), commentForBeansDirectoryReference);
-
                 break;
 
             case R.id.fab_submit_new_comment_post:
@@ -258,8 +230,6 @@ public class BeanCommentActivity extends AppCompatActivity implements View.OnCli
                 String userComment = etCommentTextInputBox.getText().toString();
 
                 submitNewComment(userComment);
-
-//                Toast.makeText(this, "Submit a new comment button", Toast.LENGTH_SHORT).show();
 
                 break;
 

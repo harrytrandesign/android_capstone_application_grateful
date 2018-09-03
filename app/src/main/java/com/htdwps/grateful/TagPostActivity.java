@@ -58,11 +58,9 @@ public class TagPostActivity extends AppCompatActivity {
 
             recyclerViewAllPostWithSelectedTagName.setAdapter(createTagPostRecyclerViewAdapter(postsByTagsBooleanDirectoryReference));
 
-//            Toast.makeText(this, "This tag activity is for all the posts with the following tag: " + tagTermSelected, Toast.LENGTH_SHORT).show();
-
         } else {
 
-            Toast.makeText(this, "Couldn't get a message", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_missing_message, Toast.LENGTH_SHORT).show();
 
             finish();
 

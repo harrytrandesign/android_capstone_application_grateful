@@ -61,7 +61,7 @@ public class MoodCountActivity extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(this, "Error connecting to server", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_server_connection_failed, Toast.LENGTH_SHORT).show();
 
             finish();
 
