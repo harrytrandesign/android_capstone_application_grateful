@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tv_today_feeling"
-        ads:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dialog"
-        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/tv_today_text"/>
 
     <EditText
@@ -34,8 +34,31 @@
         android:hint="@string/submit_post_what_to_say_text"
         android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
         android:lines="4"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_message_layout_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="1000"
+        android:layout_marginTop="@dimen/padding_xsmall"
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
+        app:layout_constraintTop_toBottomOf="@id/spinner_emoji_expression_moods_dropdown">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tiet_message_box_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|start"
+            android:maxLength="1000"
+            android:hint="@string/submit_post_what_to_say_text"
+            android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
+            android:lines="4"/>
+
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_tag_label_text"
@@ -43,8 +66,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/submit_tag_label"
-        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
-        ads:layout_constraintTop_toBottomOf="@id/et_beans_message_textbox"/>
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
+        app:layout_constraintTop_toBottomOf="@id/til_message_layout_field"/>
 
     <EditText
         android:id="@+id/et_tags_by_comma_textbox"
@@ -57,8 +80,30 @@
         android:inputType="text|textAutoComplete|textAutoCorrect"
         android:lines="1"
         android:singleLine="true"
-        ads:layout_constraintStart_toStartOf="@id/tv_today_text"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_tag_list_layout_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_xsmall"
+        app:layout_constraintStart_toStartOf="@id/tv_today_text"
+        app:layout_constraintTop_toBottomOf="@id/tv_tag_label_text">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tiet_tag_list_box_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ,1234567890"
+            android:hint="@string/submit_tag_list_hint_text"
+            android:imeOptions="actionDone"
+            android:inputType="text|textAutoComplete|textAutoCorrect"
+            android:lines="1"
+            android:singleLine="true"/>
+
+    </android.support.design.widget.TextInputLayout>
 
     <CheckBox
         android:id="@+id/checkbox_public_box"
@@ -67,15 +112,15 @@
         android:layout_marginTop="@dimen/padding_xsmall"
         android:text="@string/submit_checkbox_share_public_text"
         app:layout_constraintStart_toStartOf="@id/tv_today_text"
-        app:layout_constraintTop_toBottomOf="@id/et_tags_by_comma_textbox"/>
+        app:layout_constraintTop_toBottomOf="@id/til_tag_list_layout_field"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
     </com.google.android.gms.ads.AdView>
 
 </android.support.constraint.ConstraintLayout>

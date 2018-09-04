@@ -131,5 +131,6 @@
     <string name="content_description_open_submit_activity">Open submit post window</string>
     <string name="content_description_submit_comment">Submit comment button</string>
     <string name="content_description_submitting_comment">Submit a comment</string>
+    <string name="message_too_short_error">Sorry, your message is too short</string>
 
 </resources>

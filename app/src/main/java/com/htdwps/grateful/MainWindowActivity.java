@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -37,6 +38,8 @@ import timber.log.Timber;
 
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String BUNDLE_RECYCLERVIEW_LAYOUT = "recyclerview_layout";
+
     private boolean showPublicFeed = false;
     private Boolean quoteShowingPreference;
 
@@ -46,6 +49,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
+    private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabSwitchToSubmitActivity;
     private Switch switchToggleFeedPrivacySettingValue;
 
@@ -85,7 +89,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bottomNavigationView.setSelectedItemId(R.id.navigation_grateful);
 
@@ -345,5 +349,17 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        onCreate(savedInstanceState);
     }
 }

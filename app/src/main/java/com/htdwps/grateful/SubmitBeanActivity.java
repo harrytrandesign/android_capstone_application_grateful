@@ -5,10 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +59,8 @@ import timber.log.Timber;
 
 public class SubmitBeanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
+    private final static int MIN_MESSAGES_LENGTH = 10;
+
     private Boolean postPublicSettingDefault;
 
     private SharedPreferences sharedPreferences;
@@ -71,6 +77,8 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
     private Spinner spinnerEmojiExpressionDropdown;
     private EditText etMainMessageTextWindow;
     private EditText etTagForPostTextWindow;
+    private TextInputLayout tilMessageLayout, tilTagListLayout;
+    private TextInputEditText tietMessageBox, tietTagListBox;
 
     private int moodExpressionValue;
 
@@ -126,6 +134,34 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
         etTagForPostTextWindow = findViewById(R.id.et_tags_by_comma_textbox);
 
+        tilMessageLayout = findViewById(R.id.til_message_layout_field);
+        tilTagListLayout = findViewById(R.id.til_tag_list_layout_field);
+        tietMessageBox = findViewById(R.id.tiet_message_box_field);
+        tietMessageBox.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        tietMessageBox.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        tietMessageBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < MIN_MESSAGES_LENGTH) {
+                    tilMessageLayout.setError(getString(R.string.message_too_short_error));
+                } else {
+                    tilMessageLayout.setError(null);
+                }
+
+            }
+        });
+        tietTagListBox = findViewById(R.id.tiet_tag_list_box_field);
+
         checkBoxSharePostPublicly = findViewById(R.id.checkbox_public_box);
         checkBoxSharePostPublicly.setChecked(postPublicSettingDefault);
         checkBoxSharePostPublicly.setOnCheckedChangeListener(this);
@@ -156,17 +192,16 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
     }
 
     /**
-     *
-     * @param user          UserProfile data from the logged user including their displayname, id, and email
-     * @param beanMessage   The text message that is used in the post submit
-     * @param beanTagArray  String of tags that are seperated by commas to be trimmed into a list
+     * @param user         UserProfile data from the logged user including their displayname, id, and email
+     * @param beanMessage  The text message that is used in the post submit
+     * @param beanTagArray String of tags that are seperated by commas to be trimmed into a list
      */
     private void submitNewPostToDatabase(@NonNull UserProfile user, @NonNull String beanMessage, @NonNull String beanTagArray) {
 
-        if (TextUtils.isEmpty(beanMessage) || beanMessage.length() < 10) {
+        if (TextUtils.isEmpty(beanMessage) || beanMessage.length() < MIN_MESSAGES_LENGTH) {
 
-            etMainMessageTextWindow.isFocused();
-            etMainMessageTextWindow.setError("Sorry, your message is too short");
+//            etMainMessageTextWindow.isFocused();
+            tilMessageLayout.setError(getString(R.string.message_too_short_error));
 
         } else {
 
@@ -305,8 +340,8 @@ public class SubmitBeanActivity extends AppCompatActivity implements AdapterView
 
             case R.id.settings_submit_new_bean:
 
-                String beanMessage = etMainMessageTextWindow.getText().toString();
-                String beanTagArray = etTagForPostTextWindow.getText().toString();
+                String beanMessage = tietMessageBox.getText().toString();
+                String beanTagArray = tietTagListBox.getText().toString();
 
                 final UserProfile user = FirebaseUtil.getCurrentUser();
 
