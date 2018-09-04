@@ -360,6 +360,9 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onRestoreInstanceState(savedInstanceState, persistentState);
+
+        // Save and restore the fragment state and bottom navigation item selected.
+        // Also in manifest needed to add configChanges="orientation|screenSize"
         onCreate(savedInstanceState);
     }
 }
